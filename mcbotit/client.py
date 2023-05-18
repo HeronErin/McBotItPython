@@ -9,8 +9,9 @@ def read_from_nbt_file(_file) -> nbt.TAG:
     _type = nbt.NBTTagByte(buffer=_file).value
     _name = nbt.NBTTagString(buffer=_file).value
     return nbt.TAGLIST[_type](buffer=_file)
+
 def handlePackets(packet, client, appendHandler):
-	pass
+	appendHandler(packet, client)
 
 class InputKeys(enum.Enum):
 	FORWARD = "forward"
@@ -20,7 +21,6 @@ class InputKeys(enum.Enum):
 	SNEAK = "sneak"
 	LEFT_CLICK = "left click"
 	RIGHT_CLICK = "right click"
-
 
 
 # Base Client, just connects and allows you to send packets, nothing special here.
@@ -43,7 +43,7 @@ class Client(threading.Thread):
 		self.hasControl = False
 
 		self.send = lambda x: self.socket.sendall(json.dumps(x).encode("utf-8")+b"\n")
-		self.recv = lambda x: json.loads(self.socket.recv(x).decode("utf-8"))
+		self.recv = lambda x: [json.loads(b.decode("utf-8")) for b in self.socket.recv(x).split(b"\n") if len(b)]
 
 		threading.Thread.__init__(self)
 		self.start()
@@ -57,8 +57,9 @@ class Client(threading.Thread):
 					time.sleep(self.pingTime)
 			else:
 				self.send({"cmd": "keep alive"})
-				resp = self.recv(1024*1024)
-				self.packetHandler(resp, self)
+
+				for resp in self.recv(1024*1024):
+					self.packetHandler(resp, self)
 
 
 
@@ -83,11 +84,24 @@ class Client(threading.Thread):
 	def wait(self):
 		with self:
 			self.send({"cmd": "wait for workers"})
-			self.recv(1024)
+			for r in self.recv(1024):
+				if "job" in r:
+					return
+				elif "err" in r:
+					raise Exception(str(r))
 
+	# Shows the user a client side message
+	def displayChatMessage(self, msg):
+		self.send({"cmd": "print to chat", "msg": msg})
 
-
-
+	def clearCommandHooks(self):
+		self.send({"cmd": "clear registered game commands"})
+	def removeCommand(self, cmd):
+		self.send({"cmd": "remove registered game command", "command": cmd})
+	def listCommands(self):
+		with self:
+			self.send({"cmd": "get registered game commands"})
+			return self.recv(1024*1024)
 	def holdFor(self, key, delay = 0.1, wait=True):
 		assert type(key) is InputKeys
 		
@@ -122,9 +136,9 @@ class Client(threading.Thread):
 			self.send({"cmd": "normal place", "x":x, "y":y, "z": z, "slot":slot-1, "time_per_90": speed})
 			if wait: self.wait()
 	# Mines block
-	def mine(self, x, y, z, wait=True):
+	def mine(self, x, y, z,speed, wait=True):
 		with self:
-			self.send({"cmd": "normal break", "x":x, "y":y, "z": z})
+			self.send({"cmd": "normal break", "x":x, "y":y, "z": z, "time_per_90": speed})
 			if wait: self.wait()
 
 	# Use baritone to path to locations
@@ -150,6 +164,9 @@ class Client(threading.Thread):
 	# Right click entity, used for villagers
 	def openEntity(self):
 		self.send({"cmd": "interact with entity", "type": "open"})
+	
+	def closeScreen(self):
+		self.send({"cmd": "close current screen"})
 	# Punch entity
 	def hitEntity(self):
 		self.send({"cmd": "interact with entity", "type": "hit"})
@@ -160,7 +177,7 @@ class Client(threading.Thread):
 		rot = None
 		with self:
 			self.send({"cmd":"get rotation to get to block", "x":x, "y":y, "z":z})
-			rot = self.recv(1024)
+			rot = self.recv(1024)[0]
 		self.rotate(rot["pitch"], rot["yaw"], speed=speed, wait=wait)
 
 
@@ -168,7 +185,7 @@ class Client(threading.Thread):
 	def getPlayerInfo(self):
 		with self:
 			self.send({"cmd":"get player info"})
-			return self.recv(2048)
+			return self.recv(2048)[0]
 	# Gets player inventory and decodes the nbt
 	def getPlayerInventory(self):
 		with self:
@@ -194,7 +211,7 @@ class Client(threading.Thread):
 
 	def readNbt(self):
 		bytez = b""
-		while (b:=self.socket.recv(1024*1024)):
+		while (b:=self.socket.recv(1024*1024*1024)):
 			bytez+=b
 			if bytez.endswith(END_TOKEN): 
 				bytez=bytez[:-len(END_TOKEN)]

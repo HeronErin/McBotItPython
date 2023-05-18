@@ -1,6 +1,6 @@
 class InventoryManager:
 	def __init__(self, client):
-		self.client = Client
+		self.client = client
 	def getOpenPlayerInventory(self):	
 		return PlayerInventory(self.client, self.client.getOpenInventory())
 	def getOpenChest(self):
@@ -173,10 +173,10 @@ class BrewingStand(BaseInventory):
 	requiredType="brewing stand"
 	def init(self):
 		self.blazeSlot = self.getId(4)
-		self.ingredientSlot self.getId(3)
-		self.potion1 self.getId(0)
-		self.potion2 self.getId(1)
-		self.potion3 self.getId(2)
+		self.ingredientSlot = self.getId(3)
+		self.potion1 =self.getId(0)
+		self.potion2 =self.getId(1)
+		self.potion3 =self.getId(2)
 class Anvil(BaseInventory):
 	requiredType="anvil"
 	playerInvEnd=38
@@ -190,6 +190,8 @@ class VillagerInventory(Anvil):
 	requiredType = "villager"
 	def setTradeIndex(self, i):
 		self.client.setVillagerTrade(i)
+	def getTrades(self):
+		return self.client.getVillagerTrades()
 class Beacon(BaseInventory):
 	requiredType = "beacon"
 	playerInvEnd=36
