@@ -59,6 +59,9 @@ class Player:
 	def mine(self,  x, y, z, speed=0.6, wait=True):
 		self.client.mine(x, y, z, speed, wait)
 
+	def getBlock(self, x, y, z):
+		return self.client.getBlock(x, y, z)
+
 	# Use baritone to path to locations
 	def goto(self, x, y, z, wait=True):
 		self.client.goto(x, y, z, wait)

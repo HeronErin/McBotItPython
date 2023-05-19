@@ -197,6 +197,11 @@ class Client(threading.Thread):
 			self.send({"cmd": "get open inventory"})
 			return self.readNbt()
 
+	def getBlock(self, x, y, z):
+		with self:
+			self.send({"cmd": "get block", "x": x, "y": y, "z": z})
+			return self.readNbt()
+
 	def getVillagerTrades(self):
 		with self:
 			self.send({"cmd":"get villager trade info"})

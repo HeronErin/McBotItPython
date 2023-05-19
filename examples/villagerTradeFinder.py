@@ -45,7 +45,7 @@ import threading, time
 # Id: unbreaking             Max level: III
 
 
-PORT = 11295
+PORT = 20027
 player = Player(PORT)
 
 workStation = (-39, 59, -23) # Replace this with the block location of the work station
@@ -60,7 +60,10 @@ enchantments = [
     ["depth_strider", 3],
     ["power", 5],
     ["mending", 1],
-    ["fire_aspect", 2]
+    ["fire_aspect", 2],
+    ["fortune", 3],
+    ["efficiency", 5],
+    ["frost_walker", 2]
 
 ]
 
@@ -101,7 +104,7 @@ def run():
 		player.closeScreen()
 		
 		player.mine(*workStation)
-		time.sleep(0.3)
+		time.sleep(0.7)
 		player.place(*workStation, 3)
 		time.sleep(0.3)
 
@@ -121,6 +124,8 @@ def stopHook(player, command):
 	global running
 	running=False
 
-# player.registerCommandHook("start", "starts trading", startHook)
+
+
+
+player.registerCommandHook("start", "starts trading", startHook)
 player.registerCommandHook("stop", "stops trading", stopHook)
-startHook(player, "")
