@@ -50,16 +50,16 @@ class Client(threading.Thread):
 
 	def run(self):
 		while self.running: 
-			time.sleep(self.pingTime)
 			if self.stealControl:
 				self.hasControl = True
 				while self.hasControl:
-					time.sleep(self.pingTime)
+					time.sleep(self.pingTime/4)
 			else:
 				self.send({"cmd": "keep alive"})
 
 				for resp in self.recv(1024*1024):
 					self.packetHandler(resp, self)
+				time.sleep(self.pingTime)
 
 
 
@@ -140,7 +140,8 @@ class Client(threading.Thread):
 		with self:
 			self.send({"cmd": "normal break", "x":x, "y":y, "z": z, "time_per_90": speed})
 			if wait: self.wait()
-
+	def setHotbarSlot(self, slot):
+		self.send({"cmd": "set hotbar slot", "slot": slot-1})
 	# Use baritone to path to locations
 	def goto(self, x, y, z, wait=True):
 		with self:
@@ -172,13 +173,15 @@ class Client(threading.Thread):
 		self.send({"cmd": "interact with entity", "type": "hit"})
 	def jump(self):
 		self.send({"cmd": "jump"})
+	def enableElytra(self):
+		self.send({"cmd": "start fall flying"})
 	# Look at block location, good for villagers, a block does NOT need to exist there, so it CAN be used to look at entity at a location
 	def lookTowardBlock(self, x, y, z, speed=0.6, wait=True):
 		rot = None
 		with self:
 			self.send({"cmd":"get rotation to get to block", "x":x, "y":y, "z":z})
 			rot = self.recv(1024)[0]
-		self.rotate(rot["pitch"], rot["yaw"], speed=speed, wait=wait)
+			self.rotate(rot["pitch"], rot["yaw"], speed=speed, wait=wait)
 
 
 	# Get player location and other stats

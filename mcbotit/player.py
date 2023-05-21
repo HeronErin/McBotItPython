@@ -1,14 +1,38 @@
 from .client import Client
 from .inventoryHelper import *
+from threading import Thread
 class Player:
+	_prevY = 0
 	def handlePackets(self, packet, client):
 		if packet.get("cmd") == "alert":
 			if packet.get("usedCommand") is not None:
 				cmd = packet["usedCommand"].split(" ")[0]
+				print(cmd)
 				if not cmd in self.clientCommands:
 					print("ERROR", packet, "is not a valid command")
 				else:
-					self.clientCommands[cmd](self, packet["usedCommand"])
+					func, doThread = self.clientCommands[cmd]
+					if doThread:
+						Thread(target=func, args=(self, packet["usedCommand"], )).start()
+					else:
+						client.withStatementDeph+=1
+						try:
+							func(self, packet["usedCommand"])
+						finally:
+							client.withStatementDeph-=1
+		elif packet.get("cmd") == "keep going":
+
+			self.lastX = packet["x"]
+			self.lastY = packet["y"]
+			self.lastZ = packet["z"]
+			self.lastYaw = packet["yaw"]
+			self.lastPitch = packet["pitch"]
+			self.isFalling = self.lastY < self._prevY
+			self._prevY=self.lastY
+
+			# print(self.lastY, self.isFalling, "falling")
+			self.lastVelocity = (packet["velx"], packet["vely"], packet["velz"])
+
 	def __init__(self, port, keepAliveTime=0.1):
 		self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
 		self.clientCommands = {}
@@ -16,9 +40,9 @@ class Player:
 		self.inventoryManager = InventoryManager(self.client)
 
 
-	def registerCommandHook(self, command, desc, hook):
+	def registerCommandHook(self, command, desc, hook, spinIntoThread=True):
 		self.client.send({"cmd": "register game command", "command": command, "desc": desc})
-		self.clientCommands[command] = hook
+		self.clientCommands[command] = (hook, spinIntoThread)
 	def clearCommands(self):
 		self.client.clearCommandHooks()
 		self.clientCommands = {}
@@ -44,6 +68,13 @@ class Player:
 		self.client.clearKeys()
 	def rotate(self, pitch, yaw, speed=0.6, wait=True):
 		self.client.rotate(pitch, yaw, speed, wait)
+	def getPlayerInfo(self):
+		return self.client.getPlayerInfo()
+
+	def setHotbarSlot(self, slot):
+		assert slot <= 9
+		assert slot != 0
+		self.client.setHotbarSlot(slot)
 
 	# Use item? Uses buckets but not some other items			
 	def useItem(self):
@@ -54,6 +85,8 @@ class Player:
 
 	# Places item from HOTBAR slot
 	def place(self, x, y, z, slot, speed=0.6, wait=True):
+		assert slot <= 9
+		assert slot != 0
 		self.client.place(x, y, z, slot, speed, wait)
 	# Mines block
 	def mine(self,  x, y, z, speed=0.6, wait=True):

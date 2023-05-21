@@ -45,25 +45,33 @@ import threading, time
 # Id: unbreaking             Max level: III
 
 
-PORT = 20027
+PORT = int(input("Port: "))
 player = Player(PORT)
 
-workStation = (-39, 59, -23) # Replace this with the block location of the work station
+workStation = (14931, 53, 3092) # Replace this with the block location of the work station
 
-villager = (-39, 60, -24) # Replace this with the block location of the villager
+villager = (14931, 54, 3091) # Replace this with the block location of the villager
 
 enchantments = [
     ["unbreaking", 3], # Enchantment id, min level to keep
     ["silk_touch", 1],
     ["protection", 4],
-    ["sharpness", 5],
-    ["depth_strider", 3],
-    ["power", 5],
-    ["mending", 1],
-    ["fire_aspect", 2],
-    ["fortune", 3],
-    ["efficiency", 5],
-    ["frost_walker", 2]
+    # ["sharpness", 5],
+    # ["depth_strider", 3],
+    # ["power", 5],
+    # ["mending", 1],
+    # ["fire_aspect", 2],
+    # ["fortune", 3],
+    # ["efficiency", 5],
+    # ["frost_walker", 2],
+    ["feather_falling", 4],
+    # ["punch", 2],
+    # ["looting", 3],
+    # ["sweeping", 3],
+    # ["infinity", 1],
+    # ["flame", 1]
+    # ["thorns", 3],
+    # ["knockback", 2]
 
 ]
 
@@ -105,7 +113,7 @@ def run():
 		
 		player.mine(*workStation)
 		time.sleep(0.7)
-		player.place(*workStation, 3)
+		player.place(*workStation, 1)
 		time.sleep(0.3)
 
 
@@ -116,9 +124,10 @@ def startHook(player, command):
 		if thread.is_alive():
 			player.print("Already running")
 			return
+	running=True
 	thread = threading.Thread(target=run)
 	thread.start()
-	running=True
+	
 def stopHook(player, command):
 	print("stop")
 	global running
