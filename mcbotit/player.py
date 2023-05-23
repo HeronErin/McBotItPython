@@ -25,6 +25,7 @@ class Player:
 			self.lastX = packet["x"]
 			self.lastY = packet["y"]
 			self.lastZ = packet["z"]
+			self.lastHunger = packet["hunger"]
 			self.lastYaw = packet["yaw"]
 			self.lastPitch = packet["pitch"]
 			self.isFalling = self.lastY < self._prevY
@@ -107,6 +108,12 @@ class Player:
 	# Tells baritone to place a block, not stable in all situations
 	def baritonePlace(self, x, y, z, id):
 		self.client.baritonePlace(x, y, z, id)
+	# Places item from HOTBAR slot, WARNING: might get you banned
+	def hackerPlace(self, x, y, z, slot, wait=True):
+		assert slot <= 9
+		assert slot != 0
+		self.client.hackerPlace(x, y, z, slot, wait)
+
 
 	# Right click entity, used for villagers
 	def openEntity(self):

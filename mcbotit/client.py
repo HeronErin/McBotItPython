@@ -135,6 +135,13 @@ class Client(threading.Thread):
 		with self:
 			self.send({"cmd": "normal place", "x":x, "y":y, "z": z, "slot":slot-1, "time_per_90": speed})
 			if wait: self.wait()
+
+
+	# Places item from HOTBAR slot, WARNING: might get you banned
+	def hackerPlace(self, x, y, z, slot, speed=0.6, wait=True):
+		with self:
+			self.send({"cmd": "hacker place block", "x":x, "y":y, "z": z, "slot":slot-1})
+			if wait: self.wait()
 	# Mines block
 	def mine(self, x, y, z,speed, wait=True):
 		with self:

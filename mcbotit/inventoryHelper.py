@@ -1,3 +1,4 @@
+import json
 class InventoryManager:
 	def __init__(self, client):
 		self.client = client
@@ -60,6 +61,23 @@ class BaseInventory:
 		return self.playerInvEnd-(row+1)*self.maxCols+1+col
 	def getSlot(self, row, col):
 		return self.getId(self.getSlotIdByRowCol(row, col))
+	def serialize(self):
+		out = self.__dict__.copy()
+		del out["client"]
+		out["container type"] = self.requiredType
+		return out
+	def search(self, id):
+		for row in range(3, self.maxRows-1):
+			for col in range(0, self.maxCols):
+				if (item:=self.getSlot(row, col))["type"] == id:
+					yield item
+	def searchPlayerInv(self, id):
+		for row in range(0, 4):
+			for col in range(0, 9):
+				slot = self.getSlot( row, col)
+				if slot["type"] == id:
+					return slot
+
 class PlayerInventory(BaseInventory):
 	requiredType="other"
 	playerInvEnd = 44
@@ -109,7 +127,7 @@ class Chest6Inventory(BaseInventory):
 	requiredType="chest-6"
 	maxRows = 10
 	maxCols = 9
-	playerInvEnd=80
+	playerInvEnd=89
 
 class CraftingInventory(BaseInventory):
 	requiredType="crafting table"
