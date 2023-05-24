@@ -1,5 +1,6 @@
 import socket, threading, time, json, io, enum
 import python_nbt.nbt as nbt
+from typing import Callable
 END_TOKEN  = b"This is the ending text of the nbt stream1234567899876543210\x00\x00\x00\x00"
 def read_from_nbt_file(_file) -> nbt.TAG:
     """
@@ -27,7 +28,8 @@ class InputKeys(enum.Enum):
 class Client(threading.Thread):
 	""" Base Client, just connects and allows you to send packets, nothing special here. Only use through the Player class"""
 
-
+	send : Callable[dict, None]
+	recv : Callable[int, dict]
 	def __init__(self, pingTime: float, port: int, packetHandler = None, appendHandler=None):
 		assert not(appendHandler is not None and packetHandler is not None)
 		self.appendHandler = appendHandler

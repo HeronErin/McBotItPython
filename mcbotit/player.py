@@ -1,6 +1,7 @@
 from .client import Client, InputKeys
 from .inventoryHelper import *
 from threading import Thread
+from typing import Callable
 class Player:
 	_prevY = 0
 	lastX : float
@@ -57,7 +58,7 @@ class Player:
 		self.inventoryManager = InventoryManager(self.client)
 
 
-	def registerCommandHook(self, command: str, desc: str, hook : "function(player:Player, command:str)", spinIntoThread=True):
+	def registerCommandHook(self, command: str, desc: str, hook : Callable[[Player, str], None], spinIntoThread=True):
 		"""hook should be a function/lambda with these arguments: player, command"""
 
 		self.client.send({"cmd": "register game command", "command": command, "desc": desc})

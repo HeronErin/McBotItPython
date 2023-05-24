@@ -28,6 +28,7 @@
 </summary>
 <pre><code class="python">import socket, threading, time, json, io, enum
 import python_nbt.nbt as nbt
+from typing import Callable
 END_TOKEN  = b&#34;This is the ending text of the nbt stream1234567899876543210\x00\x00\x00\x00&#34;
 def read_from_nbt_file(_file) -&gt; nbt.TAG:
     &#34;&#34;&#34;
@@ -55,7 +56,8 @@ class InputKeys(enum.Enum):
 class Client(threading.Thread):
         &#34;&#34;&#34; Base Client, just connects and allows you to send packets, nothing special here. Only use through the Player class&#34;&#34;&#34;
 
-
+        send : Callable[dict, None]
+        recv : Callable[int, dict]
         def __init__(self, pingTime: float, port: int, packetHandler = None, appendHandler=None):
                 assert not(appendHandler is not None and packetHandler is not None)
                 self.appendHandler = appendHandler
@@ -379,7 +381,8 @@ else to the thread.</p></div>
 <pre><code class="python">class Client(threading.Thread):
         &#34;&#34;&#34; Base Client, just connects and allows you to send packets, nothing special here. Only use through the Player class&#34;&#34;&#34;
 
-
+        send : Callable[dict, None]
+        recv : Callable[int, dict]
         def __init__(self, pingTime: float, port: int, packetHandler = None, appendHandler=None):
                 assert not(appendHandler is not None and packetHandler is not None)
                 self.appendHandler = appendHandler
@@ -635,6 +638,17 @@ else to the thread.</p></div>
 <ul class="hlist">
 <li>threading.Thread</li>
 </ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.client.Client.recv"><code class="name">var <span class="ident">recv</span> : Callable[[int], dict]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.Client.send"><code class="name">var <span class="ident">send</span> : Callable[[dict], None]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="mcbotit.client.Client.baritoneMine"><code class="name flex">
@@ -1346,10 +1360,12 @@ else to the thread.</p></div>
 <li><code><a title="mcbotit.client.Client.place" href="#mcbotit.client.Client.place">place</a></code></li>
 <li><code><a title="mcbotit.client.Client.printerPlace" href="#mcbotit.client.Client.printerPlace">printerPlace</a></code></li>
 <li><code><a title="mcbotit.client.Client.readNbt" href="#mcbotit.client.Client.readNbt">readNbt</a></code></li>
+<li><code><a title="mcbotit.client.Client.recv" href="#mcbotit.client.Client.recv">recv</a></code></li>
 <li><code><a title="mcbotit.client.Client.removeCommand" href="#mcbotit.client.Client.removeCommand">removeCommand</a></code></li>
 <li><code><a title="mcbotit.client.Client.rightClickBlock" href="#mcbotit.client.Client.rightClickBlock">rightClickBlock</a></code></li>
 <li><code><a title="mcbotit.client.Client.rotate" href="#mcbotit.client.Client.rotate">rotate</a></code></li>
 <li><code><a title="mcbotit.client.Client.run" href="#mcbotit.client.Client.run">run</a></code></li>
+<li><code><a title="mcbotit.client.Client.send" href="#mcbotit.client.Client.send">send</a></code></li>
 <li><code><a title="mcbotit.client.Client.sendPublicChatMessage" href="#mcbotit.client.Client.sendPublicChatMessage">sendPublicChatMessage</a></code></li>
 <li><code><a title="mcbotit.client.Client.setHotbarSlot" href="#mcbotit.client.Client.setHotbarSlot">setHotbarSlot</a></code></li>
 <li><code><a title="mcbotit.client.Client.setVillagerTrade" href="#mcbotit.client.Client.setVillagerTrade">setVillagerTrade</a></code></li>
