@@ -58,7 +58,7 @@ class Player:
 		self.inventoryManager = InventoryManager(self.client)
 
 
-	def registerCommandHook(self, command: str, desc: str, hook : Callable[[Player, str], None], spinIntoThread=True):
+	def registerCommandHook(self, command: str, desc: str, hook : Callable[["Player", str], None], spinIntoThread=True):
 		"""hook should be a function/lambda with these arguments: player, command"""
 
 		self.client.send({"cmd": "register game command", "command": command, "desc": desc})
