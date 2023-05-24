@@ -51,6 +51,8 @@ The following are some fields in the Player class you sould know of:
 * lastYaw - last known yaw rotation value
 * isFalling
 * lastVelocity - A tuple of the players velocity
+* lastHunger
+* lastHealth
 * inventoryManager - used for getting inventory data
 
 The player has the following methods you should know about:

@@ -1,77 +1,51 @@
 import json
-class InventoryManager:
-	def __init__(self, client):
-		self.client = client
-	def getOpenPlayerInventory(self):	
-		return PlayerInventory(self.client, self.client.getOpenInventory())
-	def getOpenChest(self):
-		nbt = self.client.getOpenInventory()
-		assert nbt.get("container type").startswith("chest-")
-		return {
-			"chest-1": Chest1Inventory, "chest-2":Chest2Inventory, "chest-3": Chest3Inventory, "chest-4": Chest4Inventory, "chest-5": Chest5Inventory, "chest-6": Chest6Inventory
-		}[nbt.get("container type")](self.client, nbt)
-	def getOpenShulker(self):
-		return ShulkerInventory(self.client, self.client.getOpenInventory())
-	def getOpenCraftingTable(self):
-		return CraftingInventory(self.client, self.client.getOpenInventory())
-	def getOpenFurnace(self):
-		return FurnaceInventory(self.client, self.client.getOpenInventory())
-	def getOpenBlastFurnace(self):
-		return BlastFurnace(self.client, self.client.getOpenInventory())
-	def getOpenSmoker(self):
-		return Smoker(self.client, self.client.getOpenInventory())
-	def getOpen3by3(self):
-		return X3Inventory(self.client, self.client.getOpenInventory())
-	def getOpenEnchantmentTable(self): 
-		return EnchantmentTable(self.client, self.client.getOpenInventory())
-	def getOpenBrewingStand(self):
-		return BrewingStand(self.client, self.client.getOpenInventory())
-	def getOpenAnvil(self):
-		return Anvil(self.client, self.client.getOpenInventory())
-	def getOpenVillagerInventory(self):
-		return VillagerInventory(self.client, self.client.getOpenInventory())
-	def getOpenBeacon(self):
-		return Beacon(self.client, self.client.getOpenInventory())
-	def getOpenHopper(self):
-		return Hopper(self.client, self.client.getOpenInventory())
-	def getOpenCartographyTable(self):
-		return CartographyTable(self.client, self.client.getOpenInventory())
-	def getOpenGrindstone(self):
-		return Grindstone(self.client, self.client.getOpenInventory())
-	def getOpenSmithingTable(self):
-		return SmithingTable(self.client, self.client.getOpenInventory())
+from typing import Generator
+from .client import Client
+
 class BaseInventory:
 	requiredType : str
 	playerInvEnd : int
 	maxRows : int
 	maxCols : int
-	def __init__(self, client, nbt):
+
+	items : list[dict]
+	client : Client
+
+	def __init__(self, client: Client, nbt: dict):
 		assert nbt.get("container type") == self.requiredType
 		self.client = client
 		self.items = nbt["items"]
 		self.init()
-	def getId(self, id):
+	def getId(self, id : int):
+		""" From a slot id, get an itemstack"""
 		x = [s for s in self.items if s["id"] == id]
 		return x[0]
 	def init(self):
-		pass# Overide me
-	def getSlotIdByRowCol(self, row, col):
+		""" Do not call me """
+		pass
+	def getSlotIdByRowCol(self, row : int, col : int) -> int:
+		""" Use math to get the slot id by the row and col"""
+
 		assert row < self.maxRows
 		assert col < self.maxCols
 		return self.playerInvEnd-(row+1)*self.maxCols+1+col
-	def getSlot(self, row, col):
+	def getSlot(self, row : int, col : int) -> dict:
+		""" Got an itemstack from by a row and col"""
+
 		return self.getId(self.getSlotIdByRowCol(row, col))
-	def serialize(self):
+	def serialize(self) -> dict:
 		out = self.__dict__.copy()
 		del out["client"]
 		out["container type"] = self.requiredType
 		return out
-	def search(self, id):
+	def search(self, id:int) -> Generator[dict, None, None]:
+		""" Search for an item stack in a chest or non player inventory, YEILD the results"""
 		for row in range(3, self.maxRows-1):
 			for col in range(0, self.maxCols):
 				if (item:=self.getSlot(row, col))["type"] == id:
 					yield item
-	def searchPlayerInv(self, id):
+	def searchPlayerInv(self, id) -> dict:
+		""" Search specificly the players inventory and RETURN the result"""
 		for row in range(0, 4):
 			for col in range(0, 9):
 				slot = self.getSlot( row, col)
@@ -83,6 +57,18 @@ class PlayerInventory(BaseInventory):
 	playerInvEnd = 44
 	maxRows = 4
 	maxCols = 9
+
+	helmet : dict
+	chestplate : dict
+	leggings : dict
+	boots : dict
+	offhand : dict
+	craftingSlot1 : dict
+	craftingSlot2 : dict
+	craftingSlot3 : dict
+	craftingSlot4 : dict
+	craftingOutput : dict
+
 	def init(self):
 		self.helmet = self.getId(5)
 		self.chestplate = self.getId(6)
@@ -134,6 +120,17 @@ class CraftingInventory(BaseInventory):
 	maxRows=4
 	maxCols = 9
 	playerInvEnd = 45
+
+	output : dict
+	craftingSlot1 : dict
+	craftingSlot2 : dict
+	craftingSlot3 : dict
+	craftingSlot4 : dict
+	craftingSlot5 : dict
+	craftingSlot6 : dict
+	craftingSlot7 : dict
+	craftingSlot8 : dict
+	craftingSlot9 : dict
 	def init(self):
 		self.output = self.getId(0)
 		self.craftingSlot1 = self.getId(1)
@@ -149,6 +146,11 @@ class FurnaceInventory(BaseInventory):
 	requiredType="furnace"
 	maxRows=4
 	maxCols = 9
+
+	output : dict
+	fuelSlot : dict
+	inputSlot : dict
+
 	playerInvEnd=38
 	def init(self):
 		self.output = self.getId(2)
@@ -164,6 +166,16 @@ class X3Inventory(BaseInventory):
 	maxCols=9
 	playerInvEnd=44
 	requiredType="3x3"
+
+	slot1 : dict
+	slot2 : dict
+	slot3 : dict
+	slot4 : dict
+	slot5 : dict
+	slot6 : dict
+	slot7 : dict
+	slot8 : dict
+	slot9 : dict
 	def init(self):
 		self.slot1 = self.getId(0)
 		self.slot2 = self.getId(1)
@@ -179,16 +191,27 @@ class EnchantmentTable(BaseInventory):
 	maxCols=9
 	playerInvEnd=37
 	requiredType="enchantment table"
+
+	inputSlot : dict
+	lapisSlot : dict
 	def init(self):
 		self.inputSlot = self.getId(0)
 		self.lapisSlot = self.getId(1)
-	def pickEnchantment(self, i):
+	def pickEnchantment(self, i: int):
+		""" Select an enchantment based on the index of the enchantment """
+
 		self.client.clickInventoryButton(i)
 class BrewingStand(BaseInventory):
 	playerInvEnd=40
 	maxRows=4
 	maxCols=9
 	requiredType="brewing stand"
+
+	blazeSlot : dict
+	ingredientSlot : dict
+	potion1 : dict
+	potion2 : dict
+	potion3 : dict
 	def init(self):
 		self.blazeSlot = self.getId(4)
 		self.ingredientSlot = self.getId(3)
@@ -200,6 +223,9 @@ class Anvil(BaseInventory):
 	playerInvEnd=38
 	maxRows=4
 	maxCols=9
+	input1 : dict
+	input2 : dict
+	output : dict
 	def init(self):
 		self.input1 = self.getId(0)
 		self.input2 = self.getId(1)
@@ -207,14 +233,18 @@ class Anvil(BaseInventory):
 class VillagerInventory(Anvil):
 	requiredType = "villager"
 	def setTradeIndex(self, i):
+		""" Select the villagers strade bassed on index """
 		self.client.setVillagerTrade(i)
-	def getTrades(self):
+	def getTrades(self) -> dict:
+		"""Gets the trades of the opened villager"""
+
 		return self.client.getVillagerTrades()
 class Beacon(BaseInventory):
 	requiredType = "beacon"
 	playerInvEnd=36
 	maxRows=4
 	maxCols=9
+	input : dict
 	def init(self):
 		self.input = self.getId(0)
 class Hopper(BaseInventory):
@@ -222,6 +252,12 @@ class Hopper(BaseInventory):
 	playerInvEnd=40
 	maxRows=4
 	maxCols=9
+
+	slot1 : dict
+	slot2 : dict
+	slot3 : dict
+	slot4 : dict
+	slot5 : dict
 	def init(self):
 		self.slot1 =self.getId(0)
 		self.slot2 =self.getId(1)
@@ -236,3 +272,47 @@ class Grindstone(Anvil):
 # CHANGES IN 1.20
 class SmithingTable(Anvil):
 	requiredType="smithing table"
+
+
+class InventoryManager:
+	""" Used for getting the current open inventory """
+	def __init__(self, client):
+		self.client = client
+	def getOpenPlayerInventory(self) -> PlayerInventory:	
+		return PlayerInventory(self.client, self.client.getOpenInventory())
+	def getOpenChest(self) -> Chest1Inventory | Chest2Inventory | Chest3Inventory | Chest4Inventory | Chest5Inventory | Chest6Inventory:
+		nbt = self.client.getOpenInventory()
+		assert nbt.get("container type").startswith("chest-")
+		return {
+			"chest-1": Chest1Inventory, "chest-2":Chest2Inventory, "chest-3": Chest3Inventory, "chest-4": Chest4Inventory, "chest-5": Chest5Inventory, "chest-6": Chest6Inventory
+		}[nbt.get("container type")](self.client, nbt)
+	def getOpenShulker(self) -> ShulkerInventory:
+		return ShulkerInventory(self.client, self.client.getOpenInventory())
+	def getOpenCraftingTable(self) -> CraftingInventory:
+		return CraftingInventory(self.client, self.client.getOpenInventory())
+	def getOpenFurnace(self) -> FurnaceInventory:
+		return FurnaceInventory(self.client, self.client.getOpenInventory())
+	def getOpenBlastFurnace(self) -> BlastFurnace:
+		return BlastFurnace(self.client, self.client.getOpenInventory())
+	def getOpenSmoker(self) -> Smoker:
+		return Smoker(self.client, self.client.getOpenInventory())
+	def getOpen3by3(self) -> X3Inventory:
+		return X3Inventory(self.client, self.client.getOpenInventory())
+	def getOpenEnchantmentTable(self) -> EnchantmentTable: 
+		return EnchantmentTable(self.client, self.client.getOpenInventory())
+	def getOpenBrewingStand(self) -> BrewingStand:
+		return BrewingStand(self.client, self.client.getOpenInventory())
+	def getOpenAnvil(self) -> Anvil:
+		return Anvil(self.client, self.client.getOpenInventory())
+	def getOpenVillagerInventory(self) -> VillagerInventory:
+		return VillagerInventory(self.client, self.client.getOpenInventory())
+	def getOpenBeacon(self) -> Beacon:
+		return Beacon(self.client, self.client.getOpenInventory())
+	def getOpenHopper(self) -> Hopper:
+		return Hopper(self.client, self.client.getOpenInventory())
+	def getOpenCartographyTable(self) -> CartographyTable:
+		return CartographyTable(self.client, self.client.getOpenInventory())
+	def getOpenGrindstone(self) -> Grindstone:
+		return Grindstone(self.client, self.client.getOpenInventory())
+	def getOpenSmithingTable(self) -> SmithingTable:
+		return SmithingTable(self.client, self.client.getOpenInventory())

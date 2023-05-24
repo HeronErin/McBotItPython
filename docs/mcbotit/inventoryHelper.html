@@ -1,0 +1,2607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mcbotit.inventoryHelper API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mcbotit.inventoryHelper</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import json
+from typing import Generator
+from .client import Client
+
+class BaseInventory:
+        requiredType : str
+        playerInvEnd : int
+        maxRows : int
+        maxCols : int
+
+        items : list[dict]
+        client : Client
+
+        def __init__(self, client: Client, nbt: dict):
+                assert nbt.get(&#34;container type&#34;) == self.requiredType
+                self.client = client
+                self.items = nbt[&#34;items&#34;]
+                self.init()
+        def getId(self, id : int):
+                &#34;&#34;&#34; From a slot id, get an itemstack&#34;&#34;&#34;
+                x = [s for s in self.items if s[&#34;id&#34;] == id]
+                return x[0]
+        def init(self):
+                &#34;&#34;&#34; Do not call me &#34;&#34;&#34;
+                pass
+        def getSlotIdByRowCol(self, row : int, col : int) -&gt; int:
+                &#34;&#34;&#34; Use math to get the slot id by the row and col&#34;&#34;&#34;
+
+                assert row &lt; self.maxRows
+                assert col &lt; self.maxCols
+                return self.playerInvEnd-(row+1)*self.maxCols+1+col
+        def getSlot(self, row : int, col : int) -&gt; dict:
+                &#34;&#34;&#34; Got an itemstack from by a row and col&#34;&#34;&#34;
+
+                return self.getId(self.getSlotIdByRowCol(row, col))
+        def serialize(self) -&gt; dict:
+                out = self.__dict__.copy()
+                del out[&#34;client&#34;]
+                out[&#34;container type&#34;] = self.requiredType
+                return out
+        def search(self, id:int) -&gt; Generator[dict, None, None]:
+                &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
+                for row in range(3, self.maxRows-1):
+                        for col in range(0, self.maxCols):
+                                if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
+                                        yield item
+        def searchPlayerInv(self, id) -&gt; dict:
+                &#34;&#34;&#34; Search specificly the players inventory and RETURN the result&#34;&#34;&#34;
+                for row in range(0, 4):
+                        for col in range(0, 9):
+                                slot = self.getSlot( row, col)
+                                if slot[&#34;type&#34;] == id:
+                                        return slot
+
+class PlayerInventory(BaseInventory):
+        requiredType=&#34;other&#34;
+        playerInvEnd = 44
+        maxRows = 4
+        maxCols = 9
+
+        helmet : dict
+        chestplate : dict
+        leggings : dict
+        boots : dict
+        offhand : dict
+        craftingSlot1 : dict
+        craftingSlot2 : dict
+        craftingSlot3 : dict
+        craftingSlot4 : dict
+        craftingOutput : dict
+
+        def init(self):
+                self.helmet = self.getId(5)
+                self.chestplate = self.getId(6)
+                self.leggings = self.getId(7)
+                self.boots = self.getId(8)
+
+                self.offhand = self.getId(45)
+
+                self.craftingSlot1 = self.getId(1)
+                self.craftingSlot2 = self.getId(2)
+                self.craftingSlot3 = self.getId(3)
+                self.craftingSlot4 = self.getId(4)
+                self.craftingOutput = self.getId(0)
+class Chest1Inventory(BaseInventory):
+        requiredType=&#34;chest-1&#34;
+        maxRows = 5
+        maxCols = 9
+        playerInvEnd=44
+class Chest2Inventory(BaseInventory):
+        requiredType=&#34;chest-2&#34;
+        maxRows = 6
+        maxCols = 9
+        playerInvEnd=53
+class Chest3Inventory(BaseInventory):
+        requiredType=&#34;chest-3&#34;
+        maxRows = 7
+        maxCols = 9
+        playerInvEnd=62
+class ShulkerInventory(Chest3Inventory):
+        requiredType=&#34;shulker&#34;
+class Chest4Inventory(BaseInventory):
+        requiredType=&#34;chest-4&#34;
+        maxRows = 8
+        maxCols = 9
+        playerInvEnd=71
+class Chest5Inventory(BaseInventory):
+        requiredType=&#34;chest-5&#34;
+        maxRows = 9
+        maxCols = 9
+        playerInvEnd=80
+class Chest6Inventory(BaseInventory):
+        requiredType=&#34;chest-6&#34;
+        maxRows = 10
+        maxCols = 9
+        playerInvEnd=89
+
+class CraftingInventory(BaseInventory):
+        requiredType=&#34;crafting table&#34;
+        maxRows=4
+        maxCols = 9
+        playerInvEnd = 45
+
+        output : dict
+        craftingSlot1 : dict
+        craftingSlot2 : dict
+        craftingSlot3 : dict
+        craftingSlot4 : dict
+        craftingSlot5 : dict
+        craftingSlot6 : dict
+        craftingSlot7 : dict
+        craftingSlot8 : dict
+        craftingSlot9 : dict
+        def init(self):
+                self.output = self.getId(0)
+                self.craftingSlot1 = self.getId(1)
+                self.craftingSlot2 = self.getId(2)
+                self.craftingSlot3 = self.getId(3)
+                self.craftingSlot4 = self.getId(4)
+                self.craftingSlot5 = self.getId(5)
+                self.craftingSlot6 = self.getId(6)
+                self.craftingSlot7 = self.getId(7)
+                self.craftingSlot8 = self.getId(8)
+                self.craftingSlot9 = self.getId(9)
+class FurnaceInventory(BaseInventory):
+        requiredType=&#34;furnace&#34;
+        maxRows=4
+        maxCols = 9
+
+        output : dict
+        fuelSlot : dict
+        inputSlot : dict
+
+        playerInvEnd=38
+        def init(self):
+                self.output = self.getId(2)
+                self.fuelSlot = self.get(1)
+                self.inputSlot = self.getId(0)
+class BlastFurnace(FurnaceInventory):
+        requiredType=&#34;blast furnace&#34;
+class Smoker(FurnaceInventory):
+        requiredType=&#34;smoker table&#34;
+
+class X3Inventory(BaseInventory):
+        maxRows=4
+        maxCols=9
+        playerInvEnd=44
+        requiredType=&#34;3x3&#34;
+
+        slot1 : dict
+        slot2 : dict
+        slot3 : dict
+        slot4 : dict
+        slot5 : dict
+        slot6 : dict
+        slot7 : dict
+        slot8 : dict
+        slot9 : dict
+        def init(self):
+                self.slot1 = self.getId(0)
+                self.slot2 = self.getId(1)
+                self.slot3 = self.getId(2)
+                self.slot4 = self.getId(3)
+                self.slot5 = self.getId(4)
+                self.slot6 = self.getId(5)
+                self.slot7 = self.getId(6)
+                self.slot8 = self.getId(7)
+                self.slot9 = self.getId(8)
+class EnchantmentTable(BaseInventory):
+        maxRows=4
+        maxCols=9
+        playerInvEnd=37
+        requiredType=&#34;enchantment table&#34;
+
+        inputSlot : dict
+        lapisSlot : dict
+        def init(self):
+                self.inputSlot = self.getId(0)
+                self.lapisSlot = self.getId(1)
+        def pickEnchantment(self, i: int):
+                &#34;&#34;&#34; Select an enchantment based on the index of the enchantment &#34;&#34;&#34;
+
+                self.client.clickInventoryButton(i)
+class BrewingStand(BaseInventory):
+        playerInvEnd=40
+        maxRows=4
+        maxCols=9
+        requiredType=&#34;brewing stand&#34;
+
+        blazeSlot : dict
+        ingredientSlot : dict
+        potion1 : dict
+        potion2 : dict
+        potion3 : dict
+        def init(self):
+                self.blazeSlot = self.getId(4)
+                self.ingredientSlot = self.getId(3)
+                self.potion1 =self.getId(0)
+                self.potion2 =self.getId(1)
+                self.potion3 =self.getId(2)
+class Anvil(BaseInventory):
+        requiredType=&#34;anvil&#34;
+        playerInvEnd=38
+        maxRows=4
+        maxCols=9
+        input1 : dict
+        input2 : dict
+        output : dict
+        def init(self):
+                self.input1 = self.getId(0)
+                self.input2 = self.getId(1)
+                self.output = self.getId(2)
+class VillagerInventory(Anvil):
+        requiredType = &#34;villager&#34;
+        def setTradeIndex(self, i):
+                &#34;&#34;&#34; Select the villagers strade bassed on index &#34;&#34;&#34;
+                self.client.setVillagerTrade(i)
+        def getTrades(self) -&gt; dict:
+                &#34;&#34;&#34;Gets the trades of the opened villager&#34;&#34;&#34;
+
+                return self.client.getVillagerTrades()
+class Beacon(BaseInventory):
+        requiredType = &#34;beacon&#34;
+        playerInvEnd=36
+        maxRows=4
+        maxCols=9
+        input : dict
+        def init(self):
+                self.input = self.getId(0)
+class Hopper(BaseInventory):
+        requiredType = &#34;hopper&#34;
+        playerInvEnd=40
+        maxRows=4
+        maxCols=9
+
+        slot1 : dict
+        slot2 : dict
+        slot3 : dict
+        slot4 : dict
+        slot5 : dict
+        def init(self):
+                self.slot1 =self.getId(0)
+                self.slot2 =self.getId(1)
+                self.slot3 =self.getId(2)
+                self.slot4 =self.getId(3)
+                self.slot5 =self.getId(4) 
+class CartographyTable(Anvil):
+        requiredType=&#34;cartography Table&#34;
+class Grindstone(Anvil):
+        requiredType=&#34;grindstone&#34;
+
+# CHANGES IN 1.20
+class SmithingTable(Anvil):
+        requiredType=&#34;smithing table&#34;
+
+
+class InventoryManager:
+        &#34;&#34;&#34; Used for getting the current open inventory &#34;&#34;&#34;
+        def __init__(self, client):
+                self.client = client
+        def getOpenPlayerInventory(self) -&gt; PlayerInventory:    
+                return PlayerInventory(self.client, self.client.getOpenInventory())
+        def getOpenChest(self) -&gt; Chest1Inventory | Chest2Inventory | Chest3Inventory | Chest4Inventory | Chest5Inventory | Chest6Inventory:
+                nbt = self.client.getOpenInventory()
+                assert nbt.get(&#34;container type&#34;).startswith(&#34;chest-&#34;)
+                return {
+                        &#34;chest-1&#34;: Chest1Inventory, &#34;chest-2&#34;:Chest2Inventory, &#34;chest-3&#34;: Chest3Inventory, &#34;chest-4&#34;: Chest4Inventory, &#34;chest-5&#34;: Chest5Inventory, &#34;chest-6&#34;: Chest6Inventory
+                }[nbt.get(&#34;container type&#34;)](self.client, nbt)
+        def getOpenShulker(self) -&gt; ShulkerInventory:
+                return ShulkerInventory(self.client, self.client.getOpenInventory())
+        def getOpenCraftingTable(self) -&gt; CraftingInventory:
+                return CraftingInventory(self.client, self.client.getOpenInventory())
+        def getOpenFurnace(self) -&gt; FurnaceInventory:
+                return FurnaceInventory(self.client, self.client.getOpenInventory())
+        def getOpenBlastFurnace(self) -&gt; BlastFurnace:
+                return BlastFurnace(self.client, self.client.getOpenInventory())
+        def getOpenSmoker(self) -&gt; Smoker:
+                return Smoker(self.client, self.client.getOpenInventory())
+        def getOpen3by3(self) -&gt; X3Inventory:
+                return X3Inventory(self.client, self.client.getOpenInventory())
+        def getOpenEnchantmentTable(self) -&gt; EnchantmentTable: 
+                return EnchantmentTable(self.client, self.client.getOpenInventory())
+        def getOpenBrewingStand(self) -&gt; BrewingStand:
+                return BrewingStand(self.client, self.client.getOpenInventory())
+        def getOpenAnvil(self) -&gt; Anvil:
+                return Anvil(self.client, self.client.getOpenInventory())
+        def getOpenVillagerInventory(self) -&gt; VillagerInventory:
+                return VillagerInventory(self.client, self.client.getOpenInventory())
+        def getOpenBeacon(self) -&gt; Beacon:
+                return Beacon(self.client, self.client.getOpenInventory())
+        def getOpenHopper(self) -&gt; Hopper:
+                return Hopper(self.client, self.client.getOpenInventory())
+        def getOpenCartographyTable(self) -&gt; CartographyTable:
+                return CartographyTable(self.client, self.client.getOpenInventory())
+        def getOpenGrindstone(self) -&gt; Grindstone:
+                return Grindstone(self.client, self.client.getOpenInventory())
+        def getOpenSmithingTable(self) -&gt; SmithingTable:
+                return SmithingTable(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="mcbotit.inventoryHelper.Anvil"><code class="flex name class">
+<span>class <span class="ident">Anvil</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Anvil(BaseInventory):
+        requiredType=&#34;anvil&#34;
+        playerInvEnd=38
+        maxRows=4
+        maxCols=9
+        input1 : dict
+        input2 : dict
+        output : dict
+        def init(self):
+                self.input1 = self.getId(0)
+                self.input2 = self.getId(1)
+                self.output = self.getId(2)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.CartographyTable" href="#mcbotit.inventoryHelper.CartographyTable">CartographyTable</a></li>
+<li><a title="mcbotit.inventoryHelper.Grindstone" href="#mcbotit.inventoryHelper.Grindstone">Grindstone</a></li>
+<li><a title="mcbotit.inventoryHelper.SmithingTable" href="#mcbotit.inventoryHelper.SmithingTable">SmithingTable</a></li>
+<li><a title="mcbotit.inventoryHelper.VillagerInventory" href="#mcbotit.inventoryHelper.VillagerInventory">VillagerInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Anvil.input1"><code class="name">var <span class="ident">input1</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Anvil.input2"><code class="name">var <span class="ident">input2</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Anvil.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Anvil.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Anvil.output"><code class="name">var <span class="ident">output</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Anvil.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Anvil.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory"><code class="flex name class">
+<span>class <span class="ident">BaseInventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BaseInventory:
+        requiredType : str
+        playerInvEnd : int
+        maxRows : int
+        maxCols : int
+
+        items : list[dict]
+        client : Client
+
+        def __init__(self, client: Client, nbt: dict):
+                assert nbt.get(&#34;container type&#34;) == self.requiredType
+                self.client = client
+                self.items = nbt[&#34;items&#34;]
+                self.init()
+        def getId(self, id : int):
+                &#34;&#34;&#34; From a slot id, get an itemstack&#34;&#34;&#34;
+                x = [s for s in self.items if s[&#34;id&#34;] == id]
+                return x[0]
+        def init(self):
+                &#34;&#34;&#34; Do not call me &#34;&#34;&#34;
+                pass
+        def getSlotIdByRowCol(self, row : int, col : int) -&gt; int:
+                &#34;&#34;&#34; Use math to get the slot id by the row and col&#34;&#34;&#34;
+
+                assert row &lt; self.maxRows
+                assert col &lt; self.maxCols
+                return self.playerInvEnd-(row+1)*self.maxCols+1+col
+        def getSlot(self, row : int, col : int) -&gt; dict:
+                &#34;&#34;&#34; Got an itemstack from by a row and col&#34;&#34;&#34;
+
+                return self.getId(self.getSlotIdByRowCol(row, col))
+        def serialize(self) -&gt; dict:
+                out = self.__dict__.copy()
+                del out[&#34;client&#34;]
+                out[&#34;container type&#34;] = self.requiredType
+                return out
+        def search(self, id:int) -&gt; Generator[dict, None, None]:
+                &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
+                for row in range(3, self.maxRows-1):
+                        for col in range(0, self.maxCols):
+                                if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
+                                        yield item
+        def searchPlayerInv(self, id) -&gt; dict:
+                &#34;&#34;&#34; Search specificly the players inventory and RETURN the result&#34;&#34;&#34;
+                for row in range(0, 4):
+                        for col in range(0, 9):
+                                slot = self.getSlot( row, col)
+                                if slot[&#34;type&#34;] == id:
+                                        return slot</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.Beacon" href="#mcbotit.inventoryHelper.Beacon">Beacon</a></li>
+<li><a title="mcbotit.inventoryHelper.BrewingStand" href="#mcbotit.inventoryHelper.BrewingStand">BrewingStand</a></li>
+<li><a title="mcbotit.inventoryHelper.Chest1Inventory" href="#mcbotit.inventoryHelper.Chest1Inventory">Chest1Inventory</a></li>
+<li><a title="mcbotit.inventoryHelper.Chest2Inventory" href="#mcbotit.inventoryHelper.Chest2Inventory">Chest2Inventory</a></li>
+<li><a title="mcbotit.inventoryHelper.Chest3Inventory" href="#mcbotit.inventoryHelper.Chest3Inventory">Chest3Inventory</a></li>
+<li><a title="mcbotit.inventoryHelper.Chest4Inventory" href="#mcbotit.inventoryHelper.Chest4Inventory">Chest4Inventory</a></li>
+<li><a title="mcbotit.inventoryHelper.Chest5Inventory" href="#mcbotit.inventoryHelper.Chest5Inventory">Chest5Inventory</a></li>
+<li><a title="mcbotit.inventoryHelper.Chest6Inventory" href="#mcbotit.inventoryHelper.Chest6Inventory">Chest6Inventory</a></li>
+<li><a title="mcbotit.inventoryHelper.CraftingInventory" href="#mcbotit.inventoryHelper.CraftingInventory">CraftingInventory</a></li>
+<li><a title="mcbotit.inventoryHelper.EnchantmentTable" href="#mcbotit.inventoryHelper.EnchantmentTable">EnchantmentTable</a></li>
+<li><a title="mcbotit.inventoryHelper.FurnaceInventory" href="#mcbotit.inventoryHelper.FurnaceInventory">FurnaceInventory</a></li>
+<li><a title="mcbotit.inventoryHelper.Hopper" href="#mcbotit.inventoryHelper.Hopper">Hopper</a></li>
+<li><a title="mcbotit.inventoryHelper.PlayerInventory" href="#mcbotit.inventoryHelper.PlayerInventory">PlayerInventory</a></li>
+<li><a title="mcbotit.inventoryHelper.X3Inventory" href="#mcbotit.inventoryHelper.X3Inventory">X3Inventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.BaseInventory.client"><code class="name">var <span class="ident">client</span> : <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.items"><code class="name">var <span class="ident">items</span> : list[dict]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.BaseInventory.getId"><code class="name flex">
+<span>def <span class="ident">getId</span></span>(<span>self, id: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>From a slot id, get an itemstack</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getId(self, id : int):
+        &#34;&#34;&#34; From a slot id, get an itemstack&#34;&#34;&#34;
+        x = [s for s in self.items if s[&#34;id&#34;] == id]
+        return x[0]</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.getSlot"><code class="name flex">
+<span>def <span class="ident">getSlot</span></span>(<span>self, row: int, col: int) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Got an itemstack from by a row and col</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getSlot(self, row : int, col : int) -&gt; dict:
+        &#34;&#34;&#34; Got an itemstack from by a row and col&#34;&#34;&#34;
+
+        return self.getId(self.getSlotIdByRowCol(row, col))</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol"><code class="name flex">
+<span>def <span class="ident">getSlotIdByRowCol</span></span>(<span>self, row: int, col: int) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Use math to get the slot id by the row and col</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getSlotIdByRowCol(self, row : int, col : int) -&gt; int:
+        &#34;&#34;&#34; Use math to get the slot id by the row and col&#34;&#34;&#34;
+
+        assert row &lt; self.maxRows
+        assert col &lt; self.maxCols
+        return self.playerInvEnd-(row+1)*self.maxCols+1+col</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.init"><code class="name flex">
+<span>def <span class="ident">init</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Do not call me</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init(self):
+        &#34;&#34;&#34; Do not call me &#34;&#34;&#34;
+        pass</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>self, id: int) ‑> Generator[dict, None, None]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Search for an item stack in a chest or non player inventory, YEILD the results</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search(self, id:int) -&gt; Generator[dict, None, None]:
+        &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
+        for row in range(3, self.maxRows-1):
+                for col in range(0, self.maxCols):
+                        if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
+                                yield item</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv"><code class="name flex">
+<span>def <span class="ident">searchPlayerInv</span></span>(<span>self, id) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Search specificly the players inventory and RETURN the result</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def searchPlayerInv(self, id) -&gt; dict:
+        &#34;&#34;&#34; Search specificly the players inventory and RETURN the result&#34;&#34;&#34;
+        for row in range(0, 4):
+                for col in range(0, 9):
+                        slot = self.getSlot( row, col)
+                        if slot[&#34;type&#34;] == id:
+                                return slot</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.BaseInventory.serialize"><code class="name flex">
+<span>def <span class="ident">serialize</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def serialize(self) -&gt; dict:
+        out = self.__dict__.copy()
+        del out[&#34;client&#34;]
+        out[&#34;container type&#34;] = self.requiredType
+        return out</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mcbotit.inventoryHelper.Beacon"><code class="flex name class">
+<span>class <span class="ident">Beacon</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Beacon(BaseInventory):
+        requiredType = &#34;beacon&#34;
+        playerInvEnd=36
+        maxRows=4
+        maxCols=9
+        input : dict
+        def init(self):
+                self.input = self.getId(0)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Beacon.input"><code class="name">var <span class="ident">input</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Beacon.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Beacon.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Beacon.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Beacon.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.BlastFurnace"><code class="flex name class">
+<span>class <span class="ident">BlastFurnace</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BlastFurnace(FurnaceInventory):
+        requiredType=&#34;blast furnace&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.FurnaceInventory" href="#mcbotit.inventoryHelper.FurnaceInventory">FurnaceInventory</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.BlastFurnace.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.FurnaceInventory" href="#mcbotit.inventoryHelper.FurnaceInventory">FurnaceInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand"><code class="flex name class">
+<span>class <span class="ident">BrewingStand</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BrewingStand(BaseInventory):
+        playerInvEnd=40
+        maxRows=4
+        maxCols=9
+        requiredType=&#34;brewing stand&#34;
+
+        blazeSlot : dict
+        ingredientSlot : dict
+        potion1 : dict
+        potion2 : dict
+        potion3 : dict
+        def init(self):
+                self.blazeSlot = self.getId(4)
+                self.ingredientSlot = self.getId(3)
+                self.potion1 =self.getId(0)
+                self.potion2 =self.getId(1)
+                self.potion3 =self.getId(2)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.BrewingStand.blazeSlot"><code class="name">var <span class="ident">blazeSlot</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.ingredientSlot"><code class="name">var <span class="ident">ingredientSlot</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.potion1"><code class="name">var <span class="ident">potion1</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.potion2"><code class="name">var <span class="ident">potion2</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.potion3"><code class="name">var <span class="ident">potion3</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.BrewingStand.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.CartographyTable"><code class="flex name class">
+<span>class <span class="ident">CartographyTable</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CartographyTable(Anvil):
+        requiredType=&#34;cartography Table&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.CartographyTable.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest1Inventory"><code class="flex name class">
+<span>class <span class="ident">Chest1Inventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Chest1Inventory(BaseInventory):
+        requiredType=&#34;chest-1&#34;
+        maxRows = 5
+        maxCols = 9
+        playerInvEnd=44</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Chest1Inventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest1Inventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest1Inventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest1Inventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest2Inventory"><code class="flex name class">
+<span>class <span class="ident">Chest2Inventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Chest2Inventory(BaseInventory):
+        requiredType=&#34;chest-2&#34;
+        maxRows = 6
+        maxCols = 9
+        playerInvEnd=53</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Chest2Inventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest2Inventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest2Inventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest2Inventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest3Inventory"><code class="flex name class">
+<span>class <span class="ident">Chest3Inventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Chest3Inventory(BaseInventory):
+        requiredType=&#34;chest-3&#34;
+        maxRows = 7
+        maxCols = 9
+        playerInvEnd=62</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.ShulkerInventory" href="#mcbotit.inventoryHelper.ShulkerInventory">ShulkerInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Chest3Inventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest3Inventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest3Inventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest3Inventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest4Inventory"><code class="flex name class">
+<span>class <span class="ident">Chest4Inventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Chest4Inventory(BaseInventory):
+        requiredType=&#34;chest-4&#34;
+        maxRows = 8
+        maxCols = 9
+        playerInvEnd=71</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Chest4Inventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest4Inventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest4Inventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest4Inventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest5Inventory"><code class="flex name class">
+<span>class <span class="ident">Chest5Inventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Chest5Inventory(BaseInventory):
+        requiredType=&#34;chest-5&#34;
+        maxRows = 9
+        maxCols = 9
+        playerInvEnd=80</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Chest5Inventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest5Inventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest5Inventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest5Inventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest6Inventory"><code class="flex name class">
+<span>class <span class="ident">Chest6Inventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Chest6Inventory(BaseInventory):
+        requiredType=&#34;chest-6&#34;
+        maxRows = 10
+        maxCols = 9
+        playerInvEnd=89</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Chest6Inventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest6Inventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest6Inventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Chest6Inventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory"><code class="flex name class">
+<span>class <span class="ident">CraftingInventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CraftingInventory(BaseInventory):
+        requiredType=&#34;crafting table&#34;
+        maxRows=4
+        maxCols = 9
+        playerInvEnd = 45
+
+        output : dict
+        craftingSlot1 : dict
+        craftingSlot2 : dict
+        craftingSlot3 : dict
+        craftingSlot4 : dict
+        craftingSlot5 : dict
+        craftingSlot6 : dict
+        craftingSlot7 : dict
+        craftingSlot8 : dict
+        craftingSlot9 : dict
+        def init(self):
+                self.output = self.getId(0)
+                self.craftingSlot1 = self.getId(1)
+                self.craftingSlot2 = self.getId(2)
+                self.craftingSlot3 = self.getId(3)
+                self.craftingSlot4 = self.getId(4)
+                self.craftingSlot5 = self.getId(5)
+                self.craftingSlot6 = self.getId(6)
+                self.craftingSlot7 = self.getId(7)
+                self.craftingSlot8 = self.getId(8)
+                self.craftingSlot9 = self.getId(9)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot1"><code class="name">var <span class="ident">craftingSlot1</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot2"><code class="name">var <span class="ident">craftingSlot2</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot3"><code class="name">var <span class="ident">craftingSlot3</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot4"><code class="name">var <span class="ident">craftingSlot4</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot5"><code class="name">var <span class="ident">craftingSlot5</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot6"><code class="name">var <span class="ident">craftingSlot6</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot7"><code class="name">var <span class="ident">craftingSlot7</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot8"><code class="name">var <span class="ident">craftingSlot8</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.craftingSlot9"><code class="name">var <span class="ident">craftingSlot9</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.output"><code class="name">var <span class="ident">output</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.CraftingInventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable"><code class="flex name class">
+<span>class <span class="ident">EnchantmentTable</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class EnchantmentTable(BaseInventory):
+        maxRows=4
+        maxCols=9
+        playerInvEnd=37
+        requiredType=&#34;enchantment table&#34;
+
+        inputSlot : dict
+        lapisSlot : dict
+        def init(self):
+                self.inputSlot = self.getId(0)
+                self.lapisSlot = self.getId(1)
+        def pickEnchantment(self, i: int):
+                &#34;&#34;&#34; Select an enchantment based on the index of the enchantment &#34;&#34;&#34;
+
+                self.client.clickInventoryButton(i)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.inputSlot"><code class="name">var <span class="ident">inputSlot</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.lapisSlot"><code class="name">var <span class="ident">lapisSlot</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.pickEnchantment"><code class="name flex">
+<span>def <span class="ident">pickEnchantment</span></span>(<span>self, i: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select an enchantment based on the index of the enchantment</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pickEnchantment(self, i: int):
+        &#34;&#34;&#34; Select an enchantment based on the index of the enchantment &#34;&#34;&#34;
+
+        self.client.clickInventoryButton(i)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory"><code class="flex name class">
+<span>class <span class="ident">FurnaceInventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FurnaceInventory(BaseInventory):
+        requiredType=&#34;furnace&#34;
+        maxRows=4
+        maxCols = 9
+
+        output : dict
+        fuelSlot : dict
+        inputSlot : dict
+
+        playerInvEnd=38
+        def init(self):
+                self.output = self.getId(2)
+                self.fuelSlot = self.get(1)
+                self.inputSlot = self.getId(0)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BlastFurnace" href="#mcbotit.inventoryHelper.BlastFurnace">BlastFurnace</a></li>
+<li><a title="mcbotit.inventoryHelper.Smoker" href="#mcbotit.inventoryHelper.Smoker">Smoker</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory.fuelSlot"><code class="name">var <span class="ident">fuelSlot</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory.inputSlot"><code class="name">var <span class="ident">inputSlot</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory.output"><code class="name">var <span class="ident">output</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.FurnaceInventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Grindstone"><code class="flex name class">
+<span>class <span class="ident">Grindstone</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Grindstone(Anvil):
+        requiredType=&#34;grindstone&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Grindstone.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper"><code class="flex name class">
+<span>class <span class="ident">Hopper</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Hopper(BaseInventory):
+        requiredType = &#34;hopper&#34;
+        playerInvEnd=40
+        maxRows=4
+        maxCols=9
+
+        slot1 : dict
+        slot2 : dict
+        slot3 : dict
+        slot4 : dict
+        slot5 : dict
+        def init(self):
+                self.slot1 =self.getId(0)
+                self.slot2 =self.getId(1)
+                self.slot3 =self.getId(2)
+                self.slot4 =self.getId(3)
+                self.slot5 =self.getId(4) </code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Hopper.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.slot1"><code class="name">var <span class="ident">slot1</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.slot2"><code class="name">var <span class="ident">slot2</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.slot3"><code class="name">var <span class="ident">slot3</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.slot4"><code class="name">var <span class="ident">slot4</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.Hopper.slot5"><code class="name">var <span class="ident">slot5</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager"><code class="flex name class">
+<span>class <span class="ident">InventoryManager</span></span>
+<span>(</span><span>client)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Used for getting the current open inventory</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InventoryManager:
+        &#34;&#34;&#34; Used for getting the current open inventory &#34;&#34;&#34;
+        def __init__(self, client):
+                self.client = client
+        def getOpenPlayerInventory(self) -&gt; PlayerInventory:    
+                return PlayerInventory(self.client, self.client.getOpenInventory())
+        def getOpenChest(self) -&gt; Chest1Inventory | Chest2Inventory | Chest3Inventory | Chest4Inventory | Chest5Inventory | Chest6Inventory:
+                nbt = self.client.getOpenInventory()
+                assert nbt.get(&#34;container type&#34;).startswith(&#34;chest-&#34;)
+                return {
+                        &#34;chest-1&#34;: Chest1Inventory, &#34;chest-2&#34;:Chest2Inventory, &#34;chest-3&#34;: Chest3Inventory, &#34;chest-4&#34;: Chest4Inventory, &#34;chest-5&#34;: Chest5Inventory, &#34;chest-6&#34;: Chest6Inventory
+                }[nbt.get(&#34;container type&#34;)](self.client, nbt)
+        def getOpenShulker(self) -&gt; ShulkerInventory:
+                return ShulkerInventory(self.client, self.client.getOpenInventory())
+        def getOpenCraftingTable(self) -&gt; CraftingInventory:
+                return CraftingInventory(self.client, self.client.getOpenInventory())
+        def getOpenFurnace(self) -&gt; FurnaceInventory:
+                return FurnaceInventory(self.client, self.client.getOpenInventory())
+        def getOpenBlastFurnace(self) -&gt; BlastFurnace:
+                return BlastFurnace(self.client, self.client.getOpenInventory())
+        def getOpenSmoker(self) -&gt; Smoker:
+                return Smoker(self.client, self.client.getOpenInventory())
+        def getOpen3by3(self) -&gt; X3Inventory:
+                return X3Inventory(self.client, self.client.getOpenInventory())
+        def getOpenEnchantmentTable(self) -&gt; EnchantmentTable: 
+                return EnchantmentTable(self.client, self.client.getOpenInventory())
+        def getOpenBrewingStand(self) -&gt; BrewingStand:
+                return BrewingStand(self.client, self.client.getOpenInventory())
+        def getOpenAnvil(self) -&gt; Anvil:
+                return Anvil(self.client, self.client.getOpenInventory())
+        def getOpenVillagerInventory(self) -&gt; VillagerInventory:
+                return VillagerInventory(self.client, self.client.getOpenInventory())
+        def getOpenBeacon(self) -&gt; Beacon:
+                return Beacon(self.client, self.client.getOpenInventory())
+        def getOpenHopper(self) -&gt; Hopper:
+                return Hopper(self.client, self.client.getOpenInventory())
+        def getOpenCartographyTable(self) -&gt; CartographyTable:
+                return CartographyTable(self.client, self.client.getOpenInventory())
+        def getOpenGrindstone(self) -&gt; Grindstone:
+                return Grindstone(self.client, self.client.getOpenInventory())
+        def getOpenSmithingTable(self) -&gt; SmithingTable:
+                return SmithingTable(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpen3by3"><code class="name flex">
+<span>def <span class="ident">getOpen3by3</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.X3Inventory" href="#mcbotit.inventoryHelper.X3Inventory">X3Inventory</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpen3by3(self) -&gt; X3Inventory:
+        return X3Inventory(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenAnvil"><code class="name flex">
+<span>def <span class="ident">getOpenAnvil</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenAnvil(self) -&gt; Anvil:
+        return Anvil(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenBeacon"><code class="name flex">
+<span>def <span class="ident">getOpenBeacon</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.Beacon" href="#mcbotit.inventoryHelper.Beacon">Beacon</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenBeacon(self) -&gt; Beacon:
+        return Beacon(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenBlastFurnace"><code class="name flex">
+<span>def <span class="ident">getOpenBlastFurnace</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.BlastFurnace" href="#mcbotit.inventoryHelper.BlastFurnace">BlastFurnace</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenBlastFurnace(self) -&gt; BlastFurnace:
+        return BlastFurnace(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenBrewingStand"><code class="name flex">
+<span>def <span class="ident">getOpenBrewingStand</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.BrewingStand" href="#mcbotit.inventoryHelper.BrewingStand">BrewingStand</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenBrewingStand(self) -&gt; BrewingStand:
+        return BrewingStand(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenCartographyTable"><code class="name flex">
+<span>def <span class="ident">getOpenCartographyTable</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.CartographyTable" href="#mcbotit.inventoryHelper.CartographyTable">CartographyTable</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenCartographyTable(self) -&gt; CartographyTable:
+        return CartographyTable(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenChest"><code class="name flex">
+<span>def <span class="ident">getOpenChest</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.Chest1Inventory" href="#mcbotit.inventoryHelper.Chest1Inventory">Chest1Inventory</a> | <a title="mcbotit.inventoryHelper.Chest2Inventory" href="#mcbotit.inventoryHelper.Chest2Inventory">Chest2Inventory</a> | <a title="mcbotit.inventoryHelper.Chest3Inventory" href="#mcbotit.inventoryHelper.Chest3Inventory">Chest3Inventory</a> | <a title="mcbotit.inventoryHelper.Chest4Inventory" href="#mcbotit.inventoryHelper.Chest4Inventory">Chest4Inventory</a> | <a title="mcbotit.inventoryHelper.Chest5Inventory" href="#mcbotit.inventoryHelper.Chest5Inventory">Chest5Inventory</a> | <a title="mcbotit.inventoryHelper.Chest6Inventory" href="#mcbotit.inventoryHelper.Chest6Inventory">Chest6Inventory</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenChest(self) -&gt; Chest1Inventory | Chest2Inventory | Chest3Inventory | Chest4Inventory | Chest5Inventory | Chest6Inventory:
+        nbt = self.client.getOpenInventory()
+        assert nbt.get(&#34;container type&#34;).startswith(&#34;chest-&#34;)
+        return {
+                &#34;chest-1&#34;: Chest1Inventory, &#34;chest-2&#34;:Chest2Inventory, &#34;chest-3&#34;: Chest3Inventory, &#34;chest-4&#34;: Chest4Inventory, &#34;chest-5&#34;: Chest5Inventory, &#34;chest-6&#34;: Chest6Inventory
+        }[nbt.get(&#34;container type&#34;)](self.client, nbt)</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenCraftingTable"><code class="name flex">
+<span>def <span class="ident">getOpenCraftingTable</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.CraftingInventory" href="#mcbotit.inventoryHelper.CraftingInventory">CraftingInventory</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenCraftingTable(self) -&gt; CraftingInventory:
+        return CraftingInventory(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenEnchantmentTable"><code class="name flex">
+<span>def <span class="ident">getOpenEnchantmentTable</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.EnchantmentTable" href="#mcbotit.inventoryHelper.EnchantmentTable">EnchantmentTable</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenEnchantmentTable(self) -&gt; EnchantmentTable: 
+        return EnchantmentTable(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenFurnace"><code class="name flex">
+<span>def <span class="ident">getOpenFurnace</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.FurnaceInventory" href="#mcbotit.inventoryHelper.FurnaceInventory">FurnaceInventory</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenFurnace(self) -&gt; FurnaceInventory:
+        return FurnaceInventory(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenGrindstone"><code class="name flex">
+<span>def <span class="ident">getOpenGrindstone</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.Grindstone" href="#mcbotit.inventoryHelper.Grindstone">Grindstone</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenGrindstone(self) -&gt; Grindstone:
+        return Grindstone(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenHopper"><code class="name flex">
+<span>def <span class="ident">getOpenHopper</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.Hopper" href="#mcbotit.inventoryHelper.Hopper">Hopper</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenHopper(self) -&gt; Hopper:
+        return Hopper(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenPlayerInventory"><code class="name flex">
+<span>def <span class="ident">getOpenPlayerInventory</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.PlayerInventory" href="#mcbotit.inventoryHelper.PlayerInventory">PlayerInventory</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenPlayerInventory(self) -&gt; PlayerInventory:    
+        return PlayerInventory(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenShulker"><code class="name flex">
+<span>def <span class="ident">getOpenShulker</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.ShulkerInventory" href="#mcbotit.inventoryHelper.ShulkerInventory">ShulkerInventory</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenShulker(self) -&gt; ShulkerInventory:
+        return ShulkerInventory(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenSmithingTable"><code class="name flex">
+<span>def <span class="ident">getOpenSmithingTable</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.SmithingTable" href="#mcbotit.inventoryHelper.SmithingTable">SmithingTable</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenSmithingTable(self) -&gt; SmithingTable:
+        return SmithingTable(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenSmoker"><code class="name flex">
+<span>def <span class="ident">getOpenSmoker</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.Smoker" href="#mcbotit.inventoryHelper.Smoker">Smoker</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenSmoker(self) -&gt; Smoker:
+        return Smoker(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.InventoryManager.getOpenVillagerInventory"><code class="name flex">
+<span>def <span class="ident">getOpenVillagerInventory</span></span>(<span>self) ‑> <a title="mcbotit.inventoryHelper.VillagerInventory" href="#mcbotit.inventoryHelper.VillagerInventory">VillagerInventory</a></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenVillagerInventory(self) -&gt; VillagerInventory:
+        return VillagerInventory(self.client, self.client.getOpenInventory())</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory"><code class="flex name class">
+<span>class <span class="ident">PlayerInventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PlayerInventory(BaseInventory):
+        requiredType=&#34;other&#34;
+        playerInvEnd = 44
+        maxRows = 4
+        maxCols = 9
+
+        helmet : dict
+        chestplate : dict
+        leggings : dict
+        boots : dict
+        offhand : dict
+        craftingSlot1 : dict
+        craftingSlot2 : dict
+        craftingSlot3 : dict
+        craftingSlot4 : dict
+        craftingOutput : dict
+
+        def init(self):
+                self.helmet = self.getId(5)
+                self.chestplate = self.getId(6)
+                self.leggings = self.getId(7)
+                self.boots = self.getId(8)
+
+                self.offhand = self.getId(45)
+
+                self.craftingSlot1 = self.getId(1)
+                self.craftingSlot2 = self.getId(2)
+                self.craftingSlot3 = self.getId(3)
+                self.craftingSlot4 = self.getId(4)
+                self.craftingOutput = self.getId(0)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.boots"><code class="name">var <span class="ident">boots</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.chestplate"><code class="name">var <span class="ident">chestplate</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.craftingOutput"><code class="name">var <span class="ident">craftingOutput</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.craftingSlot1"><code class="name">var <span class="ident">craftingSlot1</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.craftingSlot2"><code class="name">var <span class="ident">craftingSlot2</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.craftingSlot3"><code class="name">var <span class="ident">craftingSlot3</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.craftingSlot4"><code class="name">var <span class="ident">craftingSlot4</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.helmet"><code class="name">var <span class="ident">helmet</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.leggings"><code class="name">var <span class="ident">leggings</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.offhand"><code class="name">var <span class="ident">offhand</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.PlayerInventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.ShulkerInventory"><code class="flex name class">
+<span>class <span class="ident">ShulkerInventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ShulkerInventory(Chest3Inventory):
+        requiredType=&#34;shulker&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Chest3Inventory" href="#mcbotit.inventoryHelper.Chest3Inventory">Chest3Inventory</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.ShulkerInventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.Chest3Inventory" href="#mcbotit.inventoryHelper.Chest3Inventory">Chest3Inventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.SmithingTable"><code class="flex name class">
+<span>class <span class="ident">SmithingTable</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SmithingTable(Anvil):
+        requiredType=&#34;smithing table&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.SmithingTable.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Smoker"><code class="flex name class">
+<span>class <span class="ident">Smoker</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Smoker(FurnaceInventory):
+        requiredType=&#34;smoker table&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.FurnaceInventory" href="#mcbotit.inventoryHelper.FurnaceInventory">FurnaceInventory</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Smoker.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.FurnaceInventory" href="#mcbotit.inventoryHelper.FurnaceInventory">FurnaceInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.VillagerInventory"><code class="flex name class">
+<span>class <span class="ident">VillagerInventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class VillagerInventory(Anvil):
+        requiredType = &#34;villager&#34;
+        def setTradeIndex(self, i):
+                &#34;&#34;&#34; Select the villagers strade bassed on index &#34;&#34;&#34;
+                self.client.setVillagerTrade(i)
+        def getTrades(self) -&gt; dict:
+                &#34;&#34;&#34;Gets the trades of the opened villager&#34;&#34;&#34;
+
+                return self.client.getVillagerTrades()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.VillagerInventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.VillagerInventory.getTrades"><code class="name flex">
+<span>def <span class="ident">getTrades</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the trades of the opened villager</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getTrades(self) -&gt; dict:
+        &#34;&#34;&#34;Gets the trades of the opened villager&#34;&#34;&#34;
+
+        return self.client.getVillagerTrades()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.VillagerInventory.setTradeIndex"><code class="name flex">
+<span>def <span class="ident">setTradeIndex</span></span>(<span>self, i)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Select the villagers strade bassed on index</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setTradeIndex(self, i):
+        &#34;&#34;&#34; Select the villagers strade bassed on index &#34;&#34;&#34;
+        self.client.setVillagerTrade(i)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory"><code class="flex name class">
+<span>class <span class="ident">X3Inventory</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class X3Inventory(BaseInventory):
+        maxRows=4
+        maxCols=9
+        playerInvEnd=44
+        requiredType=&#34;3x3&#34;
+
+        slot1 : dict
+        slot2 : dict
+        slot3 : dict
+        slot4 : dict
+        slot5 : dict
+        slot6 : dict
+        slot7 : dict
+        slot8 : dict
+        slot9 : dict
+        def init(self):
+                self.slot1 = self.getId(0)
+                self.slot2 = self.getId(1)
+                self.slot3 = self.getId(2)
+                self.slot4 = self.getId(3)
+                self.slot5 = self.getId(4)
+                self.slot6 = self.getId(5)
+                self.slot7 = self.getId(6)
+                self.slot8 = self.getId(7)
+                self.slot9 = self.getId(8)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.X3Inventory.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot1"><code class="name">var <span class="ident">slot1</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot2"><code class="name">var <span class="ident">slot2</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot3"><code class="name">var <span class="ident">slot3</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot4"><code class="name">var <span class="ident">slot4</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot5"><code class="name">var <span class="ident">slot5</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot6"><code class="name">var <span class="ident">slot6</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot7"><code class="name">var <span class="ident">slot7</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot8"><code class="name">var <span class="ident">slot8</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.inventoryHelper.X3Inventory.slot9"><code class="name">var <span class="ident">slot9</span> : dict</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mcbotit" href="index.html">mcbotit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.Anvil.input1" href="#mcbotit.inventoryHelper.Anvil.input1">input1</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.input2" href="#mcbotit.inventoryHelper.Anvil.input2">input2</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.maxCols" href="#mcbotit.inventoryHelper.Anvil.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.maxRows" href="#mcbotit.inventoryHelper.Anvil.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.output" href="#mcbotit.inventoryHelper.Anvil.output">output</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.playerInvEnd" href="#mcbotit.inventoryHelper.Anvil.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.requiredType" href="#mcbotit.inventoryHelper.Anvil.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.client" href="#mcbotit.inventoryHelper.BaseInventory.client">client</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.items" href="#mcbotit.inventoryHelper.BaseInventory.items">items</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.maxCols" href="#mcbotit.inventoryHelper.BaseInventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.maxRows" href="#mcbotit.inventoryHelper.BaseInventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.playerInvEnd" href="#mcbotit.inventoryHelper.BaseInventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.requiredType" href="#mcbotit.inventoryHelper.BaseInventory.requiredType">requiredType</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BaseInventory.serialize" href="#mcbotit.inventoryHelper.BaseInventory.serialize">serialize</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Beacon" href="#mcbotit.inventoryHelper.Beacon">Beacon</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Beacon.input" href="#mcbotit.inventoryHelper.Beacon.input">input</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Beacon.maxCols" href="#mcbotit.inventoryHelper.Beacon.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Beacon.maxRows" href="#mcbotit.inventoryHelper.Beacon.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Beacon.playerInvEnd" href="#mcbotit.inventoryHelper.Beacon.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Beacon.requiredType" href="#mcbotit.inventoryHelper.Beacon.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.BlastFurnace" href="#mcbotit.inventoryHelper.BlastFurnace">BlastFurnace</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.BlastFurnace.requiredType" href="#mcbotit.inventoryHelper.BlastFurnace.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.BrewingStand" href="#mcbotit.inventoryHelper.BrewingStand">BrewingStand</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.blazeSlot" href="#mcbotit.inventoryHelper.BrewingStand.blazeSlot">blazeSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.ingredientSlot" href="#mcbotit.inventoryHelper.BrewingStand.ingredientSlot">ingredientSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.maxCols" href="#mcbotit.inventoryHelper.BrewingStand.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.maxRows" href="#mcbotit.inventoryHelper.BrewingStand.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.playerInvEnd" href="#mcbotit.inventoryHelper.BrewingStand.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.potion1" href="#mcbotit.inventoryHelper.BrewingStand.potion1">potion1</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.potion2" href="#mcbotit.inventoryHelper.BrewingStand.potion2">potion2</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.potion3" href="#mcbotit.inventoryHelper.BrewingStand.potion3">potion3</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.BrewingStand.requiredType" href="#mcbotit.inventoryHelper.BrewingStand.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.CartographyTable" href="#mcbotit.inventoryHelper.CartographyTable">CartographyTable</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.CartographyTable.requiredType" href="#mcbotit.inventoryHelper.CartographyTable.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Chest1Inventory" href="#mcbotit.inventoryHelper.Chest1Inventory">Chest1Inventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Chest1Inventory.maxCols" href="#mcbotit.inventoryHelper.Chest1Inventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest1Inventory.maxRows" href="#mcbotit.inventoryHelper.Chest1Inventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest1Inventory.playerInvEnd" href="#mcbotit.inventoryHelper.Chest1Inventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest1Inventory.requiredType" href="#mcbotit.inventoryHelper.Chest1Inventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Chest2Inventory" href="#mcbotit.inventoryHelper.Chest2Inventory">Chest2Inventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Chest2Inventory.maxCols" href="#mcbotit.inventoryHelper.Chest2Inventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest2Inventory.maxRows" href="#mcbotit.inventoryHelper.Chest2Inventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest2Inventory.playerInvEnd" href="#mcbotit.inventoryHelper.Chest2Inventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest2Inventory.requiredType" href="#mcbotit.inventoryHelper.Chest2Inventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Chest3Inventory" href="#mcbotit.inventoryHelper.Chest3Inventory">Chest3Inventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.maxCols" href="#mcbotit.inventoryHelper.Chest3Inventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.maxRows" href="#mcbotit.inventoryHelper.Chest3Inventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.playerInvEnd" href="#mcbotit.inventoryHelper.Chest3Inventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest3Inventory.requiredType" href="#mcbotit.inventoryHelper.Chest3Inventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Chest4Inventory" href="#mcbotit.inventoryHelper.Chest4Inventory">Chest4Inventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Chest4Inventory.maxCols" href="#mcbotit.inventoryHelper.Chest4Inventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest4Inventory.maxRows" href="#mcbotit.inventoryHelper.Chest4Inventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest4Inventory.playerInvEnd" href="#mcbotit.inventoryHelper.Chest4Inventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest4Inventory.requiredType" href="#mcbotit.inventoryHelper.Chest4Inventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Chest5Inventory" href="#mcbotit.inventoryHelper.Chest5Inventory">Chest5Inventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Chest5Inventory.maxCols" href="#mcbotit.inventoryHelper.Chest5Inventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest5Inventory.maxRows" href="#mcbotit.inventoryHelper.Chest5Inventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest5Inventory.playerInvEnd" href="#mcbotit.inventoryHelper.Chest5Inventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest5Inventory.requiredType" href="#mcbotit.inventoryHelper.Chest5Inventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Chest6Inventory" href="#mcbotit.inventoryHelper.Chest6Inventory">Chest6Inventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Chest6Inventory.maxCols" href="#mcbotit.inventoryHelper.Chest6Inventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest6Inventory.maxRows" href="#mcbotit.inventoryHelper.Chest6Inventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest6Inventory.playerInvEnd" href="#mcbotit.inventoryHelper.Chest6Inventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Chest6Inventory.requiredType" href="#mcbotit.inventoryHelper.Chest6Inventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.CraftingInventory" href="#mcbotit.inventoryHelper.CraftingInventory">CraftingInventory</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot1" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot1">craftingSlot1</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot2" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot2">craftingSlot2</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot3" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot3">craftingSlot3</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot4" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot4">craftingSlot4</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot5" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot5">craftingSlot5</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot6" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot6">craftingSlot6</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot7" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot7">craftingSlot7</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot8" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot8">craftingSlot8</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.craftingSlot9" href="#mcbotit.inventoryHelper.CraftingInventory.craftingSlot9">craftingSlot9</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.maxCols" href="#mcbotit.inventoryHelper.CraftingInventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.maxRows" href="#mcbotit.inventoryHelper.CraftingInventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.output" href="#mcbotit.inventoryHelper.CraftingInventory.output">output</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.playerInvEnd" href="#mcbotit.inventoryHelper.CraftingInventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.CraftingInventory.requiredType" href="#mcbotit.inventoryHelper.CraftingInventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.EnchantmentTable" href="#mcbotit.inventoryHelper.EnchantmentTable">EnchantmentTable</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.inputSlot" href="#mcbotit.inventoryHelper.EnchantmentTable.inputSlot">inputSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.lapisSlot" href="#mcbotit.inventoryHelper.EnchantmentTable.lapisSlot">lapisSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.maxCols" href="#mcbotit.inventoryHelper.EnchantmentTable.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.maxRows" href="#mcbotit.inventoryHelper.EnchantmentTable.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.pickEnchantment" href="#mcbotit.inventoryHelper.EnchantmentTable.pickEnchantment">pickEnchantment</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.playerInvEnd" href="#mcbotit.inventoryHelper.EnchantmentTable.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.requiredType" href="#mcbotit.inventoryHelper.EnchantmentTable.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.FurnaceInventory" href="#mcbotit.inventoryHelper.FurnaceInventory">FurnaceInventory</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.fuelSlot" href="#mcbotit.inventoryHelper.FurnaceInventory.fuelSlot">fuelSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.inputSlot" href="#mcbotit.inventoryHelper.FurnaceInventory.inputSlot">inputSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.maxCols" href="#mcbotit.inventoryHelper.FurnaceInventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.maxRows" href="#mcbotit.inventoryHelper.FurnaceInventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.output" href="#mcbotit.inventoryHelper.FurnaceInventory.output">output</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.playerInvEnd" href="#mcbotit.inventoryHelper.FurnaceInventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.FurnaceInventory.requiredType" href="#mcbotit.inventoryHelper.FurnaceInventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Grindstone" href="#mcbotit.inventoryHelper.Grindstone">Grindstone</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Grindstone.requiredType" href="#mcbotit.inventoryHelper.Grindstone.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Hopper" href="#mcbotit.inventoryHelper.Hopper">Hopper</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.Hopper.maxCols" href="#mcbotit.inventoryHelper.Hopper.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.maxRows" href="#mcbotit.inventoryHelper.Hopper.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.playerInvEnd" href="#mcbotit.inventoryHelper.Hopper.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.requiredType" href="#mcbotit.inventoryHelper.Hopper.requiredType">requiredType</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.slot1" href="#mcbotit.inventoryHelper.Hopper.slot1">slot1</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.slot2" href="#mcbotit.inventoryHelper.Hopper.slot2">slot2</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.slot3" href="#mcbotit.inventoryHelper.Hopper.slot3">slot3</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.slot4" href="#mcbotit.inventoryHelper.Hopper.slot4">slot4</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Hopper.slot5" href="#mcbotit.inventoryHelper.Hopper.slot5">slot5</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.InventoryManager" href="#mcbotit.inventoryHelper.InventoryManager">InventoryManager</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpen3by3" href="#mcbotit.inventoryHelper.InventoryManager.getOpen3by3">getOpen3by3</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenAnvil" href="#mcbotit.inventoryHelper.InventoryManager.getOpenAnvil">getOpenAnvil</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenBeacon" href="#mcbotit.inventoryHelper.InventoryManager.getOpenBeacon">getOpenBeacon</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenBlastFurnace" href="#mcbotit.inventoryHelper.InventoryManager.getOpenBlastFurnace">getOpenBlastFurnace</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenBrewingStand" href="#mcbotit.inventoryHelper.InventoryManager.getOpenBrewingStand">getOpenBrewingStand</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenCartographyTable" href="#mcbotit.inventoryHelper.InventoryManager.getOpenCartographyTable">getOpenCartographyTable</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenChest" href="#mcbotit.inventoryHelper.InventoryManager.getOpenChest">getOpenChest</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenCraftingTable" href="#mcbotit.inventoryHelper.InventoryManager.getOpenCraftingTable">getOpenCraftingTable</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenEnchantmentTable" href="#mcbotit.inventoryHelper.InventoryManager.getOpenEnchantmentTable">getOpenEnchantmentTable</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenFurnace" href="#mcbotit.inventoryHelper.InventoryManager.getOpenFurnace">getOpenFurnace</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenGrindstone" href="#mcbotit.inventoryHelper.InventoryManager.getOpenGrindstone">getOpenGrindstone</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenHopper" href="#mcbotit.inventoryHelper.InventoryManager.getOpenHopper">getOpenHopper</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenPlayerInventory" href="#mcbotit.inventoryHelper.InventoryManager.getOpenPlayerInventory">getOpenPlayerInventory</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenShulker" href="#mcbotit.inventoryHelper.InventoryManager.getOpenShulker">getOpenShulker</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenSmithingTable" href="#mcbotit.inventoryHelper.InventoryManager.getOpenSmithingTable">getOpenSmithingTable</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenSmoker" href="#mcbotit.inventoryHelper.InventoryManager.getOpenSmoker">getOpenSmoker</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.InventoryManager.getOpenVillagerInventory" href="#mcbotit.inventoryHelper.InventoryManager.getOpenVillagerInventory">getOpenVillagerInventory</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.PlayerInventory" href="#mcbotit.inventoryHelper.PlayerInventory">PlayerInventory</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.boots" href="#mcbotit.inventoryHelper.PlayerInventory.boots">boots</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.chestplate" href="#mcbotit.inventoryHelper.PlayerInventory.chestplate">chestplate</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.craftingOutput" href="#mcbotit.inventoryHelper.PlayerInventory.craftingOutput">craftingOutput</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.craftingSlot1" href="#mcbotit.inventoryHelper.PlayerInventory.craftingSlot1">craftingSlot1</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.craftingSlot2" href="#mcbotit.inventoryHelper.PlayerInventory.craftingSlot2">craftingSlot2</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.craftingSlot3" href="#mcbotit.inventoryHelper.PlayerInventory.craftingSlot3">craftingSlot3</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.craftingSlot4" href="#mcbotit.inventoryHelper.PlayerInventory.craftingSlot4">craftingSlot4</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.helmet" href="#mcbotit.inventoryHelper.PlayerInventory.helmet">helmet</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.leggings" href="#mcbotit.inventoryHelper.PlayerInventory.leggings">leggings</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.maxCols" href="#mcbotit.inventoryHelper.PlayerInventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.maxRows" href="#mcbotit.inventoryHelper.PlayerInventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.offhand" href="#mcbotit.inventoryHelper.PlayerInventory.offhand">offhand</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.playerInvEnd" href="#mcbotit.inventoryHelper.PlayerInventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.PlayerInventory.requiredType" href="#mcbotit.inventoryHelper.PlayerInventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.ShulkerInventory" href="#mcbotit.inventoryHelper.ShulkerInventory">ShulkerInventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.ShulkerInventory.requiredType" href="#mcbotit.inventoryHelper.ShulkerInventory.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.SmithingTable" href="#mcbotit.inventoryHelper.SmithingTable">SmithingTable</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.SmithingTable.requiredType" href="#mcbotit.inventoryHelper.SmithingTable.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Smoker" href="#mcbotit.inventoryHelper.Smoker">Smoker</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Smoker.requiredType" href="#mcbotit.inventoryHelper.Smoker.requiredType">requiredType</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.VillagerInventory" href="#mcbotit.inventoryHelper.VillagerInventory">VillagerInventory</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.VillagerInventory.getTrades" href="#mcbotit.inventoryHelper.VillagerInventory.getTrades">getTrades</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.VillagerInventory.requiredType" href="#mcbotit.inventoryHelper.VillagerInventory.requiredType">requiredType</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.VillagerInventory.setTradeIndex" href="#mcbotit.inventoryHelper.VillagerInventory.setTradeIndex">setTradeIndex</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.X3Inventory" href="#mcbotit.inventoryHelper.X3Inventory">X3Inventory</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.maxCols" href="#mcbotit.inventoryHelper.X3Inventory.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.maxRows" href="#mcbotit.inventoryHelper.X3Inventory.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.playerInvEnd" href="#mcbotit.inventoryHelper.X3Inventory.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.requiredType" href="#mcbotit.inventoryHelper.X3Inventory.requiredType">requiredType</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot1" href="#mcbotit.inventoryHelper.X3Inventory.slot1">slot1</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot2" href="#mcbotit.inventoryHelper.X3Inventory.slot2">slot2</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot3" href="#mcbotit.inventoryHelper.X3Inventory.slot3">slot3</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot4" href="#mcbotit.inventoryHelper.X3Inventory.slot4">slot4</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot5" href="#mcbotit.inventoryHelper.X3Inventory.slot5">slot5</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot6" href="#mcbotit.inventoryHelper.X3Inventory.slot6">slot6</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot7" href="#mcbotit.inventoryHelper.X3Inventory.slot7">slot7</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot8" href="#mcbotit.inventoryHelper.X3Inventory.slot8">slot8</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.X3Inventory.slot9" href="#mcbotit.inventoryHelper.X3Inventory.slot9">slot9</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

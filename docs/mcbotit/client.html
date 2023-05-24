@@ -1,0 +1,1382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>mcbotit.client API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>mcbotit.client</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import socket, threading, time, json, io, enum
+import python_nbt.nbt as nbt
+END_TOKEN  = b&#34;This is the ending text of the nbt stream1234567899876543210\x00\x00\x00\x00&#34;
+def read_from_nbt_file(_file) -&gt; nbt.TAG:
+    &#34;&#34;&#34;
+        Read NBTTagCompound from a NBT packet   thanks to https://github.com/TowardtheStars/Python-NBT/blob/master/python_nbt/nbt.py
+        &#34;&#34;&#34;
+    _file = io.BytesIO(_file)
+    _type = nbt.NBTTagByte(buffer=_file).value
+    _name = nbt.NBTTagString(buffer=_file).value
+    return nbt.TAGLIST[_type](buffer=_file)
+
+def handlePackets(packet, client, appendHandler):
+        appendHandler(packet, client)
+
+class InputKeys(enum.Enum):
+        FORWARD = &#34;forward&#34;
+        BACKWORD = &#34;back&#34;
+        LEFT = &#34;left&#34;
+        RIGHT = &#34;right&#34;
+        SNEAK = &#34;sneak&#34;
+        LEFT_CLICK = &#34;left click&#34;
+        RIGHT_CLICK = &#34;right click&#34;
+
+
+
+class Client(threading.Thread):
+        &#34;&#34;&#34; Base Client, just connects and allows you to send packets, nothing special here. Only use through the Player class&#34;&#34;&#34;
+
+
+        def __init__(self, pingTime: float, port: int, packetHandler = None, appendHandler=None):
+                assert not(appendHandler is not None and packetHandler is not None)
+                self.appendHandler = appendHandler
+                if packetHandler is None: packetHandler = lambda x, y: handlePackets(x, y, self.appendHandler)
+                self.packetHandler = packetHandler
+                
+
+
+                self.withStatementDeph = 0
+                self.pingTime = pingTime
+                self.socket = socket.create_connection((&#34;127.0.0.1&#34;, port))
+                self.running = True
+
+
+                self.stealControl = False
+                self.hasControl = False
+
+                self.send = lambda x: self.socket.sendall(json.dumps(x).encode(&#34;utf-8&#34;)+b&#34;\n&#34;)
+                self.recv = lambda x: [json.loads(b.decode(&#34;utf-8&#34;)) for b in self.socket.recv(x).split(b&#34;\n&#34;) if len(b)]
+
+                threading.Thread.__init__(self)
+                self.start()
+
+        def run(self):
+                &#34;&#34;&#34; Don&#39;t call me&#34;&#34;&#34;
+                
+                while self.running: 
+                        if self.stealControl:
+                                self.hasControl = True
+                                while self.hasControl:
+                                        time.sleep(self.pingTime/4)
+                        else:
+                                self.send({&#34;cmd&#34;: &#34;keep alive&#34;})
+
+                                for resp in self.recv(1024*1024):
+                                        self.packetHandler(resp, self)
+                                time.sleep(self.pingTime)
+
+
+
+        def __enter__(self):
+                self.withStatementDeph+=1
+                if self.withStatementDeph == 1:
+                        self.stealControl = True
+                        while not self.hasControl:
+                                time.sleep(self.pingTime/3)
+
+        def __exit__(self, *_):
+                self.withStatementDeph-=1
+                if self.withStatementDeph == 0:
+                        self.stealControl = False
+                        self.hasControl = False
+
+        def kill(self):
+                self.running = False
+                self.join()
+
+        def wait(self):
+                &#34;&#34;&#34;Wait for all workers to finish&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;wait for workers&#34;})
+                        for r in self.recv(1024):
+                                if &#34;job&#34; in r:
+                                        return
+                                elif &#34;err&#34; in r:
+                                        raise Exception(str(r))
+
+
+        def disconnect(self):
+                self.send({&#34;cmd&#34;: &#34;disconnect&#34;})
+
+
+        def displayChatMessage(self, msg):
+                &#34;&#34;&#34;Shows the user a client side message&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;print to chat&#34;, &#34;msg&#34;: msg})
+
+        def sendPublicChatMessage(self, msg):
+                self.send({&#34;cmd&#34;: &#34;send public chat message&#34;, &#34;msg&#34;: msg})
+
+        def clearCommandHooks(self):
+                self.send({&#34;cmd&#34;: &#34;clear registered game commands&#34;})
+        def removeCommand(self, cmd):
+                self.send({&#34;cmd&#34;: &#34;remove registered game command&#34;, &#34;command&#34;: cmd})
+        def listCommands(self):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get registered game commands&#34;})
+                        return self.recv(1024*1024)
+        def holdFor(self, key, delay = 0.1, wait=True):
+                assert type(key) is InputKeys
+                
+                self.send({&#34;cmd&#34;: &#34;hold button for time&#34;, &#34;key&#34;: key.value, &#34;delay&#34;: int(delay*1000)})
+                if wait: self.wait()
+        def keyDown(self, key):
+                assert type(key) is InputKeys
+                self.send({&#34;cmd&#34;: &#34;hold button&#34;, &#34;key&#34;: key.value})
+        def keyUp(self, key):
+                assert type(key) is InputKeys
+                self.send({&#34;cmd&#34;: &#34;release button&#34;, &#34;key&#34;: key.value})
+        def clearKeys(self):
+                self.send({&#34;cmd&#34;: &#34;release all buttons&#34;})
+
+
+        def rotate(self, pitch, yaw, speed=0.6, wait=True):
+                &#34;&#34;&#34;Smoothly rotates player&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;realistic rot&#34;,&#34;time_per_90&#34;:speed, &#34;pitch&#34;: pitch, &#34;yaw&#34;:yaw})
+                if wait:
+                        self.wait()
+
+
+                                
+        def useItem(self):
+                &#34;&#34;&#34;Use item? Uses buckets but not some other items&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;use item&#34;})
+        
+        def rightClickBlock(self):
+                &#34;&#34;&#34;Do things like open chests&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;right click block&#34;})
+
+        
+        def place(self, x, y, z, slot, speed=0.6, wait=True):
+                &#34;&#34;&#34;Places item from HOTBAR slot&#34;&#34;&#34;
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;normal place&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;slot&#34;:slot-1, &#34;time_per_90&#34;: speed})
+                        if wait: self.wait()
+
+
+        
+        def printerPlace(self, x, y, z, slot):
+                &#34;&#34;&#34;Places item from HOTBAR slot, WARNING: might get you banned&#34;&#34;&#34;
+
+                self.send({&#34;cmd&#34;: &#34;printer place&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;slot&#34;:slot-1})
+
+        
+        def mine(self, x, y, z,speed, wait=True):
+                &#34;&#34;&#34;Mines block&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;normal break&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;time_per_90&#34;: speed})
+                        if wait: self.wait()
+        def setHotbarSlot(self, slot):
+                self.send({&#34;cmd&#34;: &#34;set hotbar slot&#34;, &#34;slot&#34;: slot-1})
+        
+        def goto(self, x, y, z, wait=True):
+                &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone goto normal&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                        if wait: self.wait()
+        
+        def gotoOnlyWalk(self, x, y, z, wait=True):
+                &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone goto only walk&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                        if wait: self.wait()
+        
+        def baritoneMine(self, x, y, z, wait=True):
+                &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone break&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                        if wait: self.wait()
+        
+        def baritonePlace(self, x, y, z, id):
+                &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone place block&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;id&#34;:id})
+
+        
+        def openEntity(self):
+                &#34;&#34;&#34;Right click entity, used for villagers&#34;&#34;&#34;
+
+                self.send({&#34;cmd&#34;: &#34;interact with entity&#34;, &#34;type&#34;: &#34;open&#34;})
+        
+        def closeScreen(self):
+                self.send({&#34;cmd&#34;: &#34;close current screen&#34;})
+        # Punch entity
+        def hitEntity(self):
+                self.send({&#34;cmd&#34;: &#34;interact with entity&#34;, &#34;type&#34;: &#34;hit&#34;})
+        def jump(self):
+                self.send({&#34;cmd&#34;: &#34;jump&#34;})
+        def enableElytra(self):
+                self.send({&#34;cmd&#34;: &#34;start fall flying&#34;})
+        
+        def lookTowardBlock(self, x, y, z, speed=0.6, wait=True):
+                &#34;&#34;&#34;Look at block location, good for villagers, a block does NOT need to exist there, so it CAN be used to look at entity at a location&#34;&#34;&#34;
+
+                rot = None
+                with self:
+                        self.send({&#34;cmd&#34;:&#34;get rotation to get to block&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;:z})
+                        rot = self.recv(1024)[0]
+                        self.rotate(rot[&#34;pitch&#34;], rot[&#34;yaw&#34;], speed=speed, wait=wait)
+
+
+        
+        def getPlayerInfo(self):
+                &#34;&#34;&#34;Get player location and other stats&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;:&#34;get player info&#34;})
+                        return self.recv(2048)[0]
+        
+        def getPlayerInventory(self):
+                &#34;&#34;&#34;Gets player inventory and decodes the nbt&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get player inventory&#34;})
+                        return self.readNbt()
+        
+        def getOpenInventory(self):
+                &#34;&#34;&#34;Gets the slot data for an open inventory. WARNING, this packet my give you stange results, using a helper class is recommended&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get open inventory&#34;})
+                        return self.readNbt()
+
+        def getBlock(self, x, y, z):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get block&#34;, &#34;x&#34;: x, &#34;y&#34;: y, &#34;z&#34;: z})
+                        return self.readNbt()
+
+        def getVillagerTrades(self):
+                with self:
+                        self.send({&#34;cmd&#34;:&#34;get villager trade info&#34;})
+                        return self.readNbt()
+        def setVillagerTrade(self, id):
+                &#34;&#34;&#34; Selects a villagers trade based on index&#34;&#34;&#34;
+
+                self.send({&#34;cmd&#34;:&#34;set villager trade&#34;, &#34;slot&#34;: id})
+
+
+        
+        def clickInventoryButton(self, id):
+                &#34;&#34;&#34;See https://wiki.vg/Protocol#Click_Container_Button&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;click special inventory button&#34;, &#34;buttonId&#34;: id})
+
+        def readNbt(self):
+                bytez = b&#34;&#34;
+                while (b:=self.socket.recv(1024*1024*1024)):
+                        bytez+=b
+                        if bytez.endswith(END_TOKEN): 
+                                bytez=bytez[:-len(END_TOKEN)]
+                                break
+                return read_from_nbt_file(bytez).json_obj(full_json=False) 
+
+
+        def swapSlots(self, slot1, slot2, delay):
+                &#34;&#34;&#34;Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;swap slots&#34;, &#34;delay&#34;: int(delay*1000), &#34;slot1&#34;: slot1, &#34;slot2&#34;: slot2})</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="mcbotit.client.handlePackets"><code class="name flex">
+<span>def <span class="ident">handlePackets</span></span>(<span>packet, client, appendHandler)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handlePackets(packet, client, appendHandler):
+        appendHandler(packet, client)</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.read_from_nbt_file"><code class="name flex">
+<span>def <span class="ident">read_from_nbt_file</span></span>(<span>_file) ‑> python_nbt.nbt.NBTTagBase</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Read NBTTagCompound from a NBT packet
+thanks to <a href="https://github.com/TowardtheStars/Python-NBT/blob/master/python_nbt/nbt.py">https://github.com/TowardtheStars/Python-NBT/blob/master/python_nbt/nbt.py</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_from_nbt_file(_file) -&gt; nbt.TAG:
+    &#34;&#34;&#34;
+        Read NBTTagCompound from a NBT packet   thanks to https://github.com/TowardtheStars/Python-NBT/blob/master/python_nbt/nbt.py
+        &#34;&#34;&#34;
+    _file = io.BytesIO(_file)
+    _type = nbt.NBTTagByte(buffer=_file).value
+    _name = nbt.NBTTagString(buffer=_file).value
+    return nbt.TAGLIST[_type](buffer=_file)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="mcbotit.client.Client"><code class="flex name class">
+<span>class <span class="ident">Client</span></span>
+<span>(</span><span>pingTime: float, port: int, packetHandler=None, appendHandler=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base Client, just connects and allows you to send packets, nothing special here. Only use through the Player class</p>
+<p>This constructor should always be called with keyword arguments. Arguments are:</p>
+<p><em>group</em> should be None; reserved for future extension when a ThreadGroup
+class is implemented.</p>
+<p><em>target</em> is the callable object to be invoked by the run()
+method. Defaults to None, meaning nothing is called.</p>
+<p><em>name</em> is the thread name. By default, a unique name is constructed of
+the form "Thread-N" where N is a small decimal number.</p>
+<p><em>args</em> is the argument tuple for the target invocation. Defaults to ().</p>
+<p><em>kwargs</em> is a dictionary of keyword arguments for the target
+invocation. Defaults to {}.</p>
+<p>If a subclass overrides the constructor, it must make sure to invoke
+the base class constructor (Thread.<strong>init</strong>()) before doing anything
+else to the thread.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Client(threading.Thread):
+        &#34;&#34;&#34; Base Client, just connects and allows you to send packets, nothing special here. Only use through the Player class&#34;&#34;&#34;
+
+
+        def __init__(self, pingTime: float, port: int, packetHandler = None, appendHandler=None):
+                assert not(appendHandler is not None and packetHandler is not None)
+                self.appendHandler = appendHandler
+                if packetHandler is None: packetHandler = lambda x, y: handlePackets(x, y, self.appendHandler)
+                self.packetHandler = packetHandler
+                
+
+
+                self.withStatementDeph = 0
+                self.pingTime = pingTime
+                self.socket = socket.create_connection((&#34;127.0.0.1&#34;, port))
+                self.running = True
+
+
+                self.stealControl = False
+                self.hasControl = False
+
+                self.send = lambda x: self.socket.sendall(json.dumps(x).encode(&#34;utf-8&#34;)+b&#34;\n&#34;)
+                self.recv = lambda x: [json.loads(b.decode(&#34;utf-8&#34;)) for b in self.socket.recv(x).split(b&#34;\n&#34;) if len(b)]
+
+                threading.Thread.__init__(self)
+                self.start()
+
+        def run(self):
+                &#34;&#34;&#34; Don&#39;t call me&#34;&#34;&#34;
+                
+                while self.running: 
+                        if self.stealControl:
+                                self.hasControl = True
+                                while self.hasControl:
+                                        time.sleep(self.pingTime/4)
+                        else:
+                                self.send({&#34;cmd&#34;: &#34;keep alive&#34;})
+
+                                for resp in self.recv(1024*1024):
+                                        self.packetHandler(resp, self)
+                                time.sleep(self.pingTime)
+
+
+
+        def __enter__(self):
+                self.withStatementDeph+=1
+                if self.withStatementDeph == 1:
+                        self.stealControl = True
+                        while not self.hasControl:
+                                time.sleep(self.pingTime/3)
+
+        def __exit__(self, *_):
+                self.withStatementDeph-=1
+                if self.withStatementDeph == 0:
+                        self.stealControl = False
+                        self.hasControl = False
+
+        def kill(self):
+                self.running = False
+                self.join()
+
+        def wait(self):
+                &#34;&#34;&#34;Wait for all workers to finish&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;wait for workers&#34;})
+                        for r in self.recv(1024):
+                                if &#34;job&#34; in r:
+                                        return
+                                elif &#34;err&#34; in r:
+                                        raise Exception(str(r))
+
+
+        def disconnect(self):
+                self.send({&#34;cmd&#34;: &#34;disconnect&#34;})
+
+
+        def displayChatMessage(self, msg):
+                &#34;&#34;&#34;Shows the user a client side message&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;print to chat&#34;, &#34;msg&#34;: msg})
+
+        def sendPublicChatMessage(self, msg):
+                self.send({&#34;cmd&#34;: &#34;send public chat message&#34;, &#34;msg&#34;: msg})
+
+        def clearCommandHooks(self):
+                self.send({&#34;cmd&#34;: &#34;clear registered game commands&#34;})
+        def removeCommand(self, cmd):
+                self.send({&#34;cmd&#34;: &#34;remove registered game command&#34;, &#34;command&#34;: cmd})
+        def listCommands(self):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get registered game commands&#34;})
+                        return self.recv(1024*1024)
+        def holdFor(self, key, delay = 0.1, wait=True):
+                assert type(key) is InputKeys
+                
+                self.send({&#34;cmd&#34;: &#34;hold button for time&#34;, &#34;key&#34;: key.value, &#34;delay&#34;: int(delay*1000)})
+                if wait: self.wait()
+        def keyDown(self, key):
+                assert type(key) is InputKeys
+                self.send({&#34;cmd&#34;: &#34;hold button&#34;, &#34;key&#34;: key.value})
+        def keyUp(self, key):
+                assert type(key) is InputKeys
+                self.send({&#34;cmd&#34;: &#34;release button&#34;, &#34;key&#34;: key.value})
+        def clearKeys(self):
+                self.send({&#34;cmd&#34;: &#34;release all buttons&#34;})
+
+
+        def rotate(self, pitch, yaw, speed=0.6, wait=True):
+                &#34;&#34;&#34;Smoothly rotates player&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;realistic rot&#34;,&#34;time_per_90&#34;:speed, &#34;pitch&#34;: pitch, &#34;yaw&#34;:yaw})
+                if wait:
+                        self.wait()
+
+
+                                
+        def useItem(self):
+                &#34;&#34;&#34;Use item? Uses buckets but not some other items&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;use item&#34;})
+        
+        def rightClickBlock(self):
+                &#34;&#34;&#34;Do things like open chests&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;right click block&#34;})
+
+        
+        def place(self, x, y, z, slot, speed=0.6, wait=True):
+                &#34;&#34;&#34;Places item from HOTBAR slot&#34;&#34;&#34;
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;normal place&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;slot&#34;:slot-1, &#34;time_per_90&#34;: speed})
+                        if wait: self.wait()
+
+
+        
+        def printerPlace(self, x, y, z, slot):
+                &#34;&#34;&#34;Places item from HOTBAR slot, WARNING: might get you banned&#34;&#34;&#34;
+
+                self.send({&#34;cmd&#34;: &#34;printer place&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;slot&#34;:slot-1})
+
+        
+        def mine(self, x, y, z,speed, wait=True):
+                &#34;&#34;&#34;Mines block&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;normal break&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;time_per_90&#34;: speed})
+                        if wait: self.wait()
+        def setHotbarSlot(self, slot):
+                self.send({&#34;cmd&#34;: &#34;set hotbar slot&#34;, &#34;slot&#34;: slot-1})
+        
+        def goto(self, x, y, z, wait=True):
+                &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone goto normal&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                        if wait: self.wait()
+        
+        def gotoOnlyWalk(self, x, y, z, wait=True):
+                &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone goto only walk&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                        if wait: self.wait()
+        
+        def baritoneMine(self, x, y, z, wait=True):
+                &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone break&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                        if wait: self.wait()
+        
+        def baritonePlace(self, x, y, z, id):
+                &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;baritone place block&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;id&#34;:id})
+
+        
+        def openEntity(self):
+                &#34;&#34;&#34;Right click entity, used for villagers&#34;&#34;&#34;
+
+                self.send({&#34;cmd&#34;: &#34;interact with entity&#34;, &#34;type&#34;: &#34;open&#34;})
+        
+        def closeScreen(self):
+                self.send({&#34;cmd&#34;: &#34;close current screen&#34;})
+        # Punch entity
+        def hitEntity(self):
+                self.send({&#34;cmd&#34;: &#34;interact with entity&#34;, &#34;type&#34;: &#34;hit&#34;})
+        def jump(self):
+                self.send({&#34;cmd&#34;: &#34;jump&#34;})
+        def enableElytra(self):
+                self.send({&#34;cmd&#34;: &#34;start fall flying&#34;})
+        
+        def lookTowardBlock(self, x, y, z, speed=0.6, wait=True):
+                &#34;&#34;&#34;Look at block location, good for villagers, a block does NOT need to exist there, so it CAN be used to look at entity at a location&#34;&#34;&#34;
+
+                rot = None
+                with self:
+                        self.send({&#34;cmd&#34;:&#34;get rotation to get to block&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;:z})
+                        rot = self.recv(1024)[0]
+                        self.rotate(rot[&#34;pitch&#34;], rot[&#34;yaw&#34;], speed=speed, wait=wait)
+
+
+        
+        def getPlayerInfo(self):
+                &#34;&#34;&#34;Get player location and other stats&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;:&#34;get player info&#34;})
+                        return self.recv(2048)[0]
+        
+        def getPlayerInventory(self):
+                &#34;&#34;&#34;Gets player inventory and decodes the nbt&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get player inventory&#34;})
+                        return self.readNbt()
+        
+        def getOpenInventory(self):
+                &#34;&#34;&#34;Gets the slot data for an open inventory. WARNING, this packet my give you stange results, using a helper class is recommended&#34;&#34;&#34;
+
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get open inventory&#34;})
+                        return self.readNbt()
+
+        def getBlock(self, x, y, z):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get block&#34;, &#34;x&#34;: x, &#34;y&#34;: y, &#34;z&#34;: z})
+                        return self.readNbt()
+
+        def getVillagerTrades(self):
+                with self:
+                        self.send({&#34;cmd&#34;:&#34;get villager trade info&#34;})
+                        return self.readNbt()
+        def setVillagerTrade(self, id):
+                &#34;&#34;&#34; Selects a villagers trade based on index&#34;&#34;&#34;
+
+                self.send({&#34;cmd&#34;:&#34;set villager trade&#34;, &#34;slot&#34;: id})
+
+
+        
+        def clickInventoryButton(self, id):
+                &#34;&#34;&#34;See https://wiki.vg/Protocol#Click_Container_Button&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;click special inventory button&#34;, &#34;buttonId&#34;: id})
+
+        def readNbt(self):
+                bytez = b&#34;&#34;
+                while (b:=self.socket.recv(1024*1024*1024)):
+                        bytez+=b
+                        if bytez.endswith(END_TOKEN): 
+                                bytez=bytez[:-len(END_TOKEN)]
+                                break
+                return read_from_nbt_file(bytez).json_obj(full_json=False) 
+
+
+        def swapSlots(self, slot1, slot2, delay):
+                &#34;&#34;&#34;Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended&#34;&#34;&#34;
+                self.send({&#34;cmd&#34;: &#34;swap slots&#34;, &#34;delay&#34;: int(delay*1000), &#34;slot1&#34;: slot1, &#34;slot2&#34;: slot2})</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>threading.Thread</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="mcbotit.client.Client.baritoneMine"><code class="name flex">
+<span>def <span class="ident">baritoneMine</span></span>(<span>self, x, y, z, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tells baritone to mine a block, not stable in all situations</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def baritoneMine(self, x, y, z, wait=True):
+        &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;: &#34;baritone break&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                if wait: self.wait()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.baritonePlace"><code class="name flex">
+<span>def <span class="ident">baritonePlace</span></span>(<span>self, x, y, z, id)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Tells baritone to place a block, not stable in all situations</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def baritonePlace(self, x, y, z, id):
+        &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;: &#34;baritone place block&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;id&#34;:id})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.clearCommandHooks"><code class="name flex">
+<span>def <span class="ident">clearCommandHooks</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clearCommandHooks(self):
+        self.send({&#34;cmd&#34;: &#34;clear registered game commands&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.clearKeys"><code class="name flex">
+<span>def <span class="ident">clearKeys</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clearKeys(self):
+        self.send({&#34;cmd&#34;: &#34;release all buttons&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.clickInventoryButton"><code class="name flex">
+<span>def <span class="ident">clickInventoryButton</span></span>(<span>self, id)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>See <a href="https://wiki.vg/Protocol#Click_Container_Button">https://wiki.vg/Protocol#Click_Container_Button</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clickInventoryButton(self, id):
+        &#34;&#34;&#34;See https://wiki.vg/Protocol#Click_Container_Button&#34;&#34;&#34;
+        self.send({&#34;cmd&#34;: &#34;click special inventory button&#34;, &#34;buttonId&#34;: id})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.closeScreen"><code class="name flex">
+<span>def <span class="ident">closeScreen</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def closeScreen(self):
+        self.send({&#34;cmd&#34;: &#34;close current screen&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.disconnect"><code class="name flex">
+<span>def <span class="ident">disconnect</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def disconnect(self):
+        self.send({&#34;cmd&#34;: &#34;disconnect&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.displayChatMessage"><code class="name flex">
+<span>def <span class="ident">displayChatMessage</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shows the user a client side message</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def displayChatMessage(self, msg):
+        &#34;&#34;&#34;Shows the user a client side message&#34;&#34;&#34;
+        self.send({&#34;cmd&#34;: &#34;print to chat&#34;, &#34;msg&#34;: msg})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.enableElytra"><code class="name flex">
+<span>def <span class="ident">enableElytra</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enableElytra(self):
+        self.send({&#34;cmd&#34;: &#34;start fall flying&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.getBlock"><code class="name flex">
+<span>def <span class="ident">getBlock</span></span>(<span>self, x, y, z)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getBlock(self, x, y, z):
+        with self:
+                self.send({&#34;cmd&#34;: &#34;get block&#34;, &#34;x&#34;: x, &#34;y&#34;: y, &#34;z&#34;: z})
+                return self.readNbt()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.getOpenInventory"><code class="name flex">
+<span>def <span class="ident">getOpenInventory</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets the slot data for an open inventory. WARNING, this packet my give you stange results, using a helper class is recommended</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getOpenInventory(self):
+        &#34;&#34;&#34;Gets the slot data for an open inventory. WARNING, this packet my give you stange results, using a helper class is recommended&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;: &#34;get open inventory&#34;})
+                return self.readNbt()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.getPlayerInfo"><code class="name flex">
+<span>def <span class="ident">getPlayerInfo</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get player location and other stats</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getPlayerInfo(self):
+        &#34;&#34;&#34;Get player location and other stats&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;:&#34;get player info&#34;})
+                return self.recv(2048)[0]</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.getPlayerInventory"><code class="name flex">
+<span>def <span class="ident">getPlayerInventory</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gets player inventory and decodes the nbt</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getPlayerInventory(self):
+        &#34;&#34;&#34;Gets player inventory and decodes the nbt&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;: &#34;get player inventory&#34;})
+                return self.readNbt()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.getVillagerTrades"><code class="name flex">
+<span>def <span class="ident">getVillagerTrades</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getVillagerTrades(self):
+        with self:
+                self.send({&#34;cmd&#34;:&#34;get villager trade info&#34;})
+                return self.readNbt()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.goto"><code class="name flex">
+<span>def <span class="ident">goto</span></span>(<span>self, x, y, z, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Use baritone to path to locations</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def goto(self, x, y, z, wait=True):
+        &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+        with self:
+                self.send({&#34;cmd&#34;: &#34;baritone goto normal&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                if wait: self.wait()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.gotoOnlyWalk"><code class="name flex">
+<span>def <span class="ident">gotoOnlyWalk</span></span>(<span>self, x, y, z, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def gotoOnlyWalk(self, x, y, z, wait=True):
+        &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;: &#34;baritone goto only walk&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z})
+                if wait: self.wait()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.hitEntity"><code class="name flex">
+<span>def <span class="ident">hitEntity</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hitEntity(self):
+        self.send({&#34;cmd&#34;: &#34;interact with entity&#34;, &#34;type&#34;: &#34;hit&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.holdFor"><code class="name flex">
+<span>def <span class="ident">holdFor</span></span>(<span>self, key, delay=0.1, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def holdFor(self, key, delay = 0.1, wait=True):
+        assert type(key) is InputKeys
+        
+        self.send({&#34;cmd&#34;: &#34;hold button for time&#34;, &#34;key&#34;: key.value, &#34;delay&#34;: int(delay*1000)})
+        if wait: self.wait()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.jump"><code class="name flex">
+<span>def <span class="ident">jump</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def jump(self):
+        self.send({&#34;cmd&#34;: &#34;jump&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.keyDown"><code class="name flex">
+<span>def <span class="ident">keyDown</span></span>(<span>self, key)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def keyDown(self, key):
+        assert type(key) is InputKeys
+        self.send({&#34;cmd&#34;: &#34;hold button&#34;, &#34;key&#34;: key.value})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.keyUp"><code class="name flex">
+<span>def <span class="ident">keyUp</span></span>(<span>self, key)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def keyUp(self, key):
+        assert type(key) is InputKeys
+        self.send({&#34;cmd&#34;: &#34;release button&#34;, &#34;key&#34;: key.value})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.kill"><code class="name flex">
+<span>def <span class="ident">kill</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def kill(self):
+        self.running = False
+        self.join()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.listCommands"><code class="name flex">
+<span>def <span class="ident">listCommands</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def listCommands(self):
+        with self:
+                self.send({&#34;cmd&#34;: &#34;get registered game commands&#34;})
+                return self.recv(1024*1024)</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.lookTowardBlock"><code class="name flex">
+<span>def <span class="ident">lookTowardBlock</span></span>(<span>self, x, y, z, speed=0.6, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Look at block location, good for villagers, a block does NOT need to exist there, so it CAN be used to look at entity at a location</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lookTowardBlock(self, x, y, z, speed=0.6, wait=True):
+        &#34;&#34;&#34;Look at block location, good for villagers, a block does NOT need to exist there, so it CAN be used to look at entity at a location&#34;&#34;&#34;
+
+        rot = None
+        with self:
+                self.send({&#34;cmd&#34;:&#34;get rotation to get to block&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;:z})
+                rot = self.recv(1024)[0]
+                self.rotate(rot[&#34;pitch&#34;], rot[&#34;yaw&#34;], speed=speed, wait=wait)</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.mine"><code class="name flex">
+<span>def <span class="ident">mine</span></span>(<span>self, x, y, z, speed, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Mines block</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mine(self, x, y, z,speed, wait=True):
+        &#34;&#34;&#34;Mines block&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;: &#34;normal break&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;time_per_90&#34;: speed})
+                if wait: self.wait()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.openEntity"><code class="name flex">
+<span>def <span class="ident">openEntity</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Right click entity, used for villagers</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def openEntity(self):
+        &#34;&#34;&#34;Right click entity, used for villagers&#34;&#34;&#34;
+
+        self.send({&#34;cmd&#34;: &#34;interact with entity&#34;, &#34;type&#34;: &#34;open&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.place"><code class="name flex">
+<span>def <span class="ident">place</span></span>(<span>self, x, y, z, slot, speed=0.6, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Places item from HOTBAR slot</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def place(self, x, y, z, slot, speed=0.6, wait=True):
+        &#34;&#34;&#34;Places item from HOTBAR slot&#34;&#34;&#34;
+        with self:
+                self.send({&#34;cmd&#34;: &#34;normal place&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;slot&#34;:slot-1, &#34;time_per_90&#34;: speed})
+                if wait: self.wait()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.printerPlace"><code class="name flex">
+<span>def <span class="ident">printerPlace</span></span>(<span>self, x, y, z, slot)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Places item from HOTBAR slot, WARNING: might get you banned</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def printerPlace(self, x, y, z, slot):
+        &#34;&#34;&#34;Places item from HOTBAR slot, WARNING: might get you banned&#34;&#34;&#34;
+
+        self.send({&#34;cmd&#34;: &#34;printer place&#34;, &#34;x&#34;:x, &#34;y&#34;:y, &#34;z&#34;: z, &#34;slot&#34;:slot-1})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.readNbt"><code class="name flex">
+<span>def <span class="ident">readNbt</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def readNbt(self):
+        bytez = b&#34;&#34;
+        while (b:=self.socket.recv(1024*1024*1024)):
+                bytez+=b
+                if bytez.endswith(END_TOKEN): 
+                        bytez=bytez[:-len(END_TOKEN)]
+                        break
+        return read_from_nbt_file(bytez).json_obj(full_json=False) </code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.removeCommand"><code class="name flex">
+<span>def <span class="ident">removeCommand</span></span>(<span>self, cmd)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def removeCommand(self, cmd):
+        self.send({&#34;cmd&#34;: &#34;remove registered game command&#34;, &#34;command&#34;: cmd})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.rightClickBlock"><code class="name flex">
+<span>def <span class="ident">rightClickBlock</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Do things like open chests</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rightClickBlock(self):
+        &#34;&#34;&#34;Do things like open chests&#34;&#34;&#34;
+        self.send({&#34;cmd&#34;: &#34;right click block&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.rotate"><code class="name flex">
+<span>def <span class="ident">rotate</span></span>(<span>self, pitch, yaw, speed=0.6, wait=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Smoothly rotates player</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rotate(self, pitch, yaw, speed=0.6, wait=True):
+        &#34;&#34;&#34;Smoothly rotates player&#34;&#34;&#34;
+        self.send({&#34;cmd&#34;: &#34;realistic rot&#34;,&#34;time_per_90&#34;:speed, &#34;pitch&#34;: pitch, &#34;yaw&#34;:yaw})
+        if wait:
+                self.wait()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Don't call me</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self):
+        &#34;&#34;&#34; Don&#39;t call me&#34;&#34;&#34;
+        
+        while self.running: 
+                if self.stealControl:
+                        self.hasControl = True
+                        while self.hasControl:
+                                time.sleep(self.pingTime/4)
+                else:
+                        self.send({&#34;cmd&#34;: &#34;keep alive&#34;})
+
+                        for resp in self.recv(1024*1024):
+                                self.packetHandler(resp, self)
+                        time.sleep(self.pingTime)</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.sendPublicChatMessage"><code class="name flex">
+<span>def <span class="ident">sendPublicChatMessage</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sendPublicChatMessage(self, msg):
+        self.send({&#34;cmd&#34;: &#34;send public chat message&#34;, &#34;msg&#34;: msg})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.setHotbarSlot"><code class="name flex">
+<span>def <span class="ident">setHotbarSlot</span></span>(<span>self, slot)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setHotbarSlot(self, slot):
+        self.send({&#34;cmd&#34;: &#34;set hotbar slot&#34;, &#34;slot&#34;: slot-1})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.setVillagerTrade"><code class="name flex">
+<span>def <span class="ident">setVillagerTrade</span></span>(<span>self, id)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Selects a villagers trade based on index</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setVillagerTrade(self, id):
+        &#34;&#34;&#34; Selects a villagers trade based on index&#34;&#34;&#34;
+
+        self.send({&#34;cmd&#34;:&#34;set villager trade&#34;, &#34;slot&#34;: id})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.swapSlots"><code class="name flex">
+<span>def <span class="ident">swapSlots</span></span>(<span>self, slot1, slot2, delay)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def swapSlots(self, slot1, slot2, delay):
+        &#34;&#34;&#34;Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended&#34;&#34;&#34;
+        self.send({&#34;cmd&#34;: &#34;swap slots&#34;, &#34;delay&#34;: int(delay*1000), &#34;slot1&#34;: slot1, &#34;slot2&#34;: slot2})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.useItem"><code class="name flex">
+<span>def <span class="ident">useItem</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Use item? Uses buckets but not some other items</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def useItem(self):
+        &#34;&#34;&#34;Use item? Uses buckets but not some other items&#34;&#34;&#34;
+        self.send({&#34;cmd&#34;: &#34;use item&#34;})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.wait"><code class="name flex">
+<span>def <span class="ident">wait</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Wait for all workers to finish</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wait(self):
+        &#34;&#34;&#34;Wait for all workers to finish&#34;&#34;&#34;
+
+        with self:
+                self.send({&#34;cmd&#34;: &#34;wait for workers&#34;})
+                for r in self.recv(1024):
+                        if &#34;job&#34; in r:
+                                return
+                        elif &#34;err&#34; in r:
+                                raise Exception(str(r))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="mcbotit.client.InputKeys"><code class="flex name class">
+<span>class <span class="ident">InputKeys</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An enumeration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InputKeys(enum.Enum):
+        FORWARD = &#34;forward&#34;
+        BACKWORD = &#34;back&#34;
+        LEFT = &#34;left&#34;
+        RIGHT = &#34;right&#34;
+        SNEAK = &#34;sneak&#34;
+        LEFT_CLICK = &#34;left click&#34;
+        RIGHT_CLICK = &#34;right click&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.client.InputKeys.BACKWORD"><code class="name">var <span class="ident">BACKWORD</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.InputKeys.FORWARD"><code class="name">var <span class="ident">FORWARD</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.InputKeys.LEFT"><code class="name">var <span class="ident">LEFT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.InputKeys.LEFT_CLICK"><code class="name">var <span class="ident">LEFT_CLICK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.InputKeys.RIGHT"><code class="name">var <span class="ident">RIGHT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.InputKeys.RIGHT_CLICK"><code class="name">var <span class="ident">RIGHT_CLICK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.InputKeys.SNEAK"><code class="name">var <span class="ident">SNEAK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="mcbotit" href="index.html">mcbotit</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="mcbotit.client.handlePackets" href="#mcbotit.client.handlePackets">handlePackets</a></code></li>
+<li><code><a title="mcbotit.client.read_from_nbt_file" href="#mcbotit.client.read_from_nbt_file">read_from_nbt_file</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="mcbotit.client.Client" href="#mcbotit.client.Client">Client</a></code></h4>
+<ul class="">
+<li><code><a title="mcbotit.client.Client.baritoneMine" href="#mcbotit.client.Client.baritoneMine">baritoneMine</a></code></li>
+<li><code><a title="mcbotit.client.Client.baritonePlace" href="#mcbotit.client.Client.baritonePlace">baritonePlace</a></code></li>
+<li><code><a title="mcbotit.client.Client.clearCommandHooks" href="#mcbotit.client.Client.clearCommandHooks">clearCommandHooks</a></code></li>
+<li><code><a title="mcbotit.client.Client.clearKeys" href="#mcbotit.client.Client.clearKeys">clearKeys</a></code></li>
+<li><code><a title="mcbotit.client.Client.clickInventoryButton" href="#mcbotit.client.Client.clickInventoryButton">clickInventoryButton</a></code></li>
+<li><code><a title="mcbotit.client.Client.closeScreen" href="#mcbotit.client.Client.closeScreen">closeScreen</a></code></li>
+<li><code><a title="mcbotit.client.Client.disconnect" href="#mcbotit.client.Client.disconnect">disconnect</a></code></li>
+<li><code><a title="mcbotit.client.Client.displayChatMessage" href="#mcbotit.client.Client.displayChatMessage">displayChatMessage</a></code></li>
+<li><code><a title="mcbotit.client.Client.enableElytra" href="#mcbotit.client.Client.enableElytra">enableElytra</a></code></li>
+<li><code><a title="mcbotit.client.Client.getBlock" href="#mcbotit.client.Client.getBlock">getBlock</a></code></li>
+<li><code><a title="mcbotit.client.Client.getOpenInventory" href="#mcbotit.client.Client.getOpenInventory">getOpenInventory</a></code></li>
+<li><code><a title="mcbotit.client.Client.getPlayerInfo" href="#mcbotit.client.Client.getPlayerInfo">getPlayerInfo</a></code></li>
+<li><code><a title="mcbotit.client.Client.getPlayerInventory" href="#mcbotit.client.Client.getPlayerInventory">getPlayerInventory</a></code></li>
+<li><code><a title="mcbotit.client.Client.getVillagerTrades" href="#mcbotit.client.Client.getVillagerTrades">getVillagerTrades</a></code></li>
+<li><code><a title="mcbotit.client.Client.goto" href="#mcbotit.client.Client.goto">goto</a></code></li>
+<li><code><a title="mcbotit.client.Client.gotoOnlyWalk" href="#mcbotit.client.Client.gotoOnlyWalk">gotoOnlyWalk</a></code></li>
+<li><code><a title="mcbotit.client.Client.hitEntity" href="#mcbotit.client.Client.hitEntity">hitEntity</a></code></li>
+<li><code><a title="mcbotit.client.Client.holdFor" href="#mcbotit.client.Client.holdFor">holdFor</a></code></li>
+<li><code><a title="mcbotit.client.Client.jump" href="#mcbotit.client.Client.jump">jump</a></code></li>
+<li><code><a title="mcbotit.client.Client.keyDown" href="#mcbotit.client.Client.keyDown">keyDown</a></code></li>
+<li><code><a title="mcbotit.client.Client.keyUp" href="#mcbotit.client.Client.keyUp">keyUp</a></code></li>
+<li><code><a title="mcbotit.client.Client.kill" href="#mcbotit.client.Client.kill">kill</a></code></li>
+<li><code><a title="mcbotit.client.Client.listCommands" href="#mcbotit.client.Client.listCommands">listCommands</a></code></li>
+<li><code><a title="mcbotit.client.Client.lookTowardBlock" href="#mcbotit.client.Client.lookTowardBlock">lookTowardBlock</a></code></li>
+<li><code><a title="mcbotit.client.Client.mine" href="#mcbotit.client.Client.mine">mine</a></code></li>
+<li><code><a title="mcbotit.client.Client.openEntity" href="#mcbotit.client.Client.openEntity">openEntity</a></code></li>
+<li><code><a title="mcbotit.client.Client.place" href="#mcbotit.client.Client.place">place</a></code></li>
+<li><code><a title="mcbotit.client.Client.printerPlace" href="#mcbotit.client.Client.printerPlace">printerPlace</a></code></li>
+<li><code><a title="mcbotit.client.Client.readNbt" href="#mcbotit.client.Client.readNbt">readNbt</a></code></li>
+<li><code><a title="mcbotit.client.Client.removeCommand" href="#mcbotit.client.Client.removeCommand">removeCommand</a></code></li>
+<li><code><a title="mcbotit.client.Client.rightClickBlock" href="#mcbotit.client.Client.rightClickBlock">rightClickBlock</a></code></li>
+<li><code><a title="mcbotit.client.Client.rotate" href="#mcbotit.client.Client.rotate">rotate</a></code></li>
+<li><code><a title="mcbotit.client.Client.run" href="#mcbotit.client.Client.run">run</a></code></li>
+<li><code><a title="mcbotit.client.Client.sendPublicChatMessage" href="#mcbotit.client.Client.sendPublicChatMessage">sendPublicChatMessage</a></code></li>
+<li><code><a title="mcbotit.client.Client.setHotbarSlot" href="#mcbotit.client.Client.setHotbarSlot">setHotbarSlot</a></code></li>
+<li><code><a title="mcbotit.client.Client.setVillagerTrade" href="#mcbotit.client.Client.setVillagerTrade">setVillagerTrade</a></code></li>
+<li><code><a title="mcbotit.client.Client.swapSlots" href="#mcbotit.client.Client.swapSlots">swapSlots</a></code></li>
+<li><code><a title="mcbotit.client.Client.useItem" href="#mcbotit.client.Client.useItem">useItem</a></code></li>
+<li><code><a title="mcbotit.client.Client.wait" href="#mcbotit.client.Client.wait">wait</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.client.InputKeys" href="#mcbotit.client.InputKeys">InputKeys</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.client.InputKeys.BACKWORD" href="#mcbotit.client.InputKeys.BACKWORD">BACKWORD</a></code></li>
+<li><code><a title="mcbotit.client.InputKeys.FORWARD" href="#mcbotit.client.InputKeys.FORWARD">FORWARD</a></code></li>
+<li><code><a title="mcbotit.client.InputKeys.LEFT" href="#mcbotit.client.InputKeys.LEFT">LEFT</a></code></li>
+<li><code><a title="mcbotit.client.InputKeys.LEFT_CLICK" href="#mcbotit.client.InputKeys.LEFT_CLICK">LEFT_CLICK</a></code></li>
+<li><code><a title="mcbotit.client.InputKeys.RIGHT" href="#mcbotit.client.InputKeys.RIGHT">RIGHT</a></code></li>
+<li><code><a title="mcbotit.client.InputKeys.RIGHT_CLICK" href="#mcbotit.client.InputKeys.RIGHT_CLICK">RIGHT_CLICK</a></code></li>
+<li><code><a title="mcbotit.client.InputKeys.SNEAK" href="#mcbotit.client.InputKeys.SNEAK">SNEAK</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

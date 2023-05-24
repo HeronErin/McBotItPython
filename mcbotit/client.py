@@ -23,9 +23,12 @@ class InputKeys(enum.Enum):
 	RIGHT_CLICK = "right click"
 
 
-# Base Client, just connects and allows you to send packets, nothing special here.
+
 class Client(threading.Thread):
-	def __init__(self, pingTime, port, packetHandler = None, appendHandler=None):
+	""" Base Client, just connects and allows you to send packets, nothing special here. Only use through the Player class"""
+
+
+	def __init__(self, pingTime: float, port: int, packetHandler = None, appendHandler=None):
 		assert not(appendHandler is not None and packetHandler is not None)
 		self.appendHandler = appendHandler
 		if packetHandler is None: packetHandler = lambda x, y: handlePackets(x, y, self.appendHandler)
@@ -49,6 +52,8 @@ class Client(threading.Thread):
 		self.start()
 
 	def run(self):
+		""" Don't call me"""
+		
 		while self.running: 
 			if self.stealControl:
 				self.hasControl = True
@@ -80,8 +85,9 @@ class Client(threading.Thread):
 		self.running = False
 		self.join()
 
-	# Wait for all workers to finish
 	def wait(self):
+		"""Wait for all workers to finish"""
+
 		with self:
 			self.send({"cmd": "wait for workers"})
 			for r in self.recv(1024):
@@ -94,8 +100,9 @@ class Client(threading.Thread):
 	def disconnect(self):
 		self.send({"cmd": "disconnect"})
 
-	# Shows the user a client side message
+
 	def displayChatMessage(self, msg):
+		"""Shows the user a client side message"""
 		self.send({"cmd": "print to chat", "msg": msg})
 
 	def sendPublicChatMessage(self, msg):
@@ -123,61 +130,77 @@ class Client(threading.Thread):
 	def clearKeys(self):
 		self.send({"cmd": "release all buttons"})
 
-	#Smoothly rotates player
+
 	def rotate(self, pitch, yaw, speed=0.6, wait=True):
+		"""Smoothly rotates player"""
 		self.send({"cmd": "realistic rot","time_per_90":speed, "pitch": pitch, "yaw":yaw})
 		if wait:
 			self.wait()
 
 
-	# Use item? Uses buckets but not some other items			
+				
 	def useItem(self):
+		"""Use item? Uses buckets but not some other items"""
 		self.send({"cmd": "use item"})
-	# Do things like open chests
+	
 	def rightClickBlock(self):
+		"""Do things like open chests"""
 		self.send({"cmd": "right click block"})
 
-	# Places item from HOTBAR slot
+	
 	def place(self, x, y, z, slot, speed=0.6, wait=True):
+		"""Places item from HOTBAR slot"""
 		with self:
 			self.send({"cmd": "normal place", "x":x, "y":y, "z": z, "slot":slot-1, "time_per_90": speed})
 			if wait: self.wait()
 
 
-	# Places item from HOTBAR slot, WARNING: might get you banned
+	
 	def printerPlace(self, x, y, z, slot):
+		"""Places item from HOTBAR slot, WARNING: might get you banned"""
 
 		self.send({"cmd": "printer place", "x":x, "y":y, "z": z, "slot":slot-1})
 
-	# Mines block
+	
 	def mine(self, x, y, z,speed, wait=True):
+		"""Mines block"""
+
 		with self:
 			self.send({"cmd": "normal break", "x":x, "y":y, "z": z, "time_per_90": speed})
 			if wait: self.wait()
 	def setHotbarSlot(self, slot):
 		self.send({"cmd": "set hotbar slot", "slot": slot-1})
-	# Use baritone to path to locations
+	
 	def goto(self, x, y, z, wait=True):
+		"""Use baritone to path to locations"""
 		with self:
 			self.send({"cmd": "baritone goto normal", "x":x, "y":y, "z": z})
 			if wait: self.wait()
-	# Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something
+	
 	def gotoOnlyWalk(self, x, y, z, wait=True):
+		"""Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something"""
+
 		with self:
 			self.send({"cmd": "baritone goto only walk", "x":x, "y":y, "z": z})
 			if wait: self.wait()
-	# Tells baritone to mine a block, not stable in all situations
+	
 	def baritoneMine(self, x, y, z, wait=True):
+		"""Tells baritone to mine a block, not stable in all situations"""
+
 		with self:
 			self.send({"cmd": "baritone break", "x":x, "y":y, "z": z})
 			if wait: self.wait()
-	# Tells baritone to place a block, not stable in all situations
+	
 	def baritonePlace(self, x, y, z, id):
+		"""Tells baritone to place a block, not stable in all situations"""
+
 		with self:
 			self.send({"cmd": "baritone place block", "x":x, "y":y, "z": z, "id":id})
 
-	# Right click entity, used for villagers
+	
 	def openEntity(self):
+		"""Right click entity, used for villagers"""
+
 		self.send({"cmd": "interact with entity", "type": "open"})
 	
 	def closeScreen(self):
@@ -189,8 +212,10 @@ class Client(threading.Thread):
 		self.send({"cmd": "jump"})
 	def enableElytra(self):
 		self.send({"cmd": "start fall flying"})
-	# Look at block location, good for villagers, a block does NOT need to exist there, so it CAN be used to look at entity at a location
+	
 	def lookTowardBlock(self, x, y, z, speed=0.6, wait=True):
+		"""Look at block location, good for villagers, a block does NOT need to exist there, so it CAN be used to look at entity at a location"""
+
 		rot = None
 		with self:
 			self.send({"cmd":"get rotation to get to block", "x":x, "y":y, "z":z})
@@ -198,18 +223,24 @@ class Client(threading.Thread):
 			self.rotate(rot["pitch"], rot["yaw"], speed=speed, wait=wait)
 
 
-	# Get player location and other stats
+	
 	def getPlayerInfo(self):
+		"""Get player location and other stats"""
+
 		with self:
 			self.send({"cmd":"get player info"})
 			return self.recv(2048)[0]
-	# Gets player inventory and decodes the nbt
+	
 	def getPlayerInventory(self):
+		"""Gets player inventory and decodes the nbt"""
+
 		with self:
 			self.send({"cmd": "get player inventory"})
 			return self.readNbt()
-	# Gets the slot data for an open inventory. WARNING, this packet my give you stange results, using a helper class is recommended
+	
 	def getOpenInventory(self):
+		"""Gets the slot data for an open inventory. WARNING, this packet my give you stange results, using a helper class is recommended"""
+
 		with self:
 			self.send({"cmd": "get open inventory"})
 			return self.readNbt()
@@ -224,11 +255,14 @@ class Client(threading.Thread):
 			self.send({"cmd":"get villager trade info"})
 			return self.readNbt()
 	def setVillagerTrade(self, id):
+		""" Selects a villagers trade based on index"""
+
 		self.send({"cmd":"set villager trade", "slot": id})
 
 
-	# See https://wiki.vg/Protocol#Click_Container_Button
+	
 	def clickInventoryButton(self, id):
+		"""See https://wiki.vg/Protocol#Click_Container_Button"""
 		self.send({"cmd": "click special inventory button", "buttonId": id})
 
 	def readNbt(self):
@@ -240,6 +274,7 @@ class Client(threading.Thread):
 				break
 		return read_from_nbt_file(bytez).json_obj(full_json=False) 
 
-	# Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended
+
 	def swapSlots(self, slot1, slot2, delay):
+		"""Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended"""
 		self.send({"cmd": "swap slots", "delay": int(delay*1000), "slot1": slot1, "slot2": slot2})
