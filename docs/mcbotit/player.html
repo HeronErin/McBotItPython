@@ -29,6 +29,7 @@
 <pre><code class="python">from .client import Client, InputKeys
 from .inventoryHelper import *
 from threading import Thread
+from typing import Callable
 class Player:
         _prevY = 0
         lastX : float
@@ -85,7 +86,7 @@ class Player:
                 self.inventoryManager = InventoryManager(self.client)
 
 
-        def registerCommandHook(self, command: str, desc: str, hook : &#34;function(player:Player, command:str)&#34;, spinIntoThread=True):
+        def registerCommandHook(self, command: str, desc: str, hook : Callable[[&#34;Player&#34;, str], None], spinIntoThread=True):
                 &#34;&#34;&#34;hook should be a function/lambda with these arguments: player, command&#34;&#34;&#34;
 
                 self.client.send({&#34;cmd&#34;: &#34;register game command&#34;, &#34;command&#34;: command, &#34;desc&#34;: desc})
@@ -303,7 +304,7 @@ class Player:
                 self.inventoryManager = InventoryManager(self.client)
 
 
-        def registerCommandHook(self, command: str, desc: str, hook : &#34;function(player:Player, command:str)&#34;, spinIntoThread=True):
+        def registerCommandHook(self, command: str, desc: str, hook : Callable[[&#34;Player&#34;, str], None], spinIntoThread=True):
                 &#34;&#34;&#34;hook should be a function/lambda with these arguments: player, command&#34;&#34;&#34;
 
                 self.client.send({&#34;cmd&#34;: &#34;register game command&#34;, &#34;command&#34;: command, &#34;desc&#34;: desc})
@@ -853,7 +854,7 @@ class Player:
 </details>
 </dd>
 <dt id="mcbotit.player.Player.registerCommandHook"><code class="name flex">
-<span>def <span class="ident">registerCommandHook</span></span>(<span>self, command: str, desc: str, hook: function(player:<a title="mcbotit.player.Player" href="#mcbotit.player.Player">Player</a>, command:str), spinIntoThread=True)</span>
+<span>def <span class="ident">registerCommandHook</span></span>(<span>self, command: str, desc: str, hook: Callable[[ForwardRef('<a title="mcbotit.player.Player" href="#mcbotit.player.Player">Player</a>'), str], None], spinIntoThread=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>hook should be a function/lambda with these arguments: player, command</p></div>
@@ -861,7 +862,7 @@ class Player:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def registerCommandHook(self, command: str, desc: str, hook : &#34;function(player:Player, command:str)&#34;, spinIntoThread=True):
+<pre><code class="python">def registerCommandHook(self, command: str, desc: str, hook : Callable[[&#34;Player&#34;, str], None], spinIntoThread=True):
         &#34;&#34;&#34;hook should be a function/lambda with these arguments: player, command&#34;&#34;&#34;
 
         self.client.send({&#34;cmd&#34;: &#34;register game command&#34;, &#34;command&#34;: command, &#34;desc&#34;: desc})
