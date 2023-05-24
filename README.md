@@ -146,9 +146,8 @@ Most of the inventory classes also have fields set to important slots. I'm not g
 * VillagerInventory has input1, input2, and output. Along with a setTradeIndex(i) function for selecting a trade
 
 ### The Client class
-This can be obtained by ```python player.client```   and use of this should be minimized. This class manages the socket connection itself and has some importent features.
+This can be obtained by ```player.client```   and use of this should be minimized. This class manages the socket connection itself and has some importent features.
 
-1. using ```python with player.client: ```   You can take controll of the connection itself, this is used with many of the Player functions. But taking controll can take 0.1 secounds, so you can speed up your code by taking controll of the connection before running a bunch of functions, however this means the the players attributes, like position, will not be updated. 
+1. using ```with player.client: ```   You can take controll of the connection itself, this is used with many of the Player functions. But taking controll can take 0.1 secounds, so you can speed up your code by taking controll of the connection before running a bunch of functions, however this means the the players attributes, like position, will not be updated. 
 
-2. All raw packets can be directly send with this class. Most have functions to call them, but others can be send like this: ```python 
-player.client.send({"cmd": "right click block"})```
+2. All raw packets can be directly send with this class. Most have functions to call them, but others can be send like this: ``` player.client.send({"cmd": "right click block"})```
