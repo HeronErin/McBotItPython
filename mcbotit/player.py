@@ -51,8 +51,15 @@ class Player:
 		self.client.removeCommand(command)
 		del self.clientCommands[command]
 
+
+	def disconnect(self):
+		self.client.disconnect()
+
 	def print(self, msg):
 		self.client.displayChatMessage(str(msg))
+	def sendMessage(self, msg):
+		self.client.sendPublicChatMessage(msg)
+
 	def closeScreen(self):
 		self.client.closeScreen()
 	def kill(self):
@@ -109,10 +116,10 @@ class Player:
 	def baritonePlace(self, x, y, z, id):
 		self.client.baritonePlace(x, y, z, id)
 	# Places item from HOTBAR slot, WARNING: might get you banned
-	def hackerPlace(self, x, y, z, slot, wait=True):
+	def printerPlace(self,  x, y, z, slot):
 		assert slot <= 9
 		assert slot != 0
-		self.client.hackerPlace(x, y, z, slot, wait)
+		self.client.place(x, y, z, slot)
 
 
 	# Right click entity, used for villagers

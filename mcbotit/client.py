@@ -90,9 +90,16 @@ class Client(threading.Thread):
 				elif "err" in r:
 					raise Exception(str(r))
 
+
+	def disconnect(self):
+		self.send({"cmd": "disconnect"})
+
 	# Shows the user a client side message
 	def displayChatMessage(self, msg):
 		self.send({"cmd": "print to chat", "msg": msg})
+
+	def sendPublicChatMessage(self, msg):
+		self.send({"cmd": "send public chat message", "msg": msg})
 
 	def clearCommandHooks(self):
 		self.send({"cmd": "clear registered game commands"})
@@ -138,10 +145,10 @@ class Client(threading.Thread):
 
 
 	# Places item from HOTBAR slot, WARNING: might get you banned
-	def hackerPlace(self, x, y, z, slot, speed=0.6, wait=True):
-		with self:
-			self.send({"cmd": "hacker place block", "x":x, "y":y, "z": z, "slot":slot-1})
-			if wait: self.wait()
+	def printerPlace(self, x, y, z, slot):
+
+		self.send({"cmd": "printer place", "x":x, "y":y, "z": z, "slot":slot-1})
+
 	# Mines block
 	def mine(self, x, y, z,speed, wait=True):
 		with self:
