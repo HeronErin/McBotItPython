@@ -39,6 +39,10 @@ There are a few Classes you need to be aware of:
 4. And the assorted Inventory classes.
 
 
+You can view the full documentation [here](https://heronerin.github.io/McBotItPython/mcbotit/)
+
+
+
 ### The Player class
 The Player class is the main class you will be dealing with, it is an abstraction over the Client class. This class keeps track of the players position, rotation, velocity, hunger level, and if they are currently falling. It also allows you to register client side commands. And gives you easy access to the inventoryManager.
 
@@ -55,48 +59,7 @@ The following are some fields in the Player class you sould know of:
 * lastHealth
 * inventoryManager - used for getting inventory data
 
-The player has the following methods you should know about:
-
-*  registerCommandHook(command, desc, hook, spinIntoThread=True)
-	hook should be a function/lamdba with these arguments: player, command
-*  clearCommands()
-*  removeCommand(command)
-*  disconnect()
-*  print(msg)
-	print to client side chat
-*  sendMessage(msg)
-	send public chat message
-*  closeScreen()
-	close ingame gui (chat screen, inventory screen, etc)
-*  kill()
-	stop connection thread
-*  wait()
-	wait for running jobs to finish
-*  holdFor(key, delay = 0.1, wait=True)
-	key is of type InputKeys
-*  keyDown(key)
-*  keyUp(key)
-*  clearKeys()
-*  rotate(pitch, yaw, speed=0.6, wait=True)
-*  getPlayerInfo()
-*  setHotbarSlot(slot)
-*  useItem()
-*  rightClickBlock()
-*  place(x, y, z, slot, speed=0.6, wait=True)
-*  mine( x, y, z, speed=0.6, wait=True)
-*  getBlock(x, y, z)
-*  goto(x, y, z, wait=True)
-*  gotoOnlyWalk(x, y, z, wait=True)
-*  baritoneMine(x, y, z, wait=True)
-*  baritonePlace(x, y, z, id)
-*  printerPlace( x, y, z, slot)
-*  openEntity()
-	Can be used for right clicking villagers
-*  hitEntity()
-*  jump()
-*  lookTowardBlock(x, y, z, speed=0.6, wait=True)
-*  swapSlots(slot1, slot2, delay=0.2)
-	slot1 and slot2 should be gotten from an inventory 
+You can view the player classes documentation [here](https://heronerin.github.io/McBotItPython/mcbotit/player.html)
 
 ### The InputKeys Enum
 The following are possible values:
@@ -109,6 +72,7 @@ The following are possible values:
 * InputKeys.LEFT_CLICK
 * InputKeys.RIGHT_CLICK
 
+Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/client.html#mcbotit.client.InputKeys)
 
 ### inventoryManager class
 All the following return an inventory object:
@@ -131,6 +95,10 @@ All the following return an inventory object:
 * getOpenGrindstone()
 * getOpenSmithingTable()
 
+
+Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/inventoryHelper.html#mcbotit.inventoryHelper.InventoryManager)
+
+
 ### Assorted inventory classes
 All inventory classes are quite simmular in structor
 
@@ -139,7 +107,7 @@ All inventory classes are quite simmular in structor
 * searchPlayerInv(itemId)
 * serialize() return json that can be saved to files
 
-Most of the inventory classes also have fields set to important slots. I'm not going to list all of them here, but remember that the best documentation is the [source code itself.](https://github.com/HeronErin/McBotItPython/blob/main/mcbotit/inventoryHelper.py#L81) but here are a few notable ones. 
+Most of the inventory classes also have fields set to important slots. I'm not going to list all of them here, you can see the documentation [here](https://heronerin.github.io/McBotItPython/mcbotit/inventoryHelper.html), but here are a few notable ones. 
 
 * PlayerInventory has helmet, chestplace, leggings, boots, offhand, craftingSlot1, craftingSlot2, craftingSlot3, craftingSlot4, and craftingOutput.
 * X3Inventory (getOpen3by3) has self.slot(1-9) for every slot in a dispensor.
@@ -153,3 +121,5 @@ This can be obtained by ```player.client```   and use of this should be minimize
 1. using ```with player.client: ```   You can take controll of the connection itself, this is used with many of the Player functions. But taking controll can take 0.1 secounds, so you can speed up your code by taking controll of the connection before running a bunch of functions, however this means the the players attributes, like position, will not be updated. 
 
 2. All raw packets can be directly send with this class. Most have functions to call them, but others can be send like this: ``` player.client.send({"cmd": "right click block"})```
+
+Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/client.html)
