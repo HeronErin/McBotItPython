@@ -6,6 +6,7 @@ from .exceptions import *
 
 
 class Player:
+	"""Main class for controlling the player. Everything is accessible from here. Remember that if you are using a baritone function, you must have baritone installed. However it is optional, this is because many servers do not like baritone, so <b>do not use baritone unless you have permision.</b> """
 	_prevY = 0
 	lastX : float
 	lastY : float
@@ -20,7 +21,7 @@ class Player:
 	inventoryManager: InventoryManager
 
 	def handlePackets(self, packet: dict, client: Client):
-		""" Called internally when a packed comes in after a keepalive is send"""
+		""" Called internally when a packed comes in after a keepalive is sent"""
 
 		if packet.get("cmd") == "alert":
 			if packet.get("usedCommand") is not None:
@@ -54,7 +55,7 @@ class Player:
 			self.lastVelocity = (packet["velx"], packet["vely"], packet["velz"])
 
 	def __init__(self, port: int, keepAliveTime=0.1):
-		"""Port should come from the game's chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. """
+		"""Port should come from the game's chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. REQUIRES BARITONE"""
 
 		self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
 		with self.client:
@@ -159,14 +160,14 @@ class Player:
 
 	
 	def goto(self, x: int, y: int, z: int, wait=True):
-		"""Use baritone to path to locations"""
+		"""Use baritone to path to locations. <br><b>REQUIRES BARITONE</b>"""
 		if not self.hasBaritone:
 			raise BaritoneUninstalled("Please install the baritone api mod")
 
 		self.client.goto(x, y, z, wait)
 	
 	def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
-		"""Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something"""
+		"""Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something. <br><b>REQUIRES BARITONE</b>"""
 		
 		if not self.hasBaritone:
 			raise BaritoneUninstalled("Please install the baritone api mod")
@@ -174,14 +175,14 @@ class Player:
 		self.client.gotoOnlyWalk(x, y, z, wait)
 	
 	def baritoneMine(self, x : int, y : int, z : int, wait=True):
-		"""Tells baritone to mine a block, not stable in all situations"""
+		"""Tells baritone to mine a block, not stable in all situations <br><b>REQUIRES BARITONE</b>"""
 
 		if not self.hasBaritone:
 			raise BaritoneUninstalled("Please install the baritone api mod")
 		self.client.baritoneMine(x, y, z, wait)
 	
 	def baritonePlace(self, x: int, y : int, z : int, id : str):
-		"""Tells baritone to place a block, not stable in all situations"""
+		"""Tells baritone to place a block, not stable in all situations <br><b>REQUIRES BARITONE</b>"""
 		if not self.hasBaritone:
 			raise BaritoneUninstalled("Please install the baritone api mod")
 

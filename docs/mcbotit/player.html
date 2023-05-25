@@ -34,6 +34,7 @@ from .exceptions import *
 
 
 class Player:
+        &#34;&#34;&#34;Main class for controlling the player. Everything is accessible from here. Remember that if you are using a baritone function, you must have baritone installed. However it is optional, this is because many servers do not like baritone, so &lt;b&gt;do not use baritone unless you have permision.&lt;/b&gt; &#34;&#34;&#34;
         _prevY = 0
         lastX : float
         lastY : float
@@ -48,7 +49,7 @@ class Player:
         inventoryManager: InventoryManager
 
         def handlePackets(self, packet: dict, client: Client):
-                &#34;&#34;&#34; Called internally when a packed comes in after a keepalive is send&#34;&#34;&#34;
+                &#34;&#34;&#34; Called internally when a packed comes in after a keepalive is sent&#34;&#34;&#34;
 
                 if packet.get(&#34;cmd&#34;) == &#34;alert&#34;:
                         if packet.get(&#34;usedCommand&#34;) is not None:
@@ -82,7 +83,7 @@ class Player:
                         self.lastVelocity = (packet[&#34;velx&#34;], packet[&#34;vely&#34;], packet[&#34;velz&#34;])
 
         def __init__(self, port: int, keepAliveTime=0.1):
-                &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. &#34;&#34;&#34;
+                &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. REQUIRES BARITONE&#34;&#34;&#34;
 
                 self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
                 with self.client:
@@ -187,14 +188,14 @@ class Player:
 
         
         def goto(self, x: int, y: int, z: int, wait=True):
-                &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+                &#34;&#34;&#34;Use baritone to path to locations. &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.goto(x, y, z, wait)
         
         def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
-                &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+                &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something. &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
                 
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
@@ -202,14 +203,14 @@ class Player:
                 self.client.gotoOnlyWalk(x, y, z, wait)
         
         def baritoneMine(self, x : int, y : int, z : int, wait=True):
-                &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+                &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
 
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
                 self.client.baritoneMine(x, y, z, wait)
         
         def baritonePlace(self, x: int, y : int, z : int, id : str):
-                &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+                &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
@@ -261,12 +262,14 @@ class Player:
 <span>(</span><span>port: int, keepAliveTime=0.1)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Port should come from the game's chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info.</p></div>
+<div class="desc"><p>Main class for controlling the player. Everything is accessible from here. Remember that if you are using a baritone function, you must have baritone installed. However it is optional, this is because many servers do not like baritone, so <b>do not use baritone unless you have permision.</b> </p>
+<p>Port should come from the game's chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. REQUIRES BARITONE</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Player:
+        &#34;&#34;&#34;Main class for controlling the player. Everything is accessible from here. Remember that if you are using a baritone function, you must have baritone installed. However it is optional, this is because many servers do not like baritone, so &lt;b&gt;do not use baritone unless you have permision.&lt;/b&gt; &#34;&#34;&#34;
         _prevY = 0
         lastX : float
         lastY : float
@@ -281,7 +284,7 @@ class Player:
         inventoryManager: InventoryManager
 
         def handlePackets(self, packet: dict, client: Client):
-                &#34;&#34;&#34; Called internally when a packed comes in after a keepalive is send&#34;&#34;&#34;
+                &#34;&#34;&#34; Called internally when a packed comes in after a keepalive is sent&#34;&#34;&#34;
 
                 if packet.get(&#34;cmd&#34;) == &#34;alert&#34;:
                         if packet.get(&#34;usedCommand&#34;) is not None:
@@ -315,7 +318,7 @@ class Player:
                         self.lastVelocity = (packet[&#34;velx&#34;], packet[&#34;vely&#34;], packet[&#34;velz&#34;])
 
         def __init__(self, port: int, keepAliveTime=0.1):
-                &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. &#34;&#34;&#34;
+                &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. REQUIRES BARITONE&#34;&#34;&#34;
 
                 self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
                 with self.client:
@@ -420,14 +423,14 @@ class Player:
 
         
         def goto(self, x: int, y: int, z: int, wait=True):
-                &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+                &#34;&#34;&#34;Use baritone to path to locations. &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.goto(x, y, z, wait)
         
         def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
-                &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+                &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something. &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
                 
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
@@ -435,14 +438,14 @@ class Player:
                 self.client.gotoOnlyWalk(x, y, z, wait)
         
         def baritoneMine(self, x : int, y : int, z : int, wait=True):
-                &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+                &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
 
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
                 self.client.baritoneMine(x, y, z, wait)
         
         def baritonePlace(self, x: int, y : int, z : int, id : str):
-                &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+                &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
                 if not self.hasBaritone:
                         raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
@@ -532,13 +535,13 @@ class Player:
 <span>def <span class="ident">baritoneMine</span></span>(<span>self, x: int, y: int, z: int, wait=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Tells baritone to mine a block, not stable in all situations</p></div>
+<div class="desc"><p>Tells baritone to mine a block, not stable in all situations <br><b>REQUIRES BARITONE</b></p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def baritoneMine(self, x : int, y : int, z : int, wait=True):
-        &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+        &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
 
         if not self.hasBaritone:
                 raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
@@ -549,13 +552,13 @@ class Player:
 <span>def <span class="ident">baritonePlace</span></span>(<span>self, x: int, y: int, z: int, id: str)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Tells baritone to place a block, not stable in all situations</p></div>
+<div class="desc"><p>Tells baritone to place a block, not stable in all situations <br><b>REQUIRES BARITONE</b></p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def baritonePlace(self, x: int, y : int, z : int, id : str):
-        &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+        &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
         if not self.hasBaritone:
                 raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
@@ -650,13 +653,13 @@ class Player:
 <span>def <span class="ident">goto</span></span>(<span>self, x: int, y: int, z: int, wait=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Use baritone to path to locations</p></div>
+<div class="desc"><p>Use baritone to path to locations. <br><b>REQUIRES BARITONE</b></p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def goto(self, x: int, y: int, z: int, wait=True):
-        &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+        &#34;&#34;&#34;Use baritone to path to locations. &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
         if not self.hasBaritone:
                 raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
@@ -667,13 +670,13 @@ class Player:
 <span>def <span class="ident">gotoOnlyWalk</span></span>(<span>self, x: int, y: int, z: int, wait=True)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something</p></div>
+<div class="desc"><p>Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something. <br><b>REQUIRES BARITONE</b></p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
-        &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+        &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something. &lt;br&gt;&lt;b&gt;REQUIRES BARITONE&lt;/b&gt;&#34;&#34;&#34;
         
         if not self.hasBaritone:
                 raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
@@ -685,13 +688,13 @@ class Player:
 <span>def <span class="ident">handlePackets</span></span>(<span>self, packet: dict, client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Called internally when a packed comes in after a keepalive is send</p></div>
+<div class="desc"><p>Called internally when a packed comes in after a keepalive is sent</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def handlePackets(self, packet: dict, client: Client):
-        &#34;&#34;&#34; Called internally when a packed comes in after a keepalive is send&#34;&#34;&#34;
+        &#34;&#34;&#34; Called internally when a packed comes in after a keepalive is sent&#34;&#34;&#34;
 
         if packet.get(&#34;cmd&#34;) == &#34;alert&#34;:
                 if packet.get(&#34;usedCommand&#34;) is not None:
