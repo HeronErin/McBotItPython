@@ -85,9 +85,9 @@ class Player:
                 &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. &#34;&#34;&#34;
 
                 self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
-
-                self.client.send({&#34;cmd&#34;: &#34;is baritone installed&#34;})
-                self.hasBaritone = self.client.recv(1024)[0].get(&#34;isInstalled&#34;)
+                with self.client:
+                        self.client.send({&#34;cmd&#34;: &#34;is baritone installed&#34;})
+                        self.hasBaritone = self.client.recv(1024)[0].get(&#34;isInstalled&#34;)
 
                 self.clientCommands = {}
 
@@ -318,9 +318,9 @@ class Player:
                 &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. &#34;&#34;&#34;
 
                 self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
-
-                self.client.send({&#34;cmd&#34;: &#34;is baritone installed&#34;})
-                self.hasBaritone = self.client.recv(1024)[0].get(&#34;isInstalled&#34;)
+                with self.client:
+                        self.client.send({&#34;cmd&#34;: &#34;is baritone installed&#34;})
+                        self.hasBaritone = self.client.recv(1024)[0].get(&#34;isInstalled&#34;)
 
                 self.clientCommands = {}
 
