@@ -1,0 +1,2 @@
+class BaritoneUninstalled(Exception):
+	pass

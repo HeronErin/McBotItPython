@@ -2,6 +2,9 @@ from .client import Client, InputKeys
 from .inventoryHelper import *
 from threading import Thread
 from typing import Callable
+from .exceptions import *
+
+
 class Player:
 	_prevY = 0
 	lastX : float
@@ -12,6 +15,7 @@ class Player:
 	lastYaw : float
 	lastPitch : float
 	isFalling : bool
+	hasBaritone : bool
 	lastVelocity : tuple[float, float, float]
 	inventoryManager: InventoryManager
 
@@ -53,6 +57,10 @@ class Player:
 		"""Port should come from the game's chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. """
 
 		self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
+
+		self.client.send({"cmd": "is baritone installed"})
+		self.hasBaritone = self.client.recv(1024)[0].get("isInstalled")
+
 		self.clientCommands = {}
 
 		self.inventoryManager = InventoryManager(self.client)
@@ -152,20 +160,30 @@ class Player:
 	
 	def goto(self, x: int, y: int, z: int, wait=True):
 		"""Use baritone to path to locations"""
+		if not self.hasBaritone:
+			raise BaritoneUninstalled("Please install the baritone api mod")
 
 		self.client.goto(x, y, z, wait)
 	
 	def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
 		"""Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something"""
+		
+		if not self.hasBaritone:
+			raise BaritoneUninstalled("Please install the baritone api mod")
 
 		self.client.gotoOnlyWalk(x, y, z, wait)
 	
 	def baritoneMine(self, x : int, y : int, z : int, wait=True):
 		"""Tells baritone to mine a block, not stable in all situations"""
+
+		if not self.hasBaritone:
+			raise BaritoneUninstalled("Please install the baritone api mod")
 		self.client.baritoneMine(x, y, z, wait)
 	
 	def baritonePlace(self, x: int, y : int, z : int, id : str):
 		"""Tells baritone to place a block, not stable in all situations"""
+		if not self.hasBaritone:
+			raise BaritoneUninstalled("Please install the baritone api mod")
 
 		self.client.baritonePlace(x, y, z, id)
 
