@@ -13,8 +13,7 @@ Although this tool may make use of baritone, using baritone with the mod is opti
 ## Install: 
 1. You need to install the [minecraft mod](https://github.com/HeronErin/McBotit/releases/tag/release) in fabric 1.19.4. 
 2. It is recommended that you download the [baritone api fabric mod](https://github.com/cabaletta/baritone/releases/download/v1.9.3/baritone-api-fabric-1.9.3.jar) in order for some functions to work, but this is optional.
-3. Since this library is not yet in PyPi, you must install it from github with ```bash
-pip install git+https://github.com/HeronErin/McBotItPython.git``` 
+3. Since this library is not yet in PyPi, you must install it from github with ```pip install git+https://github.com/HeronErin/McBotItPython.git``` 
 
 ## Usage:
 Now that everything (should) be installed, you need to join a world/server while the mods are installed, if everything is correct you should see a message in chat about what port to use. This is the number that the python library connects to, it changes often, so it is unwise to hardcode it, however this is a trap I often fall into. 
@@ -30,6 +29,9 @@ player.print("Hello world") # Prints to clients chat
 
 player.kill() # Kills connection thread, otherwise the script would run forever. 
 ```
+
+
+
 
 ## Classes and Methods:
 
