@@ -57,7 +57,7 @@ class ChestManager:
 
         def search(self, id):
                 for chestPos, chest in self.chests.items():
-                        for row in range(3, chest.maxRows-1):
+                        for row in range(3, chest.maxRows):
                                 for col in range(0, chest.maxCols):
                                         if (item:=chest.getSlot(row, col))[&#34;type&#34;] == id:
                                                 return item, chestPos</code></pre>
@@ -111,7 +111,7 @@ class ChestManager:
 
         def search(self, id):
                 for chestPos, chest in self.chests.items():
-                        for row in range(3, chest.maxRows-1):
+                        for row in range(3, chest.maxRows):
                                 for col in range(0, chest.maxCols):
                                         if (item:=chest.getSlot(row, col))[&#34;type&#34;] == id:
                                                 return item, chestPos</code></pre>
@@ -181,7 +181,7 @@ class ChestManager:
 </summary>
 <pre><code class="python">def search(self, id):
         for chestPos, chest in self.chests.items():
-                for row in range(3, chest.maxRows-1):
+                for row in range(3, chest.maxRows):
                         for col in range(0, chest.maxCols):
                                 if (item:=chest.getSlot(row, col))[&#34;type&#34;] == id:
                                         return item, chestPos</code></pre>

@@ -68,7 +68,7 @@ class BaseInventory:
                 return out
         def search(self, id:int) -&gt; Generator[dict, None, None]:
                 &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
-                for row in range(3, self.maxRows-1):
+                for row in range(3, self.maxRows):
                         for col in range(0, self.maxCols):
                                 if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
                                         yield item
@@ -482,7 +482,7 @@ class InventoryManager:
                 return out
         def search(self, id:int) -&gt; Generator[dict, None, None]:
                 &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
-                for row in range(3, self.maxRows-1):
+                for row in range(3, self.maxRows):
                         for col in range(0, self.maxCols):
                                 if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
                                         yield item
@@ -613,7 +613,7 @@ class InventoryManager:
 </summary>
 <pre><code class="python">def search(self, id:int) -&gt; Generator[dict, None, None]:
         &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
-        for row in range(3, self.maxRows-1):
+        for row in range(3, self.maxRows):
                 for col in range(0, self.maxCols):
                         if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
                                 yield item</code></pre>

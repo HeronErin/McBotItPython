@@ -30,6 +30,9 @@
 from .inventoryHelper import *
 from threading import Thread
 from typing import Callable
+from .exceptions import *
+
+
 class Player:
         _prevY = 0
         lastX : float
@@ -40,6 +43,7 @@ class Player:
         lastYaw : float
         lastPitch : float
         isFalling : bool
+        hasBaritone : bool
         lastVelocity : tuple[float, float, float]
         inventoryManager: InventoryManager
 
@@ -81,6 +85,10 @@ class Player:
                 &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. &#34;&#34;&#34;
 
                 self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
+
+                self.client.send({&#34;cmd&#34;: &#34;is baritone installed&#34;})
+                self.hasBaritone = self.client.recv(1024)[0].get(&#34;isInstalled&#34;)
+
                 self.clientCommands = {}
 
                 self.inventoryManager = InventoryManager(self.client)
@@ -180,20 +188,30 @@ class Player:
         
         def goto(self, x: int, y: int, z: int, wait=True):
                 &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.goto(x, y, z, wait)
         
         def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
                 &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+                
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.gotoOnlyWalk(x, y, z, wait)
         
         def baritoneMine(self, x : int, y : int, z : int, wait=True):
                 &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
                 self.client.baritoneMine(x, y, z, wait)
         
         def baritonePlace(self, x: int, y : int, z : int, id : str):
                 &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.baritonePlace(x, y, z, id)
 
@@ -258,6 +276,7 @@ class Player:
         lastYaw : float
         lastPitch : float
         isFalling : bool
+        hasBaritone : bool
         lastVelocity : tuple[float, float, float]
         inventoryManager: InventoryManager
 
@@ -299,6 +318,10 @@ class Player:
                 &#34;&#34;&#34;Port should come from the game&#39;s chat. KeepAliveTime is the time between keepalive packets, AKA updates in player info. &#34;&#34;&#34;
 
                 self.client = Client(keepAliveTime, port, appendHandler=self.handlePackets)
+
+                self.client.send({&#34;cmd&#34;: &#34;is baritone installed&#34;})
+                self.hasBaritone = self.client.recv(1024)[0].get(&#34;isInstalled&#34;)
+
                 self.clientCommands = {}
 
                 self.inventoryManager = InventoryManager(self.client)
@@ -398,20 +421,30 @@ class Player:
         
         def goto(self, x: int, y: int, z: int, wait=True):
                 &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.goto(x, y, z, wait)
         
         def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
                 &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+                
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.gotoOnlyWalk(x, y, z, wait)
         
         def baritoneMine(self, x : int, y : int, z : int, wait=True):
                 &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
                 self.client.baritoneMine(x, y, z, wait)
         
         def baritonePlace(self, x: int, y : int, z : int, id : str):
                 &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+                if not self.hasBaritone:
+                        raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
                 self.client.baritonePlace(x, y, z, id)
 
@@ -448,6 +481,10 @@ class Player:
 </details>
 <h3>Class variables</h3>
 <dl>
+<dt id="mcbotit.player.Player.hasBaritone"><code class="name">var <span class="ident">hasBaritone</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
 <dt id="mcbotit.player.Player.inventoryManager"><code class="name">var <span class="ident">inventoryManager</span> : <a title="mcbotit.inventoryHelper.InventoryManager" href="inventoryHelper.html#mcbotit.inventoryHelper.InventoryManager">InventoryManager</a></code></dt>
 <dd>
 <div class="desc"></div>
@@ -502,6 +539,9 @@ class Player:
 </summary>
 <pre><code class="python">def baritoneMine(self, x : int, y : int, z : int, wait=True):
         &#34;&#34;&#34;Tells baritone to mine a block, not stable in all situations&#34;&#34;&#34;
+
+        if not self.hasBaritone:
+                raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
         self.client.baritoneMine(x, y, z, wait)</code></pre>
 </details>
 </dd>
@@ -516,6 +556,8 @@ class Player:
 </summary>
 <pre><code class="python">def baritonePlace(self, x: int, y : int, z : int, id : str):
         &#34;&#34;&#34;Tells baritone to place a block, not stable in all situations&#34;&#34;&#34;
+        if not self.hasBaritone:
+                raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
         self.client.baritonePlace(x, y, z, id)</code></pre>
 </details>
@@ -615,6 +657,8 @@ class Player:
 </summary>
 <pre><code class="python">def goto(self, x: int, y: int, z: int, wait=True):
         &#34;&#34;&#34;Use baritone to path to locations&#34;&#34;&#34;
+        if not self.hasBaritone:
+                raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
         self.client.goto(x, y, z, wait)</code></pre>
 </details>
@@ -630,6 +674,9 @@ class Player:
 </summary>
 <pre><code class="python">def gotoOnlyWalk(self, x: int, y : int, z : int, wait=True):
         &#34;&#34;&#34;Use baritone to walk to locations, does not break/place blocks and no sprinting. Use for short distences IE around farms or something&#34;&#34;&#34;
+        
+        if not self.hasBaritone:
+                raise BaritoneUninstalled(&#34;Please install the baritone api mod&#34;)
 
         self.client.gotoOnlyWalk(x, y, z, wait)</code></pre>
 </details>
@@ -1021,6 +1068,7 @@ class Player:
 <li><code><a title="mcbotit.player.Player.goto" href="#mcbotit.player.Player.goto">goto</a></code></li>
 <li><code><a title="mcbotit.player.Player.gotoOnlyWalk" href="#mcbotit.player.Player.gotoOnlyWalk">gotoOnlyWalk</a></code></li>
 <li><code><a title="mcbotit.player.Player.handlePackets" href="#mcbotit.player.Player.handlePackets">handlePackets</a></code></li>
+<li><code><a title="mcbotit.player.Player.hasBaritone" href="#mcbotit.player.Player.hasBaritone">hasBaritone</a></code></li>
 <li><code><a title="mcbotit.player.Player.hitEntity" href="#mcbotit.player.Player.hitEntity">hitEntity</a></code></li>
 <li><code><a title="mcbotit.player.Player.holdFor" href="#mcbotit.player.Player.holdFor">holdFor</a></code></li>
 <li><code><a title="mcbotit.player.Player.inventoryManager" href="#mcbotit.player.Player.inventoryManager">inventoryManager</a></code></li>

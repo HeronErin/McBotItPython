@@ -30,9 +30,12 @@
 
 import nbtlib # Faster then the normal nbt library
 
+from typing import Generator
+
 
 class MapSchematic:
-        def __init__(self, path):
+        &#34;&#34;&#34; Loads a map art Schematic from a .nbt file&#34;&#34;&#34;
+        def __init__(self, path: str):
                 file =  nbtlib.load(path, gzipped=True)
                 self.blocks ={}
                 self.palette = [str(p[&#34;Name&#34;]) for p in file[&#34;palette&#34;]]
@@ -44,25 +47,29 @@ class MapSchematic:
                         pos[1]-=1
                         self.blocks[tuple(pos)] = self.palette[int(v[&#34;state&#34;])]
                         
-        def __getitem__(self, v):
+        def __getitem__(self, v: tuple[int, int, int]) -&gt; str:
+                &#34;&#34;&#34; Get a block by tuple of position&#34;&#34;&#34;
                 if len(v) == 3:
                         try: return self.blocks[v]
                         except KeyError:
                                 return &#34;minecraft:air&#34;
                 else:
                         raise ValueError(&#34;Must contain 3 inputs&#34;)
-        def getRow(self, row):
+        def getRow(self, row : int) -&gt; Generator[tuple[list[int, int, int], str], None, None]:
+                &#34;&#34;&#34; Get list of blocks in row&#34;&#34;&#34;
                 def tmp(rw, t):
 
                         return t[0][0] == rw and t[0][1] == 1 and t[-1] != &#34;minecraft:cobblestone&#34;
                 return filter(partial(tmp, row),self.blocks.items())
-        def getRowRange(self, rows):
+        def getRowRange(self, rows) -&gt; Generator[tuple[list[int, int, int], str], None, None]:
+                &#34;&#34;&#34; Get list of blocks in rows&#34;&#34;&#34;
                 rows = list(rows)
                 def tmp(rws, t):
                         return t[0][0] in rws and t[0][1] == 1
                 return filter(partial(tmp, rows),self.blocks.items())
-        def getRowCosts(self, row):
-                
+        def getRowCosts(self, row) -&gt; dict:
+                &#34;&#34;&#34; Get count of how much it costs to build a row {id:count}&#34;&#34;&#34;
+
                 blocks = self.getRow(row)
                 stuff = {}
                 for b in blocks:
@@ -85,16 +92,17 @@ class MapSchematic:
 <dl>
 <dt id="mcbotit.schematicFileLoader.MapSchematic"><code class="flex name class">
 <span>class <span class="ident">MapSchematic</span></span>
-<span>(</span><span>path)</span>
+<span>(</span><span>path: str)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Loads a map art Schematic from a .nbt file</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class MapSchematic:
-        def __init__(self, path):
+        &#34;&#34;&#34; Loads a map art Schematic from a .nbt file&#34;&#34;&#34;
+        def __init__(self, path: str):
                 file =  nbtlib.load(path, gzipped=True)
                 self.blocks ={}
                 self.palette = [str(p[&#34;Name&#34;]) for p in file[&#34;palette&#34;]]
@@ -106,25 +114,29 @@ class MapSchematic:
                         pos[1]-=1
                         self.blocks[tuple(pos)] = self.palette[int(v[&#34;state&#34;])]
                         
-        def __getitem__(self, v):
+        def __getitem__(self, v: tuple[int, int, int]) -&gt; str:
+                &#34;&#34;&#34; Get a block by tuple of position&#34;&#34;&#34;
                 if len(v) == 3:
                         try: return self.blocks[v]
                         except KeyError:
                                 return &#34;minecraft:air&#34;
                 else:
                         raise ValueError(&#34;Must contain 3 inputs&#34;)
-        def getRow(self, row):
+        def getRow(self, row : int) -&gt; Generator[tuple[list[int, int, int], str], None, None]:
+                &#34;&#34;&#34; Get list of blocks in row&#34;&#34;&#34;
                 def tmp(rw, t):
 
                         return t[0][0] == rw and t[0][1] == 1 and t[-1] != &#34;minecraft:cobblestone&#34;
                 return filter(partial(tmp, row),self.blocks.items())
-        def getRowRange(self, rows):
+        def getRowRange(self, rows) -&gt; Generator[tuple[list[int, int, int], str], None, None]:
+                &#34;&#34;&#34; Get list of blocks in rows&#34;&#34;&#34;
                 rows = list(rows)
                 def tmp(rws, t):
                         return t[0][0] in rws and t[0][1] == 1
                 return filter(partial(tmp, rows),self.blocks.items())
-        def getRowCosts(self, row):
-                
+        def getRowCosts(self, row) -&gt; dict:
+                &#34;&#34;&#34; Get count of how much it costs to build a row {id:count}&#34;&#34;&#34;
+
                 blocks = self.getRow(row)
                 stuff = {}
                 for b in blocks:
@@ -138,15 +150,16 @@ class MapSchematic:
 <h3>Methods</h3>
 <dl>
 <dt id="mcbotit.schematicFileLoader.MapSchematic.getRow"><code class="name flex">
-<span>def <span class="ident">getRow</span></span>(<span>self, row)</span>
+<span>def <span class="ident">getRow</span></span>(<span>self, row: int) ‑> Generator[tuple[list[int, int, int], str], None, None]</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Get list of blocks in row</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def getRow(self, row):
+<pre><code class="python">def getRow(self, row : int) -&gt; Generator[tuple[list[int, int, int], str], None, None]:
+        &#34;&#34;&#34; Get list of blocks in row&#34;&#34;&#34;
         def tmp(rw, t):
 
                 return t[0][0] == rw and t[0][1] == 1 and t[-1] != &#34;minecraft:cobblestone&#34;
@@ -154,16 +167,17 @@ class MapSchematic:
 </details>
 </dd>
 <dt id="mcbotit.schematicFileLoader.MapSchematic.getRowCosts"><code class="name flex">
-<span>def <span class="ident">getRowCosts</span></span>(<span>self, row)</span>
+<span>def <span class="ident">getRowCosts</span></span>(<span>self, row) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Get count of how much it costs to build a row {id:count}</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def getRowCosts(self, row):
-        
+<pre><code class="python">def getRowCosts(self, row) -&gt; dict:
+        &#34;&#34;&#34; Get count of how much it costs to build a row {id:count}&#34;&#34;&#34;
+
         blocks = self.getRow(row)
         stuff = {}
         for b in blocks:
@@ -176,15 +190,16 @@ class MapSchematic:
 </details>
 </dd>
 <dt id="mcbotit.schematicFileLoader.MapSchematic.getRowRange"><code class="name flex">
-<span>def <span class="ident">getRowRange</span></span>(<span>self, rows)</span>
+<span>def <span class="ident">getRowRange</span></span>(<span>self, rows) ‑> Generator[tuple[list[int, int, int], str], None, None]</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Get list of blocks in rows</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def getRowRange(self, rows):
+<pre><code class="python">def getRowRange(self, rows) -&gt; Generator[tuple[list[int, int, int], str], None, None]:
+        &#34;&#34;&#34; Get list of blocks in rows&#34;&#34;&#34;
         rows = list(rows)
         def tmp(rws, t):
                 return t[0][0] in rws and t[0][1] == 1
