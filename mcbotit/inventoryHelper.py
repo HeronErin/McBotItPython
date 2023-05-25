@@ -40,7 +40,7 @@ class BaseInventory:
 		return out
 	def search(self, id:int) -> Generator[dict, None, None]:
 		""" Search for an item stack in a chest or non player inventory, YEILD the results"""
-		for row in range(3, self.maxRows-1):
+		for row in range(3, self.maxRows):
 			for col in range(0, self.maxCols):
 				if (item:=self.getSlot(row, col))["type"] == id:
 					yield item

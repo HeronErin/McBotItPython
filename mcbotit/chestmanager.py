@@ -29,7 +29,7 @@ class ChestManager:
 
 	def search(self, id):
 		for chestPos, chest in self.chests.items():
-			for row in range(3, chest.maxRows-1):
+			for row in range(3, chest.maxRows):
 				for col in range(0, chest.maxCols):
 					if (item:=chest.getSlot(row, col))["type"] == id:
 						return item, chestPos

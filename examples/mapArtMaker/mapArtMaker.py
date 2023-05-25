@@ -6,13 +6,13 @@ from mcbotit import Chest1Inventory, Chest2Inventory, Chest3Inventory, Chest4Inv
 
 
 
-PORT = 16256
+PORT = 10330
 player = Player(PORT, keepAliveTime=0.05)
 
-blockBase = (-64, 147, -64)
-chestStandLoc = (-63, 147, -63)
+blockBase = (14656, 78, 3392)
+chestStandLoc = (14654.7, 79, 3388.2)
 
-build_segment_size = 3
+build_segment_size = 4
 chests = (
 	(14652, 81, 3390),
 	(14652, 80, 3390),
@@ -26,8 +26,9 @@ chests = (
 	(14652, 80, 3387),
 	(14652, 79, 3387),
 
-	(14652, 79, 3385),
+	(14652, 79, 3384),
 	)
+
 
 
 supportingBlock = "minecraft:cobblestone_slab"
@@ -109,7 +110,7 @@ def outline():
 	safeShift((80, 0), 129, start=(blockBase[0]-1, blockBase[1]+1, blockBase[2]+128)) # -65, 7, 64)
 
 def makeRowBatch(rows):
-
+	vt = 0
 	if rows:
 		lookwalk(chestStandLoc[0], chestStandLoc[2], required_distance_squared=4)
 
@@ -205,48 +206,50 @@ def makeRowBatch(rows):
 		# precompute next rows while in render distance
 		for i in range(len(rows)*2):hasRowCached(rows[-1]+i+1)
 
-		
+		vt = time.time()
 
 		first = True
 		for blocks in zip(*(schematic.getRow(row) for row in rows)):
 			eatFood()
-			while True:
-				doBreak = True
-				for block in blocks:
-					blockPos = block[0][0]+blockBase[0], block[0][1]-1+blockBase[1], block[0][2]+blockBase[2]-1
+			with player.client:
+				while True:
+					doBreak = True
 
-					if player.getBlock(*blockPos)["id"] != supportingBlock:
-						doBreak = False
-						getItemToSlot(supportingBlock, hotbar=1)
-						time.sleep(0.1)
-						player.client.printerPlace(*blockPos,1)
-						time.sleep(0.3)
-						getItemToSlot(supportingBlock, hotbar=1)
-				for i, block in enumerate(blocks):
-					blockPos = block[0][0]+blockBase[0], block[0][1]+blockBase[1], block[0][2]+blockBase[2]-1
-					hotbar = [slot for slot in player.client.getPlayerInventory() if slot["id"] == block[1] and slot["Slot"] < 8]
-					open_hotbar = [slot for slot in player.client.getPlayerInventory() if slot["id"] == "minecraft:air" and slot["Slot"] < 8]
-					useSlot = random.randrange(1, 8) if len(open_hotbar) == 0 else open_hotbar[0]["Slot"]
+					for block in blocks:
+						blockPos = block[0][0]+blockBase[0], block[0][1]-1+blockBase[1], block[0][2]+blockBase[2]-1
 
-					if player.getBlock(*blockPos)["id"] != block[1]:
-						
-
-						doBreak = False
-						if len(hotbar) == 0:
-							getItemToSlot(block[1], hotbar=useSlot+1)
-							time.sleep(0.2)
-							player.client.printerPlace(*blockPos,useSlot+1)
-						else:
-
+						if player.getBlock(*blockPos)["id"] != supportingBlock:
+							doBreak = False
+							getItemToSlot(supportingBlock, hotbar=1)
 							time.sleep(0.1)
-							player.client.printerPlace(*blockPos,hotbar[0]["Slot"]+1)
-						time.sleep(0.1)
-						
-				if doBreak:
-					break
+							player.client.printerPlace(*blockPos,1)
+							time.sleep(0.05)
+							getItemToSlot(supportingBlock, hotbar=1)
+					for i, block in enumerate(blocks):
+						blockPos = block[0][0]+blockBase[0], block[0][1]+blockBase[1], block[0][2]+blockBase[2]-1
+						hotbar = [slot for slot in player.client.getPlayerInventory() if slot["id"] == block[1] and slot["Slot"] < 8]
+						open_hotbar = [slot for slot in player.client.getPlayerInventory() if slot["id"] == "minecraft:air" and slot["Slot"] < 8]
+						useSlot = random.randrange(1, 8) if len(open_hotbar) == 0 else open_hotbar[0]["Slot"]
+
+						if player.getBlock(*blockPos)["id"] != block[1]:
+							
+
+							doBreak = False
+							if len(hotbar) == 0:
+								getItemToSlot(block[1], hotbar=useSlot+1)
+								time.sleep(0.2)
+								player.client.printerPlace(*blockPos,useSlot+1)
+							else:
+
+								time.sleep(0.07)
+								player.client.printerPlace(*blockPos,hotbar[0]["Slot"]+1)
+							time.sleep(0.04)
+							
+					if doBreak:
+						break
 
 			# Walk one block
-			player.rotate(50, 0)
+			player.rotate(50, 0, speed = 0.1)
 			if not first:
 				beforeZ = math.floor(player.lastZ)
 				oldPing = player.client.pingTime
@@ -259,7 +262,8 @@ def makeRowBatch(rows):
 					player.keyUp(InputKeys.FORWARD)
 					player.client.pingTime = oldPing
 			first = False
-		
+		z = time.time()-vt
+		print(f"Finished with row(s), took: {z}s or {z/len(rows)}s per row. Finished with row {rows[-1]}. Estimated time left {(128-rows[-1])/len(rows)*z}")
 		lookwalk(blockBase[0]+rows[len(rows)//2], blockBase[2]-1)
 		lookwalk(blockBase[0]-1, blockBase[2]-1)
 		
@@ -314,7 +318,10 @@ if __name__ == "__main__":
 				if not hasRowCached(row):
 					workingOn.append(row)
 				if len(workingOn) == build_segment_size:
+					
 					makeRowBatch(workingOn)
+					
+					
 					workingOn.clear()
 					eatFood()
 
