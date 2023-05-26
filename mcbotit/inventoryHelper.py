@@ -1,6 +1,9 @@
 import json
 from typing import Generator
-from .client import Client
+from .client import Client, STATUS_EFFECT
+
+
+
 
 class BaseInventory:
 	requiredType : str
@@ -38,13 +41,13 @@ class BaseInventory:
 		del out["client"]
 		out["container type"] = self.requiredType
 		return out
-	def search(self, id:int) -> Generator[dict, None, None]:
+	def search(self, id:str) -> Generator[dict, None, None]:
 		""" Search for an item stack in a chest or non player inventory, YEILD the results"""
 		for row in range(3, self.maxRows):
 			for col in range(0, self.maxCols):
 				if (item:=self.getSlot(row, col))["type"] == id:
 					yield item
-	def searchPlayerInv(self, id) -> dict:
+	def searchPlayerInv(self, id:str) -> dict:
 		""" Search specificly the players inventory and RETURN the result"""
 		for row in range(0, 4):
 			for col in range(0, 9):
@@ -201,6 +204,8 @@ class EnchantmentTable(BaseInventory):
 		""" Select an enchantment based on the index of the enchantment """
 
 		self.client.clickInventoryButton(i)
+	def getEnchants(self)->list[dict]:
+		return self.client.getEnchants()
 class BrewingStand(BaseInventory):
 	playerInvEnd=40
 	maxRows=4
@@ -218,8 +223,9 @@ class BrewingStand(BaseInventory):
 		self.potion1 =self.getId(0)
 		self.potion2 =self.getId(1)
 		self.potion3 =self.getId(2)
-class Anvil(BaseInventory):
-	requiredType="anvil"
+
+class Base3WayIO(BaseInventory):
+	requiredType=""
 	playerInvEnd=38
 	maxRows=4
 	maxCols=9
@@ -230,7 +236,15 @@ class Anvil(BaseInventory):
 		self.input1 = self.getId(0)
 		self.input2 = self.getId(1)
 		self.output = self.getId(2)
-class VillagerInventory(Anvil):
+class Anvil(Base3WayIO):
+	requiredType="anvil"
+
+	def getInfo(self)->dict:
+		return self.client.getAnvilInfo()
+	def setName(self, text:str):
+		self.client.setAnvilName(text)
+
+class VillagerInventory(Base3WayIO):
 	requiredType = "villager"
 	def setTradeIndex(self, i):
 		""" Select the villagers strade bassed on index """
@@ -247,6 +261,13 @@ class Beacon(BaseInventory):
 	input : dict
 	def init(self):
 		self.input = self.getId(0)
+
+	def setPrimaryEffect(self, effect:STATUS_EFFECT):
+		self.client.setBeaconEffect(True, effect)
+	def setSecoundaryEffect(self, effect:STATUS_EFFECT):
+		self.client.setBeaconEffect(False, effect)
+	def doneButton(self):
+		self.client.pressDoneButtonInBeacon()
 class Hopper(BaseInventory):
 	requiredType = "hopper"
 	playerInvEnd=40
@@ -264,13 +285,13 @@ class Hopper(BaseInventory):
 		self.slot3 =self.getId(2)
 		self.slot4 =self.getId(3)
 		self.slot5 =self.getId(4) 
-class CartographyTable(Anvil):
+class CartographyTable(Base3WayIO):
 	requiredType="cartography Table"
-class Grindstone(Anvil):
+class Grindstone(Base3WayIO):
 	requiredType="grindstone"
 
 # CHANGES IN 1.20
-class SmithingTable(Anvil):
+class SmithingTable(Base3WayIO):
 	requiredType="smithing table"
 
 

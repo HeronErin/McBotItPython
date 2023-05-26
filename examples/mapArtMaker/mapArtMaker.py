@@ -6,11 +6,11 @@ from mcbotit import Chest1Inventory, Chest2Inventory, Chest3Inventory, Chest4Inv
 
 
 
-PORT = 10330
+PORT = 25589
 player = Player(PORT, keepAliveTime=0.05)
 
 blockBase = (14656, 78, 3392)
-chestStandLoc = (14654.7, 79, 3388.2)
+chestStandLoc = (14654.7, 79, 3387.5)
 
 build_segment_size = 4
 chests = (
@@ -112,6 +112,7 @@ def outline():
 def makeRowBatch(rows):
 	vt = 0
 	if rows:
+		lookwalk(blockBase[0]-1, blockBase[2]-1, required_distance_squared=4)
 		lookwalk(chestStandLoc[0], chestStandLoc[2], required_distance_squared=4)
 
 
@@ -223,7 +224,7 @@ def makeRowBatch(rows):
 							getItemToSlot(supportingBlock, hotbar=1)
 							time.sleep(0.1)
 							player.client.printerPlace(*blockPos,1)
-							time.sleep(0.05)
+							time.sleep(0.065)
 							getItemToSlot(supportingBlock, hotbar=1)
 					for i, block in enumerate(blocks):
 						blockPos = block[0][0]+blockBase[0], block[0][1]+blockBase[1], block[0][2]+blockBase[2]-1
@@ -241,19 +242,23 @@ def makeRowBatch(rows):
 								player.client.printerPlace(*blockPos,useSlot+1)
 							else:
 
-								time.sleep(0.07)
+								time.sleep(0.1)
 								player.client.printerPlace(*blockPos,hotbar[0]["Slot"]+1)
-							time.sleep(0.04)
+								time.sleep(0.04)
+							
 							
 					if doBreak:
 						break
-
-			# Walk one block
-			player.rotate(50, 0, speed = 0.1)
 			if not first:
-				beforeZ = math.floor(player.lastZ)
+				# Walk one block
+				player.rotate(50, 0, speed = 0.1)
+
+				
 				oldPing = player.client.pingTime
 				player.client.pingTime = 0.04
+
+				time.sleep(0.08)
+				beforeZ = math.floor(player.lastZ)
 				try:
 					player.keyDown(InputKeys.FORWARD)
 					while abs(player.lastZ-beforeZ) < 0.9:
@@ -262,6 +267,7 @@ def makeRowBatch(rows):
 					player.keyUp(InputKeys.FORWARD)
 					player.client.pingTime = oldPing
 			first = False
+
 		z = time.time()-vt
 		print(f"Finished with row(s), took: {z}s or {z/len(rows)}s per row. Finished with row {rows[-1]}. Estimated time left {(128-rows[-1])/len(rows)*z}")
 		lookwalk(blockBase[0]+rows[len(rows)//2], blockBase[2]-1)
@@ -328,6 +334,12 @@ if __name__ == "__main__":
 
 				
 			makeRowBatch(workingOn)
+	elif sys.argv[-1] == "costs":
+		costs = {}
+		for block in schematic.blocks.items():
+			costs[block[-1]] = costs.get(block[-1], 0)+1
+		for k, v in costs.items():
+			print(k,"items:", v,"stacks:", v/64,"rows", v/64/9,"chests:", v/64/9/3)
 
 	
 

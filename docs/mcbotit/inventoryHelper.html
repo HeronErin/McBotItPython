@@ -28,7 +28,10 @@
 </summary>
 <pre><code class="python">import json
 from typing import Generator
-from .client import Client
+from .client import Client, STATUS_EFFECT
+
+
+
 
 class BaseInventory:
         requiredType : str
@@ -66,13 +69,13 @@ class BaseInventory:
                 del out[&#34;client&#34;]
                 out[&#34;container type&#34;] = self.requiredType
                 return out
-        def search(self, id:int) -&gt; Generator[dict, None, None]:
+        def search(self, id:str) -&gt; Generator[dict, None, None]:
                 &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
                 for row in range(3, self.maxRows):
                         for col in range(0, self.maxCols):
                                 if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
                                         yield item
-        def searchPlayerInv(self, id) -&gt; dict:
+        def searchPlayerInv(self, id:str) -&gt; dict:
                 &#34;&#34;&#34; Search specificly the players inventory and RETURN the result&#34;&#34;&#34;
                 for row in range(0, 4):
                         for col in range(0, 9):
@@ -229,6 +232,8 @@ class EnchantmentTable(BaseInventory):
                 &#34;&#34;&#34; Select an enchantment based on the index of the enchantment &#34;&#34;&#34;
 
                 self.client.clickInventoryButton(i)
+        def getEnchants(self)-&gt;list[dict]:
+                return self.client.getEnchants()
 class BrewingStand(BaseInventory):
         playerInvEnd=40
         maxRows=4
@@ -246,8 +251,9 @@ class BrewingStand(BaseInventory):
                 self.potion1 =self.getId(0)
                 self.potion2 =self.getId(1)
                 self.potion3 =self.getId(2)
-class Anvil(BaseInventory):
-        requiredType=&#34;anvil&#34;
+
+class Base3WayIO(BaseInventory):
+        requiredType=&#34;&#34;
         playerInvEnd=38
         maxRows=4
         maxCols=9
@@ -258,7 +264,15 @@ class Anvil(BaseInventory):
                 self.input1 = self.getId(0)
                 self.input2 = self.getId(1)
                 self.output = self.getId(2)
-class VillagerInventory(Anvil):
+class Anvil(Base3WayIO):
+        requiredType=&#34;anvil&#34;
+
+        def getInfo(self)-&gt;dict:
+                return self.client.getAnvilInfo()
+        def setName(self, text:str):
+                self.client.setAnvilName(text)
+
+class VillagerInventory(Base3WayIO):
         requiredType = &#34;villager&#34;
         def setTradeIndex(self, i):
                 &#34;&#34;&#34; Select the villagers strade bassed on index &#34;&#34;&#34;
@@ -275,6 +289,13 @@ class Beacon(BaseInventory):
         input : dict
         def init(self):
                 self.input = self.getId(0)
+
+        def setPrimaryEffect(self, effect:STATUS_EFFECT):
+                self.client.setBeaconEffect(True, effect)
+        def setSecoundaryEffect(self, effect:STATUS_EFFECT):
+                self.client.setBeaconEffect(False, effect)
+        def doneButton(self):
+                self.client.pressDoneButtonInBeacon()
 class Hopper(BaseInventory):
         requiredType = &#34;hopper&#34;
         playerInvEnd=40
@@ -292,13 +313,13 @@ class Hopper(BaseInventory):
                 self.slot3 =self.getId(2)
                 self.slot4 =self.getId(3)
                 self.slot5 =self.getId(4) 
-class CartographyTable(Anvil):
+class CartographyTable(Base3WayIO):
         requiredType=&#34;cartography Table&#34;
-class Grindstone(Anvil):
+class Grindstone(Base3WayIO):
         requiredType=&#34;grindstone&#34;
 
 # CHANGES IN 1.20
-class SmithingTable(Anvil):
+class SmithingTable(Base3WayIO):
         requiredType=&#34;smithing table&#34;
 
 
@@ -365,8 +386,81 @@ class InventoryManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Anvil(BaseInventory):
+<pre><code class="python">class Anvil(Base3WayIO):
         requiredType=&#34;anvil&#34;
+
+        def getInfo(self)-&gt;dict:
+                return self.client.getAnvilInfo()
+        def setName(self, text:str):
+                self.client.setAnvilName(text)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></li>
+<li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Anvil.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Anvil.getInfo"><code class="name flex">
+<span>def <span class="ident">getInfo</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getInfo(self)-&gt;dict:
+        return self.client.getAnvilInfo()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.Anvil.setName"><code class="name flex">
+<span>def <span class="ident">setName</span></span>(<span>self, text: str)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setName(self, text:str):
+        self.client.setAnvilName(text)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></b></code>:
+<ul class="hlist">
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="mcbotit.inventoryHelper.Base3WayIO"><code class="flex name class">
+<span>class <span class="ident">Base3WayIO</span></span>
+<span>(</span><span>client: <a title="mcbotit.client.Client" href="client.html#mcbotit.client.Client">Client</a>, nbt: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Base3WayIO(BaseInventory):
+        requiredType=&#34;&#34;
         playerInvEnd=38
         maxRows=4
         maxCols=9
@@ -384,6 +478,7 @@ class InventoryManager:
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
+<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
 <li><a title="mcbotit.inventoryHelper.CartographyTable" href="#mcbotit.inventoryHelper.CartographyTable">CartographyTable</a></li>
 <li><a title="mcbotit.inventoryHelper.Grindstone" href="#mcbotit.inventoryHelper.Grindstone">Grindstone</a></li>
 <li><a title="mcbotit.inventoryHelper.SmithingTable" href="#mcbotit.inventoryHelper.SmithingTable">SmithingTable</a></li>
@@ -391,31 +486,31 @@ class InventoryManager:
 </ul>
 <h3>Class variables</h3>
 <dl>
-<dt id="mcbotit.inventoryHelper.Anvil.input1"><code class="name">var <span class="ident">input1</span> : dict</code></dt>
+<dt id="mcbotit.inventoryHelper.Base3WayIO.input1"><code class="name">var <span class="ident">input1</span> : dict</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="mcbotit.inventoryHelper.Anvil.input2"><code class="name">var <span class="ident">input2</span> : dict</code></dt>
+<dt id="mcbotit.inventoryHelper.Base3WayIO.input2"><code class="name">var <span class="ident">input2</span> : dict</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="mcbotit.inventoryHelper.Anvil.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
+<dt id="mcbotit.inventoryHelper.Base3WayIO.maxCols"><code class="name">var <span class="ident">maxCols</span> : int</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="mcbotit.inventoryHelper.Anvil.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
+<dt id="mcbotit.inventoryHelper.Base3WayIO.maxRows"><code class="name">var <span class="ident">maxRows</span> : int</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="mcbotit.inventoryHelper.Anvil.output"><code class="name">var <span class="ident">output</span> : dict</code></dt>
+<dt id="mcbotit.inventoryHelper.Base3WayIO.output"><code class="name">var <span class="ident">output</span> : dict</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="mcbotit.inventoryHelper.Anvil.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
+<dt id="mcbotit.inventoryHelper.Base3WayIO.playerInvEnd"><code class="name">var <span class="ident">playerInvEnd</span> : int</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="mcbotit.inventoryHelper.Anvil.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
+<dt id="mcbotit.inventoryHelper.Base3WayIO.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
 </dd>
@@ -480,13 +575,13 @@ class InventoryManager:
                 del out[&#34;client&#34;]
                 out[&#34;container type&#34;] = self.requiredType
                 return out
-        def search(self, id:int) -&gt; Generator[dict, None, None]:
+        def search(self, id:str) -&gt; Generator[dict, None, None]:
                 &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
                 for row in range(3, self.maxRows):
                         for col in range(0, self.maxCols):
                                 if (item:=self.getSlot(row, col))[&#34;type&#34;] == id:
                                         yield item
-        def searchPlayerInv(self, id) -&gt; dict:
+        def searchPlayerInv(self, id:str) -&gt; dict:
                 &#34;&#34;&#34; Search specificly the players inventory and RETURN the result&#34;&#34;&#34;
                 for row in range(0, 4):
                         for col in range(0, 9):
@@ -496,7 +591,7 @@ class InventoryManager:
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></li>
 <li><a title="mcbotit.inventoryHelper.Beacon" href="#mcbotit.inventoryHelper.Beacon">Beacon</a></li>
 <li><a title="mcbotit.inventoryHelper.BrewingStand" href="#mcbotit.inventoryHelper.BrewingStand">BrewingStand</a></li>
 <li><a title="mcbotit.inventoryHelper.Chest1Inventory" href="#mcbotit.inventoryHelper.Chest1Inventory">Chest1Inventory</a></li>
@@ -603,7 +698,7 @@ class InventoryManager:
 </details>
 </dd>
 <dt id="mcbotit.inventoryHelper.BaseInventory.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>self, id: int) ‑> Generator[dict, None, None]</span>
+<span>def <span class="ident">search</span></span>(<span>self, id: str) ‑> Generator[dict, None, None]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Search for an item stack in a chest or non player inventory, YEILD the results</p></div>
@@ -611,7 +706,7 @@ class InventoryManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def search(self, id:int) -&gt; Generator[dict, None, None]:
+<pre><code class="python">def search(self, id:str) -&gt; Generator[dict, None, None]:
         &#34;&#34;&#34; Search for an item stack in a chest or non player inventory, YEILD the results&#34;&#34;&#34;
         for row in range(3, self.maxRows):
                 for col in range(0, self.maxCols):
@@ -620,7 +715,7 @@ class InventoryManager:
 </details>
 </dd>
 <dt id="mcbotit.inventoryHelper.BaseInventory.searchPlayerInv"><code class="name flex">
-<span>def <span class="ident">searchPlayerInv</span></span>(<span>self, id) ‑> dict</span>
+<span>def <span class="ident">searchPlayerInv</span></span>(<span>self, id: str) ‑> dict</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Search specificly the players inventory and RETURN the result</p></div>
@@ -628,7 +723,7 @@ class InventoryManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def searchPlayerInv(self, id) -&gt; dict:
+<pre><code class="python">def searchPlayerInv(self, id:str) -&gt; dict:
         &#34;&#34;&#34; Search specificly the players inventory and RETURN the result&#34;&#34;&#34;
         for row in range(0, 4):
                 for col in range(0, 9):
@@ -672,7 +767,14 @@ class InventoryManager:
         maxCols=9
         input : dict
         def init(self):
-                self.input = self.getId(0)</code></pre>
+                self.input = self.getId(0)
+
+        def setPrimaryEffect(self, effect:STATUS_EFFECT):
+                self.client.setBeaconEffect(True, effect)
+        def setSecoundaryEffect(self, effect:STATUS_EFFECT):
+                self.client.setBeaconEffect(False, effect)
+        def doneButton(self):
+                self.client.pressDoneButtonInBeacon()</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -699,6 +801,48 @@ class InventoryManager:
 <dt id="mcbotit.inventoryHelper.Beacon.requiredType"><code class="name">var <span class="ident">requiredType</span> : str</code></dt>
 <dd>
 <div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="mcbotit.inventoryHelper.Beacon.doneButton"><code class="name flex">
+<span>def <span class="ident">doneButton</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def doneButton(self):
+        self.client.pressDoneButtonInBeacon()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.Beacon.setPrimaryEffect"><code class="name flex">
+<span>def <span class="ident">setPrimaryEffect</span></span>(<span>self, effect: <a title="mcbotit.client.STATUS_EFFECT" href="client.html#mcbotit.client.STATUS_EFFECT">STATUS_EFFECT</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setPrimaryEffect(self, effect:STATUS_EFFECT):
+        self.client.setBeaconEffect(True, effect)</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.inventoryHelper.Beacon.setSecoundaryEffect"><code class="name flex">
+<span>def <span class="ident">setSecoundaryEffect</span></span>(<span>self, effect: <a title="mcbotit.client.STATUS_EFFECT" href="client.html#mcbotit.client.STATUS_EFFECT">STATUS_EFFECT</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setSecoundaryEffect(self, effect:STATUS_EFFECT):
+        self.client.setBeaconEffect(False, effect)</code></pre>
+</details>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -849,12 +993,12 @@ class InventoryManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class CartographyTable(Anvil):
+<pre><code class="python">class CartographyTable(Base3WayIO):
         requiredType=&#34;cartography Table&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></li>
 <li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
 </ul>
 <h3>Class variables</h3>
@@ -866,14 +1010,14 @@ class InventoryManager:
 </dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<li><code><b><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></b></code>:
 <ul class="hlist">
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
 </ul>
 </li>
 </ul>
@@ -1339,7 +1483,9 @@ class InventoryManager:
         def pickEnchantment(self, i: int):
                 &#34;&#34;&#34; Select an enchantment based on the index of the enchantment &#34;&#34;&#34;
 
-                self.client.clickInventoryButton(i)</code></pre>
+                self.client.clickInventoryButton(i)
+        def getEnchants(self)-&gt;list[dict]:
+                return self.client.getEnchants()</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1374,6 +1520,19 @@ class InventoryManager:
 </dl>
 <h3>Methods</h3>
 <dl>
+<dt id="mcbotit.inventoryHelper.EnchantmentTable.getEnchants"><code class="name flex">
+<span>def <span class="ident">getEnchants</span></span>(<span>self) ‑> list[dict]</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getEnchants(self)-&gt;list[dict]:
+        return self.client.getEnchants()</code></pre>
+</details>
+</dd>
 <dt id="mcbotit.inventoryHelper.EnchantmentTable.pickEnchantment"><code class="name flex">
 <span>def <span class="ident">pickEnchantment</span></span>(<span>self, i: int)</span>
 </code></dt>
@@ -1493,12 +1652,12 @@ class InventoryManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Grindstone(Anvil):
+<pre><code class="python">class Grindstone(Base3WayIO):
         requiredType=&#34;grindstone&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></li>
 <li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
 </ul>
 <h3>Class variables</h3>
@@ -1510,14 +1669,14 @@ class InventoryManager:
 </dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<li><code><b><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></b></code>:
 <ul class="hlist">
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
 </ul>
 </li>
 </ul>
@@ -2056,12 +2215,12 @@ class InventoryManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class SmithingTable(Anvil):
+<pre><code class="python">class SmithingTable(Base3WayIO):
         requiredType=&#34;smithing table&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></li>
 <li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
 </ul>
 <h3>Class variables</h3>
@@ -2073,14 +2232,14 @@ class InventoryManager:
 </dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<li><code><b><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></b></code>:
 <ul class="hlist">
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
 </ul>
 </li>
 </ul>
@@ -2134,7 +2293,7 @@ class InventoryManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class VillagerInventory(Anvil):
+<pre><code class="python">class VillagerInventory(Base3WayIO):
         requiredType = &#34;villager&#34;
         def setTradeIndex(self, i):
                 &#34;&#34;&#34; Select the villagers strade bassed on index &#34;&#34;&#34;
@@ -2146,7 +2305,7 @@ class InventoryManager:
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></li>
+<li><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></li>
 <li><a title="mcbotit.inventoryHelper.BaseInventory" href="#mcbotit.inventoryHelper.BaseInventory">BaseInventory</a></li>
 </ul>
 <h3>Class variables</h3>
@@ -2190,14 +2349,14 @@ class InventoryManager:
 </dl>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></b></code>:
+<li><code><b><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></b></code>:
 <ul class="hlist">
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getId" href="#mcbotit.inventoryHelper.BaseInventory.getId">getId</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlot" href="#mcbotit.inventoryHelper.BaseInventory.getSlot">getSlot</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.getSlotIdByRowCol" href="#mcbotit.inventoryHelper.BaseInventory.getSlotIdByRowCol">getSlotIdByRowCol</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.init" href="#mcbotit.inventoryHelper.BaseInventory.init">init</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.search" href="#mcbotit.inventoryHelper.BaseInventory.search">search</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.searchPlayerInv" href="#mcbotit.inventoryHelper.BaseInventory.searchPlayerInv">searchPlayerInv</a></code></li>
 </ul>
 </li>
 </ul>
@@ -2329,14 +2488,22 @@ class InventoryManager:
 <ul>
 <li>
 <h4><code><a title="mcbotit.inventoryHelper.Anvil" href="#mcbotit.inventoryHelper.Anvil">Anvil</a></code></h4>
-<ul class="two-column">
-<li><code><a title="mcbotit.inventoryHelper.Anvil.input1" href="#mcbotit.inventoryHelper.Anvil.input1">input1</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.input2" href="#mcbotit.inventoryHelper.Anvil.input2">input2</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.maxCols" href="#mcbotit.inventoryHelper.Anvil.maxCols">maxCols</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.maxRows" href="#mcbotit.inventoryHelper.Anvil.maxRows">maxRows</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.output" href="#mcbotit.inventoryHelper.Anvil.output">output</a></code></li>
-<li><code><a title="mcbotit.inventoryHelper.Anvil.playerInvEnd" href="#mcbotit.inventoryHelper.Anvil.playerInvEnd">playerInvEnd</a></code></li>
+<ul class="">
+<li><code><a title="mcbotit.inventoryHelper.Anvil.getInfo" href="#mcbotit.inventoryHelper.Anvil.getInfo">getInfo</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.Anvil.requiredType" href="#mcbotit.inventoryHelper.Anvil.requiredType">requiredType</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Anvil.setName" href="#mcbotit.inventoryHelper.Anvil.setName">setName</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.inventoryHelper.Base3WayIO" href="#mcbotit.inventoryHelper.Base3WayIO">Base3WayIO</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.input1" href="#mcbotit.inventoryHelper.Base3WayIO.input1">input1</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.input2" href="#mcbotit.inventoryHelper.Base3WayIO.input2">input2</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.maxCols" href="#mcbotit.inventoryHelper.Base3WayIO.maxCols">maxCols</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.maxRows" href="#mcbotit.inventoryHelper.Base3WayIO.maxRows">maxRows</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.output" href="#mcbotit.inventoryHelper.Base3WayIO.output">output</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.playerInvEnd" href="#mcbotit.inventoryHelper.Base3WayIO.playerInvEnd">playerInvEnd</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Base3WayIO.requiredType" href="#mcbotit.inventoryHelper.Base3WayIO.requiredType">requiredType</a></code></li>
 </ul>
 </li>
 <li>
@@ -2359,12 +2526,15 @@ class InventoryManager:
 </li>
 <li>
 <h4><code><a title="mcbotit.inventoryHelper.Beacon" href="#mcbotit.inventoryHelper.Beacon">Beacon</a></code></h4>
-<ul class="">
+<ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.Beacon.doneButton" href="#mcbotit.inventoryHelper.Beacon.doneButton">doneButton</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.Beacon.input" href="#mcbotit.inventoryHelper.Beacon.input">input</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.Beacon.maxCols" href="#mcbotit.inventoryHelper.Beacon.maxCols">maxCols</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.Beacon.maxRows" href="#mcbotit.inventoryHelper.Beacon.maxRows">maxRows</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.Beacon.playerInvEnd" href="#mcbotit.inventoryHelper.Beacon.playerInvEnd">playerInvEnd</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.Beacon.requiredType" href="#mcbotit.inventoryHelper.Beacon.requiredType">requiredType</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Beacon.setPrimaryEffect" href="#mcbotit.inventoryHelper.Beacon.setPrimaryEffect">setPrimaryEffect</a></code></li>
+<li><code><a title="mcbotit.inventoryHelper.Beacon.setSecoundaryEffect" href="#mcbotit.inventoryHelper.Beacon.setSecoundaryEffect">setSecoundaryEffect</a></code></li>
 </ul>
 </li>
 <li>
@@ -2469,6 +2639,7 @@ class InventoryManager:
 <li>
 <h4><code><a title="mcbotit.inventoryHelper.EnchantmentTable" href="#mcbotit.inventoryHelper.EnchantmentTable">EnchantmentTable</a></code></h4>
 <ul class="two-column">
+<li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.getEnchants" href="#mcbotit.inventoryHelper.EnchantmentTable.getEnchants">getEnchants</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.inputSlot" href="#mcbotit.inventoryHelper.EnchantmentTable.inputSlot">inputSlot</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.lapisSlot" href="#mcbotit.inventoryHelper.EnchantmentTable.lapisSlot">lapisSlot</a></code></li>
 <li><code><a title="mcbotit.inventoryHelper.EnchantmentTable.maxCols" href="#mcbotit.inventoryHelper.EnchantmentTable.maxCols">maxCols</a></code></li>

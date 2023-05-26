@@ -14,6 +14,41 @@ def read_from_nbt_file(_file) -> nbt.TAG:
 def handlePackets(packet, client, appendHandler):
 	appendHandler(packet, client)
 
+
+class STATUS_EFFECT(enum.Enum):
+	SPEED = "speed"
+	SLOWNESS = "slowness"
+	HASTE = "haste"
+	MINING_FATIGUE = 'mining_fatigue'
+	STRENGTH = 'strength'
+	INSTANT_HEALTH = "instant_health"
+	INSTANT_DAMAGE = "instant_damage"
+	JUMP_BOOST = "jump_boost"
+	NAUSEA = "nausea"
+	REGENERATION = "regeneration"
+	RESISTANCE = "resistance"
+	FIRE_RESISTANCE = "fire_resistance"
+	WATER_BREATHING = "water_breathing"
+	INVISIBILITY = "invisibility"
+	BLINDNESS = "blindness"
+	NIGHT_VISION = "night_vision"
+	HUNGER = "hunger"
+	WEAKNESS ="weakness"
+	POISON = "poison"
+	WITHER = "wither" 
+	HEALTH_BOOST = 'health_boost'
+	ABSORPTION = 'absorption'
+	SATURATION = "saturation"
+	GLOWING = "glowing"
+	LEVITATION ="levitation"
+	LUCK = "luck"
+	UNLUCK= 'unluck'
+	SLOW_FALL = "slow_falling"
+	CONDUIT = "conduit_power"
+	DOLPHINS_GRACE = "dolphins_grace"
+	BAD_OMEN = "bad_omen"
+
+
 class InputKeys(enum.Enum):
 	FORWARD = "forward"
 	BACKWORD = "back"
@@ -251,7 +286,16 @@ class Client(threading.Thread):
 		with self:
 			self.send({"cmd": "get block", "x": x, "y": y, "z": z})
 			return self.readNbt()
-
+	def getEnchants(self):
+		with self:
+			self.send({"cmd": "get enchantment info"})
+			return self.recv(1024*1024)[0].get("data")
+	def getAnvilInfo(self):
+		with self:
+			self.send({"cmd": "change or set anvil name", "get": True})
+			return self.recv(1024*1024)[0]
+	def setAnvilName(self, name):
+		self.send({"cmd": "change or set anvil name", "name": name, "rename":True})
 	def getVillagerTrades(self):
 		with self:
 			self.send({"cmd":"get villager trade info"})
@@ -260,7 +304,12 @@ class Client(threading.Thread):
 		""" Selects a villagers trade based on index"""
 
 		self.send({"cmd":"set villager trade", "slot": id})
+	def setBeaconEffect(self, isPrimary: bool, effect:STATUS_EFFECT):	
+		assert type(effect) is STATUS_EFFECT
 
+		self.send({"cmd": "set beacon input", "effectType": "primary" if isPrimary else "secondary", "id":effect.value})
+	def pressDoneButtonInBeacon(self):
+		self.send({"cmd": "set beacon input", "done":True})
 
 	
 	def clickInventoryButton(self, id):

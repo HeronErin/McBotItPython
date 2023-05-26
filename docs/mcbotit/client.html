@@ -42,6 +42,41 @@ def read_from_nbt_file(_file) -&gt; nbt.TAG:
 def handlePackets(packet, client, appendHandler):
         appendHandler(packet, client)
 
+
+class STATUS_EFFECT(enum.Enum):
+        SPEED = &#34;speed&#34;
+        SLOWNESS = &#34;slowness&#34;
+        HASTE = &#34;haste&#34;
+        MINING_FATIGUE = &#39;mining_fatigue&#39;
+        STRENGTH = &#39;strength&#39;
+        INSTANT_HEALTH = &#34;instant_health&#34;
+        INSTANT_DAMAGE = &#34;instant_damage&#34;
+        JUMP_BOOST = &#34;jump_boost&#34;
+        NAUSEA = &#34;nausea&#34;
+        REGENERATION = &#34;regeneration&#34;
+        RESISTANCE = &#34;resistance&#34;
+        FIRE_RESISTANCE = &#34;fire_resistance&#34;
+        WATER_BREATHING = &#34;water_breathing&#34;
+        INVISIBILITY = &#34;invisibility&#34;
+        BLINDNESS = &#34;blindness&#34;
+        NIGHT_VISION = &#34;night_vision&#34;
+        HUNGER = &#34;hunger&#34;
+        WEAKNESS =&#34;weakness&#34;
+        POISON = &#34;poison&#34;
+        WITHER = &#34;wither&#34; 
+        HEALTH_BOOST = &#39;health_boost&#39;
+        ABSORPTION = &#39;absorption&#39;
+        SATURATION = &#34;saturation&#34;
+        GLOWING = &#34;glowing&#34;
+        LEVITATION =&#34;levitation&#34;
+        LUCK = &#34;luck&#34;
+        UNLUCK= &#39;unluck&#39;
+        SLOW_FALL = &#34;slow_falling&#34;
+        CONDUIT = &#34;conduit_power&#34;
+        DOLPHINS_GRACE = &#34;dolphins_grace&#34;
+        BAD_OMEN = &#34;bad_omen&#34;
+
+
 class InputKeys(enum.Enum):
         FORWARD = &#34;forward&#34;
         BACKWORD = &#34;back&#34;
@@ -279,7 +314,16 @@ class Client(threading.Thread):
                 with self:
                         self.send({&#34;cmd&#34;: &#34;get block&#34;, &#34;x&#34;: x, &#34;y&#34;: y, &#34;z&#34;: z})
                         return self.readNbt()
-
+        def getEnchants(self):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get enchantment info&#34;})
+                        return self.recv(1024*1024)[0].get(&#34;data&#34;)
+        def getAnvilInfo(self):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;change or set anvil name&#34;, &#34;get&#34;: True})
+                        return self.recv(1024*1024)[0]
+        def setAnvilName(self, name):
+                self.send({&#34;cmd&#34;: &#34;change or set anvil name&#34;, &#34;name&#34;: name, &#34;rename&#34;:True})
         def getVillagerTrades(self):
                 with self:
                         self.send({&#34;cmd&#34;:&#34;get villager trade info&#34;})
@@ -288,7 +332,12 @@ class Client(threading.Thread):
                 &#34;&#34;&#34; Selects a villagers trade based on index&#34;&#34;&#34;
 
                 self.send({&#34;cmd&#34;:&#34;set villager trade&#34;, &#34;slot&#34;: id})
+        def setBeaconEffect(self, isPrimary: bool, effect:STATUS_EFFECT):       
+                assert type(effect) is STATUS_EFFECT
 
+                self.send({&#34;cmd&#34;: &#34;set beacon input&#34;, &#34;effectType&#34;: &#34;primary&#34; if isPrimary else &#34;secondary&#34;, &#34;id&#34;:effect.value})
+        def pressDoneButtonInBeacon(self):
+                self.send({&#34;cmd&#34;: &#34;set beacon input&#34;, &#34;done&#34;:True})
 
         
         def clickInventoryButton(self, id):
@@ -604,7 +653,16 @@ else to the thread.</p></div>
                 with self:
                         self.send({&#34;cmd&#34;: &#34;get block&#34;, &#34;x&#34;: x, &#34;y&#34;: y, &#34;z&#34;: z})
                         return self.readNbt()
-
+        def getEnchants(self):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;get enchantment info&#34;})
+                        return self.recv(1024*1024)[0].get(&#34;data&#34;)
+        def getAnvilInfo(self):
+                with self:
+                        self.send({&#34;cmd&#34;: &#34;change or set anvil name&#34;, &#34;get&#34;: True})
+                        return self.recv(1024*1024)[0]
+        def setAnvilName(self, name):
+                self.send({&#34;cmd&#34;: &#34;change or set anvil name&#34;, &#34;name&#34;: name, &#34;rename&#34;:True})
         def getVillagerTrades(self):
                 with self:
                         self.send({&#34;cmd&#34;:&#34;get villager trade info&#34;})
@@ -613,7 +671,12 @@ else to the thread.</p></div>
                 &#34;&#34;&#34; Selects a villagers trade based on index&#34;&#34;&#34;
 
                 self.send({&#34;cmd&#34;:&#34;set villager trade&#34;, &#34;slot&#34;: id})
+        def setBeaconEffect(self, isPrimary: bool, effect:STATUS_EFFECT):       
+                assert type(effect) is STATUS_EFFECT
 
+                self.send({&#34;cmd&#34;: &#34;set beacon input&#34;, &#34;effectType&#34;: &#34;primary&#34; if isPrimary else &#34;secondary&#34;, &#34;id&#34;:effect.value})
+        def pressDoneButtonInBeacon(self):
+                self.send({&#34;cmd&#34;: &#34;set beacon input&#34;, &#34;done&#34;:True})
 
         
         def clickInventoryButton(self, id):
@@ -777,6 +840,21 @@ else to the thread.</p></div>
         self.send({&#34;cmd&#34;: &#34;start fall flying&#34;})</code></pre>
 </details>
 </dd>
+<dt id="mcbotit.client.Client.getAnvilInfo"><code class="name flex">
+<span>def <span class="ident">getAnvilInfo</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getAnvilInfo(self):
+        with self:
+                self.send({&#34;cmd&#34;: &#34;change or set anvil name&#34;, &#34;get&#34;: True})
+                return self.recv(1024*1024)[0]</code></pre>
+</details>
+</dd>
 <dt id="mcbotit.client.Client.getBlock"><code class="name flex">
 <span>def <span class="ident">getBlock</span></span>(<span>self, x, y, z)</span>
 </code></dt>
@@ -790,6 +868,21 @@ else to the thread.</p></div>
         with self:
                 self.send({&#34;cmd&#34;: &#34;get block&#34;, &#34;x&#34;: x, &#34;y&#34;: y, &#34;z&#34;: z})
                 return self.readNbt()</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.getEnchants"><code class="name flex">
+<span>def <span class="ident">getEnchants</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getEnchants(self):
+        with self:
+                self.send({&#34;cmd&#34;: &#34;get enchantment info&#34;})
+                return self.recv(1024*1024)[0].get(&#34;data&#34;)</code></pre>
 </details>
 </dd>
 <dt id="mcbotit.client.Client.getOpenInventory"><code class="name flex">
@@ -1057,6 +1150,19 @@ else to the thread.</p></div>
                 if wait: self.wait()</code></pre>
 </details>
 </dd>
+<dt id="mcbotit.client.Client.pressDoneButtonInBeacon"><code class="name flex">
+<span>def <span class="ident">pressDoneButtonInBeacon</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pressDoneButtonInBeacon(self):
+        self.send({&#34;cmd&#34;: &#34;set beacon input&#34;, &#34;done&#34;:True})</code></pre>
+</details>
+</dd>
 <dt id="mcbotit.client.Client.printerPlace"><code class="name flex">
 <span>def <span class="ident">printerPlace</span></span>(<span>self, x, y, z, slot)</span>
 </code></dt>
@@ -1170,6 +1276,34 @@ else to the thread.</p></div>
 </summary>
 <pre><code class="python">def sendPublicChatMessage(self, msg):
         self.send({&#34;cmd&#34;: &#34;send public chat message&#34;, &#34;msg&#34;: msg})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.setAnvilName"><code class="name flex">
+<span>def <span class="ident">setAnvilName</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setAnvilName(self, name):
+        self.send({&#34;cmd&#34;: &#34;change or set anvil name&#34;, &#34;name&#34;: name, &#34;rename&#34;:True})</code></pre>
+</details>
+</dd>
+<dt id="mcbotit.client.Client.setBeaconEffect"><code class="name flex">
+<span>def <span class="ident">setBeaconEffect</span></span>(<span>self, isPrimary: bool, effect: <a title="mcbotit.client.STATUS_EFFECT" href="#mcbotit.client.STATUS_EFFECT">STATUS_EFFECT</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setBeaconEffect(self, isPrimary: bool, effect:STATUS_EFFECT):       
+        assert type(effect) is STATUS_EFFECT
+
+        self.send({&#34;cmd&#34;: &#34;set beacon input&#34;, &#34;effectType&#34;: &#34;primary&#34; if isPrimary else &#34;secondary&#34;, &#34;id&#34;:effect.value})</code></pre>
 </details>
 </dd>
 <dt id="mcbotit.client.Client.setHotbarSlot"><code class="name flex">
@@ -1306,6 +1440,181 @@ else to the thread.</p></div>
 </dd>
 </dl>
 </dd>
+<dt id="mcbotit.client.STATUS_EFFECT"><code class="flex name class">
+<span>class <span class="ident">STATUS_EFFECT</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An enumeration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class STATUS_EFFECT(enum.Enum):
+        SPEED = &#34;speed&#34;
+        SLOWNESS = &#34;slowness&#34;
+        HASTE = &#34;haste&#34;
+        MINING_FATIGUE = &#39;mining_fatigue&#39;
+        STRENGTH = &#39;strength&#39;
+        INSTANT_HEALTH = &#34;instant_health&#34;
+        INSTANT_DAMAGE = &#34;instant_damage&#34;
+        JUMP_BOOST = &#34;jump_boost&#34;
+        NAUSEA = &#34;nausea&#34;
+        REGENERATION = &#34;regeneration&#34;
+        RESISTANCE = &#34;resistance&#34;
+        FIRE_RESISTANCE = &#34;fire_resistance&#34;
+        WATER_BREATHING = &#34;water_breathing&#34;
+        INVISIBILITY = &#34;invisibility&#34;
+        BLINDNESS = &#34;blindness&#34;
+        NIGHT_VISION = &#34;night_vision&#34;
+        HUNGER = &#34;hunger&#34;
+        WEAKNESS =&#34;weakness&#34;
+        POISON = &#34;poison&#34;
+        WITHER = &#34;wither&#34; 
+        HEALTH_BOOST = &#39;health_boost&#39;
+        ABSORPTION = &#39;absorption&#39;
+        SATURATION = &#34;saturation&#34;
+        GLOWING = &#34;glowing&#34;
+        LEVITATION =&#34;levitation&#34;
+        LUCK = &#34;luck&#34;
+        UNLUCK= &#39;unluck&#39;
+        SLOW_FALL = &#34;slow_falling&#34;
+        CONDUIT = &#34;conduit_power&#34;
+        DOLPHINS_GRACE = &#34;dolphins_grace&#34;
+        BAD_OMEN = &#34;bad_omen&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="mcbotit.client.STATUS_EFFECT.ABSORPTION"><code class="name">var <span class="ident">ABSORPTION</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.BAD_OMEN"><code class="name">var <span class="ident">BAD_OMEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.BLINDNESS"><code class="name">var <span class="ident">BLINDNESS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.CONDUIT"><code class="name">var <span class="ident">CONDUIT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.DOLPHINS_GRACE"><code class="name">var <span class="ident">DOLPHINS_GRACE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.FIRE_RESISTANCE"><code class="name">var <span class="ident">FIRE_RESISTANCE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.GLOWING"><code class="name">var <span class="ident">GLOWING</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.HASTE"><code class="name">var <span class="ident">HASTE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.HEALTH_BOOST"><code class="name">var <span class="ident">HEALTH_BOOST</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.HUNGER"><code class="name">var <span class="ident">HUNGER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.INSTANT_DAMAGE"><code class="name">var <span class="ident">INSTANT_DAMAGE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.INSTANT_HEALTH"><code class="name">var <span class="ident">INSTANT_HEALTH</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.INVISIBILITY"><code class="name">var <span class="ident">INVISIBILITY</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.JUMP_BOOST"><code class="name">var <span class="ident">JUMP_BOOST</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.LEVITATION"><code class="name">var <span class="ident">LEVITATION</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.LUCK"><code class="name">var <span class="ident">LUCK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.MINING_FATIGUE"><code class="name">var <span class="ident">MINING_FATIGUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.NAUSEA"><code class="name">var <span class="ident">NAUSEA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.NIGHT_VISION"><code class="name">var <span class="ident">NIGHT_VISION</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.POISON"><code class="name">var <span class="ident">POISON</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.REGENERATION"><code class="name">var <span class="ident">REGENERATION</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.RESISTANCE"><code class="name">var <span class="ident">RESISTANCE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.SATURATION"><code class="name">var <span class="ident">SATURATION</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.SLOWNESS"><code class="name">var <span class="ident">SLOWNESS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.SLOW_FALL"><code class="name">var <span class="ident">SLOW_FALL</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.SPEED"><code class="name">var <span class="ident">SPEED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.STRENGTH"><code class="name">var <span class="ident">STRENGTH</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.UNLUCK"><code class="name">var <span class="ident">UNLUCK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.WATER_BREATHING"><code class="name">var <span class="ident">WATER_BREATHING</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.WEAKNESS"><code class="name">var <span class="ident">WEAKNESS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="mcbotit.client.STATUS_EFFECT.WITHER"><code class="name">var <span class="ident">WITHER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
 </dl>
 </section>
 </article>
@@ -1340,7 +1649,9 @@ else to the thread.</p></div>
 <li><code><a title="mcbotit.client.Client.disconnect" href="#mcbotit.client.Client.disconnect">disconnect</a></code></li>
 <li><code><a title="mcbotit.client.Client.displayChatMessage" href="#mcbotit.client.Client.displayChatMessage">displayChatMessage</a></code></li>
 <li><code><a title="mcbotit.client.Client.enableElytra" href="#mcbotit.client.Client.enableElytra">enableElytra</a></code></li>
+<li><code><a title="mcbotit.client.Client.getAnvilInfo" href="#mcbotit.client.Client.getAnvilInfo">getAnvilInfo</a></code></li>
 <li><code><a title="mcbotit.client.Client.getBlock" href="#mcbotit.client.Client.getBlock">getBlock</a></code></li>
+<li><code><a title="mcbotit.client.Client.getEnchants" href="#mcbotit.client.Client.getEnchants">getEnchants</a></code></li>
 <li><code><a title="mcbotit.client.Client.getOpenInventory" href="#mcbotit.client.Client.getOpenInventory">getOpenInventory</a></code></li>
 <li><code><a title="mcbotit.client.Client.getPlayerInfo" href="#mcbotit.client.Client.getPlayerInfo">getPlayerInfo</a></code></li>
 <li><code><a title="mcbotit.client.Client.getPlayerInventory" href="#mcbotit.client.Client.getPlayerInventory">getPlayerInventory</a></code></li>
@@ -1358,6 +1669,7 @@ else to the thread.</p></div>
 <li><code><a title="mcbotit.client.Client.mine" href="#mcbotit.client.Client.mine">mine</a></code></li>
 <li><code><a title="mcbotit.client.Client.openEntity" href="#mcbotit.client.Client.openEntity">openEntity</a></code></li>
 <li><code><a title="mcbotit.client.Client.place" href="#mcbotit.client.Client.place">place</a></code></li>
+<li><code><a title="mcbotit.client.Client.pressDoneButtonInBeacon" href="#mcbotit.client.Client.pressDoneButtonInBeacon">pressDoneButtonInBeacon</a></code></li>
 <li><code><a title="mcbotit.client.Client.printerPlace" href="#mcbotit.client.Client.printerPlace">printerPlace</a></code></li>
 <li><code><a title="mcbotit.client.Client.readNbt" href="#mcbotit.client.Client.readNbt">readNbt</a></code></li>
 <li><code><a title="mcbotit.client.Client.recv" href="#mcbotit.client.Client.recv">recv</a></code></li>
@@ -1367,6 +1679,8 @@ else to the thread.</p></div>
 <li><code><a title="mcbotit.client.Client.run" href="#mcbotit.client.Client.run">run</a></code></li>
 <li><code><a title="mcbotit.client.Client.send" href="#mcbotit.client.Client.send">send</a></code></li>
 <li><code><a title="mcbotit.client.Client.sendPublicChatMessage" href="#mcbotit.client.Client.sendPublicChatMessage">sendPublicChatMessage</a></code></li>
+<li><code><a title="mcbotit.client.Client.setAnvilName" href="#mcbotit.client.Client.setAnvilName">setAnvilName</a></code></li>
+<li><code><a title="mcbotit.client.Client.setBeaconEffect" href="#mcbotit.client.Client.setBeaconEffect">setBeaconEffect</a></code></li>
 <li><code><a title="mcbotit.client.Client.setHotbarSlot" href="#mcbotit.client.Client.setHotbarSlot">setHotbarSlot</a></code></li>
 <li><code><a title="mcbotit.client.Client.setVillagerTrade" href="#mcbotit.client.Client.setVillagerTrade">setVillagerTrade</a></code></li>
 <li><code><a title="mcbotit.client.Client.swapSlots" href="#mcbotit.client.Client.swapSlots">swapSlots</a></code></li>
@@ -1384,6 +1698,42 @@ else to the thread.</p></div>
 <li><code><a title="mcbotit.client.InputKeys.RIGHT" href="#mcbotit.client.InputKeys.RIGHT">RIGHT</a></code></li>
 <li><code><a title="mcbotit.client.InputKeys.RIGHT_CLICK" href="#mcbotit.client.InputKeys.RIGHT_CLICK">RIGHT_CLICK</a></code></li>
 <li><code><a title="mcbotit.client.InputKeys.SNEAK" href="#mcbotit.client.InputKeys.SNEAK">SNEAK</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="mcbotit.client.STATUS_EFFECT" href="#mcbotit.client.STATUS_EFFECT">STATUS_EFFECT</a></code></h4>
+<ul class="two-column">
+<li><code><a title="mcbotit.client.STATUS_EFFECT.ABSORPTION" href="#mcbotit.client.STATUS_EFFECT.ABSORPTION">ABSORPTION</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.BAD_OMEN" href="#mcbotit.client.STATUS_EFFECT.BAD_OMEN">BAD_OMEN</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.BLINDNESS" href="#mcbotit.client.STATUS_EFFECT.BLINDNESS">BLINDNESS</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.CONDUIT" href="#mcbotit.client.STATUS_EFFECT.CONDUIT">CONDUIT</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.DOLPHINS_GRACE" href="#mcbotit.client.STATUS_EFFECT.DOLPHINS_GRACE">DOLPHINS_GRACE</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.FIRE_RESISTANCE" href="#mcbotit.client.STATUS_EFFECT.FIRE_RESISTANCE">FIRE_RESISTANCE</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.GLOWING" href="#mcbotit.client.STATUS_EFFECT.GLOWING">GLOWING</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.HASTE" href="#mcbotit.client.STATUS_EFFECT.HASTE">HASTE</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.HEALTH_BOOST" href="#mcbotit.client.STATUS_EFFECT.HEALTH_BOOST">HEALTH_BOOST</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.HUNGER" href="#mcbotit.client.STATUS_EFFECT.HUNGER">HUNGER</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.INSTANT_DAMAGE" href="#mcbotit.client.STATUS_EFFECT.INSTANT_DAMAGE">INSTANT_DAMAGE</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.INSTANT_HEALTH" href="#mcbotit.client.STATUS_EFFECT.INSTANT_HEALTH">INSTANT_HEALTH</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.INVISIBILITY" href="#mcbotit.client.STATUS_EFFECT.INVISIBILITY">INVISIBILITY</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.JUMP_BOOST" href="#mcbotit.client.STATUS_EFFECT.JUMP_BOOST">JUMP_BOOST</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.LEVITATION" href="#mcbotit.client.STATUS_EFFECT.LEVITATION">LEVITATION</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.LUCK" href="#mcbotit.client.STATUS_EFFECT.LUCK">LUCK</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.MINING_FATIGUE" href="#mcbotit.client.STATUS_EFFECT.MINING_FATIGUE">MINING_FATIGUE</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.NAUSEA" href="#mcbotit.client.STATUS_EFFECT.NAUSEA">NAUSEA</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.NIGHT_VISION" href="#mcbotit.client.STATUS_EFFECT.NIGHT_VISION">NIGHT_VISION</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.POISON" href="#mcbotit.client.STATUS_EFFECT.POISON">POISON</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.REGENERATION" href="#mcbotit.client.STATUS_EFFECT.REGENERATION">REGENERATION</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.RESISTANCE" href="#mcbotit.client.STATUS_EFFECT.RESISTANCE">RESISTANCE</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.SATURATION" href="#mcbotit.client.STATUS_EFFECT.SATURATION">SATURATION</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.SLOWNESS" href="#mcbotit.client.STATUS_EFFECT.SLOWNESS">SLOWNESS</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.SLOW_FALL" href="#mcbotit.client.STATUS_EFFECT.SLOW_FALL">SLOW_FALL</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.SPEED" href="#mcbotit.client.STATUS_EFFECT.SPEED">SPEED</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.STRENGTH" href="#mcbotit.client.STATUS_EFFECT.STRENGTH">STRENGTH</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.UNLUCK" href="#mcbotit.client.STATUS_EFFECT.UNLUCK">UNLUCK</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.WATER_BREATHING" href="#mcbotit.client.STATUS_EFFECT.WATER_BREATHING">WATER_BREATHING</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.WEAKNESS" href="#mcbotit.client.STATUS_EFFECT.WEAKNESS">WEAKNESS</a></code></li>
+<li><code><a title="mcbotit.client.STATUS_EFFECT.WITHER" href="#mcbotit.client.STATUS_EFFECT.WITHER">WITHER</a></code></li>
 </ul>
 </li>
 </ul>
