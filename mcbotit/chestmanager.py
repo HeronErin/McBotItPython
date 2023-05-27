@@ -27,9 +27,9 @@ class ChestManager:
 		self.chests[(x, y, z)] = self.player.inventoryManager.getOpenChest()
 
 
-	def search(self, id):
+	def search(self, id) -> tuple[str, tuple[int, int, int]]:
 		for chestPos, chest in self.chests.items():
-			for row in range(3, chest.maxRows):
+			for row in range(4, chest.maxRows):
 				for col in range(0, chest.maxCols):
 					if (item:=chest.getSlot(row, col))["type"] == id:
 						return item, chestPos

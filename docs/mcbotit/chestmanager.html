@@ -55,7 +55,7 @@ class ChestManager:
                 self.chests[(x, y, z)] = self.player.inventoryManager.getOpenChest()
 
 
-        def search(self, id):
+        def search(self, id) -&gt; tuple[str, tuple[int, int, int]]:
                 for chestPos, chest in self.chests.items():
                         for row in range(3, chest.maxRows):
                                 for col in range(0, chest.maxCols):
@@ -109,7 +109,7 @@ class ChestManager:
                 self.chests[(x, y, z)] = self.player.inventoryManager.getOpenChest()
 
 
-        def search(self, id):
+        def search(self, id) -&gt; tuple[str, tuple[int, int, int]]:
                 for chestPos, chest in self.chests.items():
                         for row in range(3, chest.maxRows):
                                 for col in range(0, chest.maxCols):
@@ -171,7 +171,7 @@ class ChestManager:
 </details>
 </dd>
 <dt id="mcbotit.chestmanager.ChestManager.search"><code class="name flex">
-<span>def <span class="ident">search</span></span>(<span>self, id)</span>
+<span>def <span class="ident">search</span></span>(<span>self, id) ‑> tuple[str, tuple[int, int, int]]</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -179,7 +179,7 @@ class ChestManager:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def search(self, id):
+<pre><code class="python">def search(self, id) -&gt; tuple[str, tuple[int, int, int]]:
         for chestPos, chest in self.chests.items():
                 for row in range(3, chest.maxRows):
                         for col in range(0, chest.maxCols):
