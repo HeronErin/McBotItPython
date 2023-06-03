@@ -11,7 +11,7 @@ Although this tool may make use of baritone, using baritone with the mod is opti
 
 
 ## Install: 
-1. You need to install the [minecraft mod](https://github.com/HeronErin/McBotit/releases/tag/release) in fabric 1.19.4. 
+1. You need to install the [minecraft mod](https://github.com/HeronErin/McBotit/releases) in fabric 1.19.4. 
 2. It is recommended that you download the [baritone api fabric mod](https://github.com/cabaletta/baritone/releases/download/v1.9.3/baritone-api-fabric-1.9.3.jar) in order for some functions to work, but this is optional.
 3. Since this library is not yet in PyPi, you must install it from github with ```pip install git+https://github.com/HeronErin/McBotItPython.git``` 
 
