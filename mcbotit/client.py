@@ -107,6 +107,7 @@ class Client(threading.Thread):
 
 	def __enter__(self):
 		self.withStatementDeph+=1
+		# print("enter", self.withStatementDeph)
 		if self.withStatementDeph == 1:
 			self.stealControl = True
 			while not self.hasControl:
@@ -114,6 +115,7 @@ class Client(threading.Thread):
 
 	def __exit__(self, *_):
 		self.withStatementDeph-=1
+		# print("exit", self.withStatementDeph)
 		if self.withStatementDeph == 0:
 			self.stealControl = False
 			self.hasControl = False
@@ -323,7 +325,11 @@ class Client(threading.Thread):
 			if bytez.endswith(END_TOKEN): 
 				bytez=bytez[:-len(END_TOKEN)]
 				break
-		return read_from_nbt_file(bytez).json_obj(full_json=False) 
+		xjso = read_from_nbt_file(bytez).json_obj(full_json=False)
+		print(xjso)
+		# import nbtlib
+		# print()
+		# return  nbtlib.File.from_fileobj(io.BytesIO(bytez)).unpack()
 
 
 	def swapSlots(self, slot1, slot2, delay):

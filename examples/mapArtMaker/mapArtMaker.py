@@ -4,37 +4,34 @@ import time, math, sys, json, os, random
 
 from mcbotit import Chest1Inventory, Chest2Inventory, Chest3Inventory, Chest4Inventory, Chest5Inventory, Chest6Inventory
 
+#
 
-
-PORT = 24595
+PORT = 15198
 player = Player(PORT, keepAliveTime=0.05)
 
-blockBase = (14656, 78, 3520)
-chestStandLoc = (14653.8, 78.87, 3515.6)
+blockBase = (14400, 78, 3392)
+chestStandLoc = ( 14398.6, 78, 3387.8)
 
 build_segment_size = 4
 chests = (
-	(14651, 79, 3518),
-	(14651, 80, 3518),
-	(14651, 81, 3518),
+	(14400, 80, 3386),
+	(14400, 79, 3386),
+	(14400, 80, 3389),
+	(14400, 79, 3389),
 
-	(14651, 79, 3515),
-	(14651, 80, 3515),
-	(14651, 81, 3515),
 
-	(14651, 79, 3514),
-	(14651, 80, 3514),
-	(14651, 81, 3514),
+	(14396, 79, 3386),
+	(14396, 80, 3389),
+	(14396, 79, 3389),
 
-	(14652, 79, 3513),
-	(14652, 80, 3513),
-	(14652, 81, 3513),
+	(14399, 78, 3389),
+	(14398, 78, 3389),
+	(14397, 78, 3389),
 
-	(14654, 78, 3517),
-	(14654, 78, 3515),
-	(14652, 78, 3514),
-	(14652, 78, 3515),
-	(14652, 78, 3516),
+	(14399, 78, 3386),
+	(14398, 78, 3386),
+	(14397, 78, 3386),
+
 	)
 
 
@@ -84,13 +81,35 @@ def getItemToSlot(idd, hotbar = 1):
 			for col in range(0, 9):
 				if (slot:=playerinv.getSlot(row, col))["type"] == idd:
 					player.swapSlots(slot["id"], base["id"]     )
-					print(slot, "a")
+					# print(slot, "a")
 					return
 def eatFood():
 	while player.lastHunger != 20:
 		player.setHotbarSlot(9)
 		player.useItem()
 		time.sleep(2)
+def repairStep():
+	t = time.time()
+	with player.client:
+		for block in schematic.blocks.items():
+			# print(block)
+			blockPos = block[0][0]+blockBase[0], block[0][1]+blockBase[1], block[0][2]+blockBase[2]-1
+			
+			if math.sqrt((blockPos[0]-player.lastX)**2 + (blockPos[1]-player.lastY)**2 + (blockPos[2]-player.lastZ)**2) <= 4.5:
+				requiredType = block[1] if block[0][1] == 1 else supportingBlock
+
+				if requiredType == "minecraft:cobblestone": continue
+
+				t2 = time.time()
+				realBlock = player.getBlock(*blockPos)
+				if requiredType != realBlock["id"]:
+					
+					if realBlock["id"] != "minecraft:air":
+						player.mine(*blockPos)
+					getItemToSlot(requiredType, hotbar=2)
+					time.sleep(0.1)
+					player.client.printerPlace(*blockPos,2)
+	print(time.time()-t)
 
 def safeShift(rot, lenn, start=None):
 	start = (player.lastX, player.lastY, player.lastZ) if start is None else start
@@ -147,11 +166,11 @@ def makeRowBatch(rows):
 		# Calculate cost to build rows
 		costsL = [schematic.getRowCosts(row) for row in rows]
 		costs = {}
-		for cost in costsL:
+		for cost in costsL: 
 			for k, v in cost.items():
 				costs[k] = costs.get(k, 0) + v
 				costs[supportingBlock] = costs.get(supportingBlock, 0) + v
-
+		
 		print(costs)
 		# exit()
 		currentChest = None
@@ -171,7 +190,7 @@ def makeRowBatch(rows):
 						player.swapSlots(slot["id"], result["id"])
 						time.sleep(0.1)
 
-						chestManager.indexOpenChest(*currentChest)
+						chestManager.indexOpenChest(*currentChest)		
 						dumpChestData()
 
 
@@ -181,7 +200,7 @@ def makeRowBatch(rows):
 			for slot in player.client.getPlayerInventory():
 				playerInvCount[slot["id"]] = playerInvCount.get(slot["id"], 0) + slot["Count"]
 			return {k: v-playerInvCount.get(k, 0) for k, v in costs.items() if v-playerInvCount.get(k, 0) > 0}
-
+		
 		# Get required material from chest area
 		while len((trueCosts:=compareCosts()).items()):
 			print(trueCosts)
@@ -196,12 +215,12 @@ def makeRowBatch(rows):
 
 						time.sleep(0.5)
 						openChest = player.inventoryManager.getOpenChest()
-						chestManager.indexOpenChest(*currentChest)
+						chestManager.indexOpenChest(*currentChest)		
 						dumpChestData()
 
+						
 
-
-
+						
 						break
 
 				re = chestManager.search(id)
@@ -209,10 +228,10 @@ def makeRowBatch(rows):
 				result, currentChest = re
 				player.closeScreen()
 				chestManager.openChest(*currentChest)
-
+				
 
 				openChest = player.inventoryManager.getOpenChest()
-
+				
 
 				slot = openChest.searchPlayerInv("minecraft:air")
 				if slot is None:
@@ -221,7 +240,7 @@ def makeRowBatch(rows):
 
 				openChest = player.inventoryManager.getOpenChest()
 
-				chestManager.indexOpenChest(*currentChest)
+				chestManager.indexOpenChest(*currentChest)		
 				dumpChestData()
 
 
@@ -237,7 +256,7 @@ def makeRowBatch(rows):
 		# precompute next rows while in render distance
 		for i in range(len(rows)*2):hasRowCached(rows[-1]+i+1)
 
-
+		
 
 		first = True
 		for blocks in zip(*(schematic.getRow(row) for row in rows)):
@@ -255,7 +274,7 @@ def makeRowBatch(rows):
 							time.sleep(0.1)
 							player.client.printerPlace(*blockPos,1)
 							time.sleep(0.07)
-							getItemToSlot(supportingBlock, hotbar=1)
+							# getItemToSlot(supportingBlock, hotbar=1)
 					for i, block in enumerate(blocks):
 						blockPos = block[0][0]+blockBase[0], block[0][1]+blockBase[1], block[0][2]+blockBase[2]-1
 						hotbar = [slot for slot in player.client.getPlayerInventory() if slot["id"] == block[1] and slot["Slot"] < 8]
@@ -263,27 +282,27 @@ def makeRowBatch(rows):
 						useSlot = random.randrange(1, 8) if len(open_hotbar) == 0 else open_hotbar[0]["Slot"]
 
 						if player.getBlock(*blockPos)["id"] =="minecraft:air":
-
+							
 
 							doBreak = False
 							if len(hotbar) == 0:
 								getItemToSlot(block[1], hotbar=useSlot+1)
-								time.sleep(0.13)
+								time.sleep(0.255)
 								player.client.printerPlace(*blockPos,useSlot+1)
 							else:
 
-								time.sleep(0.06)
+								time.sleep(0.065)
 								player.client.printerPlace(*blockPos,hotbar[0]["Slot"]+1)
-							time.sleep(0.065)
-
-					time.sleep(0.1)
+							time.sleep(0.09)
+							
+					time.sleep(0.15)
 					if doBreak:
 						break
 			if not first:
 				# Walk one block
 				player.rotate(50, 0, speed = 0.1)
 
-
+				
 				oldPing = player.client.pingTime
 				player.client.pingTime = 0.04
 
@@ -298,15 +317,17 @@ def makeRowBatch(rows):
 					player.client.pingTime = oldPing
 			first = False
 
+
+
+		lookwalk(blockBase[0], blockBase[2])
+
 		z = time.time()-vt
 		print(f"Finished with row(s), took: {z}s or {z/len(rows)}s per row. Finished with row {rows[-1]}. Estimated time left {(128-rows[-1])/len(rows)*z}")
-		lookwalk(blockBase[0]+rows[len(rows)//2], blockBase[2]-1)
-		lookwalk(blockBase[0]-1, blockBase[2]-1)
 
 
+			
 
-
-
+			
 
 
 
@@ -335,7 +356,7 @@ if __name__ == "__main__":
 	elif sys.argv[-1] == "index":
 		lookwalk(chestStandLoc[0], chestStandLoc[2])
 		for chest in chests:
-			chestManager.openAndIndex(*chest)
+			chestManager.openAndIndex(*chest)		
 		dumpChestData()
 
 
@@ -354,15 +375,15 @@ if __name__ == "__main__":
 				if not hasRowCached(row):
 					workingOn.append(row)
 				if len(workingOn) == build_segment_size:
-
+					
 					makeRowBatch(workingOn)
-
-
+					
+					
 					workingOn.clear()
 					eatFood()
 
 
-
+				
 			makeRowBatch(workingOn)
 	elif sys.argv[-1] == "costs":
 		costs = {}
@@ -370,8 +391,10 @@ if __name__ == "__main__":
 			costs[block[-1]] = costs.get(block[-1], 0)+1
 		for k, v in costs.items():
 			print(k,"items:", v,"stacks:", v/64,"rows", v/64/9,"chests:", v/64/9/3)
-
-
+	elif sys.argv[-1] == "repair":
+		repairStep()
+						# print(requiredType, realBlock["id"])	
+						
 
 # print(hasRowCached(0))
 
