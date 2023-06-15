@@ -1,6 +1,6 @@
 from mcbotit import Player, InputKeys
 import time, math
-PORT = 25552
+PORT = 9974
 player = Player(PORT)
 
 # time.sleep(1)
@@ -18,7 +18,7 @@ player.keyDown(InputKeys.LEFT_CLICK)
 try:
 	while True:
 		time.sleep(0.1)
-		if int(player.lastX) == 15599:
+		if int(player.lastX) == 15499:
 			player.keyUp(InputKeys.LEFT_CLICK)
 			time.sleep(0.2)
 			eatFood()
@@ -36,9 +36,9 @@ try:
 						player.swapSlots(i["id"], slot1, delay=0.1)
 						time.sleep(1)
 						break
-		
+
 		player.keyDown(InputKeys.LEFT_CLICK)
-		player.closeScreen()
+
 
 finally:
 	player.keyUp(InputKeys.LEFT_CLICK)

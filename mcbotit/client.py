@@ -326,7 +326,8 @@ class Client(threading.Thread):
 				bytez=bytez[:-len(END_TOKEN)]
 				break
 		xjso = read_from_nbt_file(bytez).json_obj(full_json=False)
-		print(xjso)
+		return xjso
+		# print(xjso)
 		# import nbtlib
 		# print()
 		# return  nbtlib.File.from_fileobj(io.BytesIO(bytez)).unpack()
@@ -335,3 +336,13 @@ class Client(threading.Thread):
 	def swapSlots(self, slot1, slot2, delay):
 		"""Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended"""
 		self.send({"cmd": "swap slots", "delay": int(delay*1000), "slot1": slot1, "slot2": slot2})
+
+
+	def dropItem(self, is_full_stack):
+		""" Drop the currently selected inventory item"""
+		self.send({"cmd": "drop item", "full_stack": is_full_stack})
+
+	def clickSlot(self, slot_id):
+		"""Slot numbers come from getOpenInventory() NOT getPlayerInventory(), using helper functions is recommended."""
+
+		self.send({"cmd": "click stack", "id": slot_id})

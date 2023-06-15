@@ -1,5 +1,5 @@
 from setuptools import setup
-from mcbotit import VERSION
+# from mcbotit import VERSION
 
 with open("README.md", "r", encoding='utf-8') as file:
   long_description = file.read()
@@ -7,7 +7,7 @@ with open("README.md", "r", encoding='utf-8') as file:
 
 setup(
   name             = 'McBotIt',
-  version          = VERSION,
+  version          = "1.0",
   description      = 'A python library for fully controlling the player in Minecraft',
   author           = 'HeronErin',
   url              = 'https://github.com/HeronErin/McBotItPython',

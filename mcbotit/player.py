@@ -218,3 +218,11 @@ class Player:
 	def swapSlots(self, slot1: int, slot2: int, delay=0.2):
 		"""Slot numbers come from an inventory NOT getPlayerInventory(), using helper functions is recommended"""
 		self.client.swapSlots(slot1, slot2, delay)
+
+	def dropItem(self, is_full_stack: bool):
+		""" Drop the currently selected <b>hotbar</b> item"""
+		self.client.dropItem(is_full_stack)
+	def clickSlot(self, slot_id: int):
+		"""Slot numbers come from an inventory NOT getPlayerInventory(), using helper functions is recommended"""
+
+		self.client.clickSlot(slot_id)
