@@ -1,7 +1,7 @@
 # McBotIt python library
 -----------------
 
-This library allows you to control your minecraft charictor from python. Allowing you to automate pretty much everything.
+This library allows you to control your minecraft character from python. Allowing you to automate pretty much everything.
 
 
 ### I am not responsible if you get banned from your favorite server! Many servers may feel this is cheating!
@@ -63,7 +63,7 @@ The following are some fields in the Player class you sould know of:
 * lastHealth
 * inventoryManager - used for getting inventory data
 
-You can view the player classes documentation [here](https://heronerin.github.io/McBotItPython/mcbotit/player.html)
+You can view the player classes documentation [here](https://heronerin.github.io/McBotItPython/mcbotit/player.html#Player)
 
 ### The InputKeys Enum
 The following are possible values:
@@ -76,7 +76,7 @@ The following are possible values:
 * InputKeys.LEFT_CLICK
 * InputKeys.RIGHT_CLICK
 
-Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/client.html#mcbotit.client.InputKeys)
+Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/client.html#InputKeys)
 
 ### inventoryManager class
 All the following return an inventory object:
@@ -100,7 +100,7 @@ All the following return an inventory object:
 * getOpenSmithingTable()
 
 
-Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/inventoryHelper.html#mcbotit.inventoryHelper.InventoryManager)
+Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/inventoryHelper.html#InventoryManager)
 
 
 ### Assorted inventory classes
@@ -126,4 +126,4 @@ This can be obtained by ```player.client```   and use of this should be minimize
 
 2. All raw packets can be directly send with this class. Most have functions to call them, but others can be send like this: ``` player.client.send({"cmd": "right click block"})```
 
-Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/client.html)
+Docs [here](https://heronerin.github.io/McBotItPython/mcbotit/client.html#Client)
